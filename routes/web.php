@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 })->name('inicio');
+
+Route::get('/cadastrar/artista', 'ArtistaController@buscarGeneros')->name('cadastro_artista');
+
+Route::post('/salvar/artista', 'ArtistaController@insert')->name('salvar_artista');
