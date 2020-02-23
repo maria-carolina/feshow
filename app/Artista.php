@@ -14,6 +14,10 @@ class Artista extends Model
         'cidade', 'link', 'genero_id'
     ];
 
+    public function user(){
+        return $this->hasOne(User::class);
+    }
+
     public function genero(){
             return $this->hasOne(Genero::class);
     }

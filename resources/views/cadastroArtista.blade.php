@@ -39,9 +39,21 @@
                     @endforeach
                 </select>
 
-                <button type="submit">Salvar</button>
+                <label for="login">Escolha um username para poder logar na plataforma</label>
+                <input type="text" id="login" name="txtLogin"/>
+
+                <label for="senha">Escolhar uma senha:</label>
+                <input type="password" id="senha" name="txtSenha"/>
+
+                <label for="senha">Repita a senha:</label>
+                <input type="password" id="rsenha" name="txtRsenha"/>
+
+                <button id="cadastrar"type="submit">Salvar</button>
             </div>
         </form>
+        <script>
 
+
+        </script>
     </body>
 </html>
