@@ -49,7 +49,7 @@ class ArtistaController extends Controller
         return view('login', compact('erro'));
     }
 
-    public function buscarGeneros(){
+    public function abrirCadastro(){
         $generoController = new GeneroController();
         $generos = $generoController->buscarTodos();
         return view('cadastroArtista', compact('generos'));

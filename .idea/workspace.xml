@@ -2,11 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01bce33b-cb6f-407e-8bf3-79e5e60613e6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/cadastroCasa.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Artista.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Artista.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Casa.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Casa.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Endereco.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Endereco.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ArtistaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ArtistaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/cadastroArtista.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/cadastroArtista.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CasaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CasaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -177,10 +187,10 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1299.741@67.27.1299.741" timestamp="1582383404624" />
-    <state x="512" y="322" width="399" height="149" key="NewPhpFileDialog" timestamp="1582476161407">
+    <state x="512" y="322" width="399" height="149" key="NewPhpFileDialog" timestamp="1582487553877">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="512" y="322" width="399" height="149" key="NewPhpFileDialog/67.27.1299.741@67.27.1299.741" timestamp="1582476161407" />
+    <state x="512" y="322" width="399" height="149" key="NewPhpFileDialog/67.27.1299.741@67.27.1299.741" timestamp="1582487553877" />
     <state x="441" y="309" width="540" height="175" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1582383258673">
       <screen x="67" y="27" width="1299" height="741" />
     </state>

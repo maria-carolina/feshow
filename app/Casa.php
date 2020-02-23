@@ -10,7 +10,7 @@ class Casa extends Model
     public $timestamps = false;
 
     public $fillable = [
-        'nome', 'telefone'
+        'nome', 'telefone', 'user_id'
     ];
 
     public function enderecos(){

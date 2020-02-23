@@ -15,11 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 })->name('inicio');
 
-Route::post('/cadastrar/artista', 'ArtistaController@buscarGeneros')->name('cadastro_artista');
+Route::get('/cadastrar/artista', 'ArtistaController@abrirCadastro')->name('cadastro_artista');
 
 Route::post('/salvar/artista', 'ArtistaController@insert')->name('salvar_artista');
 
 Route::post('/login', 'ArtistaController@logar')->name('login');
+
+Route::get('/cadastrar/casa', 'CasaController@abrirCadastro')->name('cadastro_casa');
+
+Route::post('/salvar/casa', 'CasaController@insert')->name('salvar_casa');
 
 Auth::routes();
 
