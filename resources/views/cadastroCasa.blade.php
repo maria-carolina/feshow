@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <style>
-        input, button {
+        input, button, select {
             display: block;
         }
     </style>
@@ -44,6 +44,7 @@
             <option value="{{ $genero->id }}">{{ $genero->nome }}</option>
             @endforeach
         </select>
+
 
         <label for="login">Escolha um username para poder logar na plataforma</label>
         <input type="text" id="login" name="txtLogin"/>
