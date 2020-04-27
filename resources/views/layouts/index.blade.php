@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/fontawesome.css')}}">
-
+    @yield('links_adicionais')
     <title>Document</title>
 </head>
 <body>
@@ -35,7 +35,7 @@
 <!-- Bootstrap 4 -->
 <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
 <script src="{{asset('js/dataTables.bootstrap4.js')}}"></script>
-
+@yield('scripts_adicionais')
 </body>
 </html>
 

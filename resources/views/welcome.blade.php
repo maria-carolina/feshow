@@ -2,6 +2,6 @@
 
 @section('container')
 
-    Teste Bootstrap
+   // o conteudo
 
 @endsection
