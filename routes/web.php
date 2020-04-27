@@ -26,12 +26,18 @@ Route::post('/alterar/artista/{id}', 'ArtistaController@update')->name('alterar_
 
 Route::post('/login', 'ArtistaController@logar')->name('login');
 
+Route::get('/perfil/artista/{id}', 'ArtistaController@abrirPerfil')->name('abrir_perfil');
+
+//////
+
 Route::get('/cadastrar/casa', 'CasaController@abrirCadastro')->name('cadastro_casa');
 
 Route::post('/salvar/casa', 'CasaController@insert')->name('salvar_casa');
+
+Route::get('/perfil/casa/{id}', 'CasaController@abrirPerfil')->name('abrir_perfil');
 
 Auth::routes();
 
 Route::post('/home', 'HomeController@index')->name('home');
 
-Route::get('/perfil/artista/{id}', 'ArtistaController@abrirPerfil')->name('abrir_perfil');
+

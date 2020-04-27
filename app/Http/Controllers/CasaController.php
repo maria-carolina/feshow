@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Artista;
 use App\Casa;
 use App\CasaGenero;
 use App\Endereco;
+use App\Genero;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -51,6 +53,20 @@ class CasaController extends Controller
         $generoController = new GeneroController();
         $generos = $generoController->buscarTodos();
         return view('cadastroCasa', compact('generos'));
+    }
+
+    public function abrirPerfil($id){
+        $casa = Casa::findOrFail($id);
+
+        $generos_id = CasaGenero::where('casa_id', $casa->id)->get('genero_id');
+        $generos = array();
+
+        foreach ($generos_id as $genero_id){
+            array_push($generos, Genero::findorFail($genero_id));
+        }
+
+        return view('perfil', compact('casa', 'generos'));
+
     }
 
 }

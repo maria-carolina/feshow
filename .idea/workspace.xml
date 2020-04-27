@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01bce33b-cb6f-407e-8bf3-79e5e60613e6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/perfil.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/estoque.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/estoque.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ArtistaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ArtistaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/cadastroArtista.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/cadastroArtista.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/cadastroCasa.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/cadastroCasa.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CasaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CasaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelagem/feshow_modelagem.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/modelagem/feshow_modelagem.mwb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelagem/feshow_modelagem.mwb.bak" beforeDir="false" afterPath="$PROJECT_DIR$/modelagem/feshow_modelagem.mwb.bak" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/perfil.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/perfil.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,6 +113,11 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -145,6 +151,7 @@
       <workItem from="1565021461518" duration="3539000" />
       <workItem from="1565027330624" duration="291000" />
       <workItem from="1581785298431" duration="1747000" />
+      <workItem from="1582863252959" duration="7953000" />
     </task>
     <servers />
   </component>
@@ -173,14 +180,18 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="469" y="27" width="476" height="741" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/67.27.1299.741@67.27.1299.741" timestamp="1582382959499" />
-    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1582383404624">
+    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1582864822412">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1299.741@67.27.1299.741" timestamp="1582383404624" />
+    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1299.741@67.27.1299.741" timestamp="1582864822412" />
     <state x="512" y="322" width="399" height="149" key="NewPhpFileDialog" timestamp="1582762855464">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="512" y="322" width="399" height="149" key="NewPhpFileDialog/67.27.1299.741@67.27.1299.741" timestamp="1582762855464" />
+    <state x="372" y="224" key="com.intellij.ide.util.TipDialog" timestamp="1582863254868">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="372" y="224" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1582863254868" />
     <state x="441" y="309" width="540" height="175" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1582383258673">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
