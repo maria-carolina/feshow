@@ -11,6 +11,16 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/fontawesome.css')}}">
     @yield('links_adicionais')
+    <style>
+        button#dropdownMenuButton {
+            position:absolute;
+            right: 0px;
+            top: 0px;
+        }
+        div#jumbotron {
+            position: relative;
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
@@ -21,11 +31,20 @@
     </div>
 @endif
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid position-relative" id="jumbotron">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Nome
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+    </div>
     <div class="container">
         <h1 class="display-4">Feshow</h1>
         <p class="lead">Teste Layout</p>
     </div>
+  
 </div>
 
 <div class="container">
@@ -35,6 +54,9 @@
 <!-- Bootstrap 4 -->
 <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
 <script src="{{asset('js/dataTables.bootstrap4.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 @yield('scripts_adicionais')
 </body>
 </html>

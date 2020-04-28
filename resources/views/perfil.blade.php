@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="utf-8">
-    <style>
-        input, button, select {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    @if(isset($artista))
+@extends('layouts.index')
+
+@section('container')
+
+@if(isset($artista))
     <ul>
         <li>Nome: {{ $artista->nome }}</li>
         <li>E-Mail: {{ $artista->email }}</li>
@@ -33,5 +26,8 @@
 
       @endif
 
-</body>
-</html>
+@endsection
+
+
+
+
