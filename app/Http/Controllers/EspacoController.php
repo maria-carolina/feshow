@@ -3,43 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Artista;
-use App\Casa;
+use App\Espaco;
 use App\CasaGenero;
 use App\Endereco;
 use App\Genero;
 use App\User;
 use Illuminate\Http\Request;
 
-class CasaController extends Controller
+class EspacoController extends Controller
 {
     //
 
     public function insert(Request $request){
         $endereco = new Endereco();
-        $casa = new Casa();
-        $casaGenero = new CasaGenero();
+        $espaco = new Espaco();
+        $espacoGenero = new CasaGenero();
         $user = new User();
 
         $user->name = $request->txtLogin;
         $user->email = $request->txtEmail;
         $user->password = $request->txtSenha;
+        $user->tipo_usuario = $request->txtTipo;
 
         if($user->save()) {
-            $casa->user_id = $user->id;
-            $casa->nome = $request->txtNome;
-            $casa->telefone = $request->txtTelefone;
+            $espaco->user_id = $user->id;
+            $espaco->nome = $request->txtNome;
+            $espaco->telefone = $request->txtTelefone;
 
-            if ($casa->save()) {
-                $casaGenero->casa_id = $casa->id;
-                $casaGenero->genero_id = $request->cmbGenero;
-                $casaGenero->save();
-
-
-                $endereco->casa_id = $casa->id;
+            if ($espaco->save()) {
+                //$casaGenero->casa_id = $casa->id;
+                //$casaGenero->genero_id = $request->cmbGenero;
+                //$casaGenero->save();
+                $endereco->espaco_id = $espaco->id;
                 $endereco->logradouro = $request->txtLogradouro;
                 $endereco->bairro = $request->txtBairro;
                 $endereco->cidade = $request->txtCidade;
                 $endereco->cep = $request->txtCep;
+                $endereco->numero = $request->txtNum;
                 $endereco->uf = $request->cmbUf;
                 $endereco->save();
             }
@@ -56,16 +56,17 @@ class CasaController extends Controller
     }
 
     public function abrirPerfil($id){
-        $casa = Casa::findOrFail($id);
+        $espaco = Espaco::findOrFail($id);
+        $endereco = Endereco::where('espaco_id','=', $id)->first();
+        
+       // $generos_id = EspacoGenero::where('casa_id', $casa->id)->get('genero_id');
+        //$generos = array();
 
-        $generos_id = CasaGenero::where('casa_id', $casa->id)->get('genero_id');
-        $generos = array();
-
-        foreach ($generos_id as $genero_id){
+        /*foreach ($generos_id as $genero_id){
             array_push($generos, Genero::findorFail($genero_id));
-        }
+        }*/
 
-        return view('perfil', compact('casa', 'generos'));
+        return view('perfil', compact('espaco' , 'endereco'));
 
     }
 

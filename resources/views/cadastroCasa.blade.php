@@ -32,9 +32,11 @@
         </div>
 
         <div class="col">
-            <label for="bairro">Bairro </label>
-            <input type="text" id="bairro" name="txtBairro" class="form-control"/>
+            <label for="numero">Nº: </label>
+            <input type="text" id="numero" name="txtNum" class="form-control"/>
+            
         </div>
+
 
         <div class="col">
             <label for="cep">CEP</label>
@@ -43,6 +45,10 @@
     </div>
 
     <div class="form-row mt-3">
+        <div class="col">
+            <label for="bairro">Bairro: </label>
+            <input type="text" id="bairro" name="txtBairro" class="form-control"/>
+        </div>
         <div class="col">
             <label for="cidade">Cidade: </label>
             <input type="text" id="cidade" name="txtCidade" class="form-control"/>
@@ -56,6 +62,8 @@
             </select>
             
         </div>
+
+       
     </div>
 
     <div class="form-row mt-3">
@@ -81,6 +89,7 @@
         </div>
     </div>
 
+    <input type="hidden" name="txtTipo" value="0">
     <div class="mx-auto" style="width: 200px;">
         <button id="cadastrar" type="submit" class="btn btn-outline-dark">Salvar</button>
     </div>

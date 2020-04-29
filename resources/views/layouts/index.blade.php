@@ -12,14 +12,43 @@
     <link rel="stylesheet" href="{{asset('css/fontawesome.css')}}">
     @yield('links_adicionais')
     <style>
+        body{
+            font-family: arial;
+        }
         button#dropdownMenuButton {
             position:absolute;
             right: 0px;
             top: 0px;
         }
-        div#jumbotron {
+
+        div#jumbotron, div#perfil {
             position: relative;
         }
+
+        h2#generos {
+            color: #adad85;
+            font-size: 16pt;
+        }
+
+        p{
+            margin-top: 20px;
+        }
+
+        ul{
+            list-style: none;
+            padding: 0;
+        }
+
+        ul#nome_generos li{
+            display: inline-block;
+         }
+
+        ul#outras_infos li {
+            font-size: 10pt;
+        }
+
+
+
     </style>
     <title>Document</title>
 </head>

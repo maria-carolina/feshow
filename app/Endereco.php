@@ -11,11 +11,11 @@ class Endereco extends Model
 
     public $fillable = [
         'logradouro', 'bairro', 'cidade','uf',
-        'cep','casa_id'
+        'cep','espaco_id'
     ];
 
-    public function casas(){
-        return $this->hasOne(Casa::class);
+    public function espacos(){
+        return $this->hasOne(Espaco::class);
     }
 
 

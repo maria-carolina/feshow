@@ -18,14 +18,13 @@ class ArtistaController extends Controller
         $user->name = $request->txtLogin;
         $user->email = $request->txtEmail;
         $user->password = $request->txtSenha;
+        $user->tipo_usuario = $request->txtTipo;
         if($user->save()){
             $artista->nome = $request->txtNome;
-            $artista->email = $request->txtEmail;
             $artista->quantidade_membros = $request->txtQtd;
             $artista->telefone = $request->txtTelefone;
             $artista->cidade = $request->txtCidade;
             $artista->link = $request->txtLink;
-            $artista->genero_id = $request->cmbGenero;
             $artista->user_id = $user->id;
         }
 
@@ -71,9 +70,9 @@ class ArtistaController extends Controller
 
     public function abrirPerfil($id){
         $artista = Artista::findOrFail($id);
-        $genero = Genero::findorFail($artista->genero_id);
+        //$genero = Genero::findorFail($artista->genero_id);
 
-        return view('perfil', compact('artista', 'genero'));
+        return view('perfil', compact('artista'));
 
     }
 

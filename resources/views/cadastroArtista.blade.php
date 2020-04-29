@@ -85,6 +85,7 @@
                     
                 </div>
             </div>
+            <input type="hidden" name="txtTipo" value="1">
             <div class="mx-auto" style="width: 200px;">
                 <button id="cadastrar" type="submit" class="btn btn-outline-dark">Salvar</button>
             </div>

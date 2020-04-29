@@ -30,11 +30,11 @@ Route::get('/perfil/artista/{id}', 'ArtistaController@abrirPerfil')->name('abrir
 
 //////
 
-Route::get('/cadastrar/casa', 'CasaController@abrirCadastro')->name('cadastro_casa');
+Route::get('/cadastrar/espaco', 'EspacoController@abrirCadastro')->name('cadastro_casa');
 
-Route::post('/salvar/casa', 'CasaController@insert')->name('salvar_casa');
+Route::post('/salvar/espaco', 'EspacoController@insert')->name('salvar_casa');
 
-Route::get('/perfil/casa/{id}', 'CasaController@abrirPerfil')->name('abrir_perfil');
+Route::get('/perfil/espaco/{id}', 'EspacoController@abrirPerfil')->name('abrir_perfil');
 
 Auth::routes();
 

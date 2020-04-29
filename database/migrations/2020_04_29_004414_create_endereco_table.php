@@ -13,7 +13,7 @@ class CreateEnderecoTable extends Migration
      */
     public function up()
     {
-        Schema::create('endereco', function (Blueprint $table) {
+        Schema::create('enderecos', function (Blueprint $table) {
             $table->string('cep',9);
             $table->string('logradouro', 40);
             $table->string('numero', 4);

@@ -15,6 +15,7 @@ class CreateArtistasTable extends Migration
     {
         Schema::create('artistas', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
+            $table->string('nome',30);
             $table->integer('quantidade_membros');
             $table->string('telefone',14);
             $table->string('cidade',40);
