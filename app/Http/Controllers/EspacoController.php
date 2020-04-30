@@ -52,13 +52,13 @@ class EspacoController extends Controller
     public function abrirCadastro(){
         $generoController = new GeneroController();
         $generos = $generoController->buscarTodos();
-        return view('cadastroCasa', compact('generos'));
+        return view('espaco.cadastroCasa', compact('generos'));
     }
 
     public function abrirPerfil($id){
         $espaco = Espaco::findOrFail($id);
         $endereco = Endereco::where('espaco_id','=', $id)->first();
-        
+
        // $generos_id = EspacoGenero::where('casa_id', $casa->id)->get('genero_id');
         //$generos = array();
 
@@ -66,7 +66,7 @@ class EspacoController extends Controller
             array_push($generos, Genero::findorFail($genero_id));
         }*/
 
-        return view('perfil', compact('espaco' , 'endereco'));
+        return view('espaco.perfil', compact('espaco' , 'endereco'));
 
     }
 

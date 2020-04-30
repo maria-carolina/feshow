@@ -65,14 +65,14 @@ class ArtistaController extends Controller
     public function abrirCadastro(){
         $generoController = new GeneroController();
         $generos = $generoController->buscarTodos();
-        return view('cadastroArtista', compact('generos'));
+        return view('artista.cadastroArtista', compact('generos'));
     }
 
     public function abrirPerfil($id){
         $artista = Artista::findOrFail($id);
         //$genero = Genero::findorFail($artista->genero_id);
 
-        return view('perfil', compact('artista'));
+        return view('artista.perfil', compact('artista'));
 
     }
 
@@ -80,7 +80,7 @@ class ArtistaController extends Controller
         $artista = Artista::findOrFail($id);
         $generoController = new GeneroController();
         $generos = $generoController->buscarTodos();
-        return view('cadastroArtista', compact('artista','generos'));
+        return view('artista.cadastroArtista', compact('artista','generos'));
 
     }
 
