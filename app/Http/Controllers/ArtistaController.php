@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Artista;
 use App\Genero;
 use App\User;
+use App\ArtistasGenero;
+
 use Illuminate\Http\Request;
 
 class ArtistaController extends Controller
@@ -14,6 +16,7 @@ class ArtistaController extends Controller
     public function insert(Request $request){
         $artista = new Artista();
         $user = new User();
+        
 
         $user->name = $request->txtLogin;
         $user->email = $request->txtEmail;
@@ -26,9 +29,32 @@ class ArtistaController extends Controller
             $artista->cidade = $request->txtCidade;
             $artista->link = $request->txtLink;
             $artista->user_id = $user->id;
+
+            if($artista->save()){
+                if($request->cmbGenero_1 > 0){
+                    $artista_genero = new ArtistasGenero();
+                    $artista_genero->artista_id = $artista->id;
+                    $artista_genero->genero_id = $request->cmbGenero_1;
+                    $artista_genero->save();
+                }
+
+                if($request->cmbGenero_2 > 0){
+                    $artista_genero = new ArtistasGenero();
+                    $artista_genero->artista_id = $artista->id;
+                    $artista_genero->genero_id = $request->cmbGenero_2;
+                    $artista_genero->save();
+                }
+
+                if($request->cmbGenero_3 > 0){
+                    $artista_genero = new ArtistasGenero();
+                    $artista_genero->artista_id = $artista->id;
+                    $artista_genero->genero_id = $request->cmbGenero_3;
+                    $artista_genero->save();
+                }
+            }
         }
 
-        $artista->save();
+        
 
         return view ('welcome');
     }

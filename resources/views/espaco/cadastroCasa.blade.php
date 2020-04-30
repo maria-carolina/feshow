@@ -14,14 +14,48 @@
             <label for="telefone">Telefone:</label>
             <input type="tel" id="telefone" name="txtTelefone" class="form-control"/>
         </div>
-        <div class="col">
-            <label for="generos">Informe o gênero:</label>
-            <select id="generos" name="cmbGenero" class="form-control">
-                @foreach($generos as $genero)
-                <option value="{{ $genero->id }}">{{ $genero->nome }}</option>
-                @endforeach
-            </select>
+        
+    </div>
 
+    <div class="form-row mt-3">
+        <div class="col">
+            <label for="generos1">Informe o gênero:</label>
+            <select id="generos1" name="cmbGenero_1" class="form-control" 
+            onchange="validarGenero(1)">
+            @foreach($generos as $genero)
+                @if(isset($artista) && $genero->id == $artista->genero_id)
+                    <option value="{{ $genero->id }}" selected>{{ $genero->nome }}</option>
+                @endif            
+            @endforeach
+        
+            </select>
+        </div>
+
+        <div class="col">
+            <label for="generos2">Informe o gênero:</label>
+            <select id="generos2" name="cmbGenero_2" class="form-control"
+            onchange="validarGenero(2)">
+            @foreach($generos as $genero)
+                @if(isset($artista) && $genero->id == $artista->genero_id)
+                    <option value="{{ $genero->id }}" selected>{{ $genero->nome }}</option>
+                @endif            
+            @endforeach
+        
+            </select>
+        </div>
+
+        <div class="col">
+            <label for="generos3">Informe o gênero:</label>
+            <select id="generos3" name="cmbGenero_3" class="form-control"
+            onchange="validarGenero(3)">
+            @foreach($generos as $genero)
+                @if(isset($artista) && $genero->id == $artista->genero_id)
+                    <option value="{{ $genero->id }}" selected>{{ $genero->nome }}</option>
+                @endif            
+            @endforeach
+        
+            </select>
+        
         </div>
     </div>
 
@@ -96,6 +130,49 @@
 
     </div>
 </form>
+@section('scripts_adicionais')
+        <script>
+            const body = document.getElementsByTagName('body')[0]
+            const lista = [{"id": 1, "nome": "rock"},
+                        {"id": 2, "nome": "samba"},
+                        {"id": 3, "nome": "pop"},
+                        {"id": 4, "nome": "jazz"},]
+
+            const dropdownsGeral = Array.from(document.getElementsByTagName('select'));
+            const dropdowns = dropdownsGeral.filter(campo => campo.name.split("_")[0] == "cmbGenero")
+
+            body.onload = () => {
+                dropdowns.forEach(campo => {
+                    var opt = document.createElement('option');
+                    opt.text = " ";
+                    opt.value = 0;
+                    campo.append(opt);
+                    lista.forEach(item => {
+                        var opt = document.createElement('option');
+                        opt.text = item.nome;
+                        opt.value = item.id;
+                        campo.appendChild(opt);
+                    })
+                });
+
+            }
+
+            function validarGenero(index){
+                var campoSelecionado = document.querySelector(`select[name=cmbGenero_${index}`);
+                var generoSelecionado = campoSelecionado.selectedIndex;
+
+                dropdowns.forEach(campo =>{
+                    if(campo != campoSelecionado && 
+                    campo.selectedIndex == generoSelecionado){
+                        campoSelecionado.selectedIndex = 0;
+                        alert("Você já selecionou esse gênero, escolha outro!");
+                        return;
+                    }
+                })
+                
+            }
+        </script>
+    @endsection
 @endsection
 
 

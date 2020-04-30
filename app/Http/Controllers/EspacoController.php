@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Artista;
 use App\Espaco;
-use App\CasaGenero;
+use App\EspacosGenero;
 use App\Endereco;
 use App\Genero;
 use App\User;
@@ -17,7 +17,7 @@ class EspacoController extends Controller
     public function insert(Request $request){
         $endereco = new Endereco();
         $espaco = new Espaco();
-        $espacoGenero = new CasaGenero();
+        $espacoGenero = new EspacosGenero();
         $user = new User();
 
         $user->name = $request->txtLogin;
@@ -34,6 +34,27 @@ class EspacoController extends Controller
                 //$casaGenero->casa_id = $casa->id;
                 //$casaGenero->genero_id = $request->cmbGenero;
                 //$casaGenero->save();
+                if($request->cmbGenero_1 > 0){
+                    $espaco_genero = new EspacosGenero();
+                    $espaco_genero->espaco_id = $espaco->id;
+                    $espaco_genero->genero_id = $request->cmbGenero_1;
+                    $espaco_genero->save();
+                }
+
+                if($request->cmbGenero_2 > 0){
+                    $espaco_genero = new EspacosGenero();
+                    $espaco_genero->espaco_id = $espaco->id;
+                    $espaco_genero->genero_id = $request->cmbGenero_2;
+                    $espaco_genero->save();
+                }
+
+                if($request->cmbGenero_3 > 0){
+                    $espaco_genero = new EspacosGenero();
+                    $espaco_genero->espaco_id = $espaco->id;
+                    $espaco_genero->genero_id = $request->cmbGenero_3;
+                    $espaco_genero->save();
+                }
+
                 $endereco->espaco_id = $espaco->id;
                 $endereco->logradouro = $request->txtLogradouro;
                 $endereco->bairro = $request->txtBairro;

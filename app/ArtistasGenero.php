@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CasaGenero extends Model
+class ArtistasGenero extends Model
 {
     public $timestamps = false;
 
     public $fillable = [
-        'casa_id', 'genero_id'
+        'artista_id', 'genero_id'
     ];
 
-    public function casas(){
-        return $this->hasMany(Casa::class);
+    public function artistas(){
+        return $this->hasMany(Artista::class);
     }
 
     public function genero(){
