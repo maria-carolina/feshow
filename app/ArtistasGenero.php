@@ -16,7 +16,7 @@ class ArtistasGenero extends Model
         return $this->hasMany(Artista::class);
     }
 
-    public function genero(){
+    public function generos(){
         return $this->hasMany(Genero::class);
     }
 }

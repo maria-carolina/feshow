@@ -6,7 +6,7 @@
 @if(isset($artista))
     <ul id="nome_generos">
     <li><h1> {{ $artista->nome }} </h1></li>
-    <li><h2 id="generos"> idm, glitch, experimental</h2></li>
+    <li><h2 id="cinza"> idm, glitch, experimental</h2></li>
     </ul>
 
     <a href="{{ $artista->link}}" id="ouvir"> Ouça </a>

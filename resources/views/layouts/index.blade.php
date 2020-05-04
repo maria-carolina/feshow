@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        h2#generos {
+        h2#cinza {
             color: #adad85;
             font-size: 16pt;
         }
@@ -47,7 +47,14 @@
             font-size: 10pt;
         }
 
-
+        ul#data_horario {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+        }
+        ul#data_horario li {
+            font-size: 20pt;
+        }
 
     </style>
     <title>Document</title>
