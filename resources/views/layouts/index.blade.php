@@ -25,6 +25,45 @@
             position: relative;
         }
 
+        div.caixaArtista {
+            position: relative;
+            width: 600px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        div.caixaArtista p{
+            font-size: 16pt;
+            top:20px;
+            position: absolute;
+        
+        }
+
+        div.caixaArtista h1{
+            font-size: 24pt;
+            top: 0px;
+            position: absolute;
+            text-align: center;
+        }
+
+        div.caixaArtista button{
+            position: absolute;
+            bottom: 5px;
+        }
+
+        div.caixaArtista button#yes{
+            right:52%;
+        }
+
+        div.caixaArtista button#no{
+            left:52%;
+        }
+
+
         h2#cinza {
             color: #adad85;
             font-size: 16pt;

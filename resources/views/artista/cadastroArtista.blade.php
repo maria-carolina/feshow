@@ -126,13 +126,13 @@
 
             const body = document.getElementsByTagName('body')[0]
 
-            const dropdowns = Array.from(document.getElementsByTagName('select'));
+            const dropdownsGeral = Array.from(document.getElementsByTagName('select'));
+            const dropdowns = dropdownsGeral.filter(campo => campo.name.split("_")[0] == "cmbGenero")
 
             body.onload = () => {
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
                         const lista = JSON.parse(xhr.responseText);
-
                         dropdowns.forEach(campo => {
                             var opt = document.createElement('option');
                             opt.text = "Escolha uma opção";

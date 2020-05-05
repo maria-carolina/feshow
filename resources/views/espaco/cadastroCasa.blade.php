@@ -144,7 +144,6 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4){
                         const lista = JSON.parse(xhr.responseText);
-
                         dropdowns.forEach(campo => {
                             var opt = document.createElement('option');
                             opt.text = "Selecione uma opção";
