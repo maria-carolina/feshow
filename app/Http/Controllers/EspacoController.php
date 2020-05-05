@@ -15,9 +15,13 @@ class EspacoController extends Controller
     //
 
     public function insert(Request $request){
+
+        $this->validate($request, [
+            'txtEmail'=>'required|email'
+        ]);
+
         $endereco = new Endereco();
         $espaco = new Espaco();
-        $espacoGenero = new EspacosGenero();
         $user = new User();
 
         $user->name = $request->txtLogin;
@@ -34,6 +38,7 @@ class EspacoController extends Controller
                 //$casaGenero->casa_id = $casa->id;
                 //$casaGenero->genero_id = $request->cmbGenero;
                 //$casaGenero->save();
+
                 if($request->cmbGenero_1 > 0){
                     $espaco_genero = new EspacosGenero();
                     $espaco_genero->espaco_id = $espaco->id;
@@ -61,7 +66,7 @@ class EspacoController extends Controller
                 $endereco->cidade = $request->txtCidade;
                 $endereco->cep = $request->txtCep;
                 $endereco->numero = $request->txtNum;
-                $endereco->uf = $request->cmbUf;
+                $endereco->uf = $request->txtUf;
                 $endereco->save();
             }
         }

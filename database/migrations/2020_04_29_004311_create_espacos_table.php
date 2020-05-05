@@ -16,7 +16,7 @@ class CreateEspacosTable extends Migration
         Schema::create('espacos', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->string('nome', 40);
-            $table->string('telefone',14);
+            $table->string('telefone',14)->nullable();
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
         });
