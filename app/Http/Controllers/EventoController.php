@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Response;
 use App\Evento;
+use App\Artista;
 use App\ArtistasEvento;
 use Illuminate\Http\Request;
 
@@ -28,17 +30,21 @@ class EventoController extends Controller
 
     public function abrirPerfil($id){
         $evento = Evento::findOrFail($id);
-        $artistas = ['dj etc', 'vavá', 'dj belinha'];
-        $lineup = "Line-up: ";
+        $rs = Artista::where('eventos.id', $id)
+        ->join('artistas_eventos', 'artistas.id', '=', 'artistas_eventos.artista_id')
+        ->join('eventos', 'eventos.id', '=', 'artistas_eventos.artista_id')
+        ->select('artistas.nome')
+        ->get();
 
-        foreach($artistas as $artista){
-            if(strcmp($artista, $artistas[0]) == 0){///VAI PRECISAR MUDAR ESSA COMPARAÇÃO
-                $lineup = $lineup.$artista;
+        $lineup = "Lineup: ";
+        
+        foreach( $rs as $linha){
+            if($linha === $rs[0]){
+                $lineup = $lineup.' '.$linha->nome;
             }else{
-                $lineup = $lineup.", ".$artista;
+                $lineup = $lineup.', '.$linha->nome;
             }
         }
-
         return view('evento.perfil', compact('evento', 'lineup'));
 
     }

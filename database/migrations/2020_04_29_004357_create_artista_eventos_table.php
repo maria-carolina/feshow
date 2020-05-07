@@ -13,7 +13,7 @@ class CreateArtistaEventosTable extends Migration
      */
     public function up()
     {
-        Schema::create('artista_eventos', function (Blueprint $table) {
+        Schema::create('artistas_eventos', function (Blueprint $table) {
             $table->integer('artista_id');
             $table->integer('evento_id');
             $table->foreign('artista_id')->references('id')->on('artistas');
@@ -28,6 +28,6 @@ class CreateArtistaEventosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artista_eventos');
+        Schema::dropIfExists('artistas_eventos');
     }
 }

@@ -55,14 +55,6 @@
             bottom: 5px;
         }
 
-        div.caixaArtista button#yes{
-            right:52%;
-        }
-
-        div.caixaArtista button#no{
-            left:52%;
-        }
-
 
         h2#cinza {
             color: #adad85;

@@ -16,29 +16,6 @@
         var body = document.querySelector('body');
 
         button.onclick = () =>{
-            //alert('oi');
-            /*var text = document.createTextNode(inputArtista.value);
-            var nome = document.createElement('h1');
-            nome.appendChild(text);
-
-            text = document.createTextNode("rock, pop, jazz");
-            var generos = document.createElement('p');
-            generos.appendChild(text);
-
-            var btnYes = document.createElement("button");
-            btnYes.appendChild(document.createTextNode('Confirmar'));
-            btnYes.id = "yes";
-
-            var btnNo = document.createElement("button");
-            btnNo.appendChild(document.createTextNode('Cancelar'));
-            btnNo.id = "no";
-
-
-            divArtista.appendChild(nome);
-            divArtista.appendChild(generos);
-            divArtista.appendChild(btnYes);
-            divArtista.appendChild(btnNo);
-            divArtista.style.borderStyle = "solid";*/
 
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/pesquisarArtista/${inputArtista.value}/`);
@@ -78,24 +55,37 @@
                         btnYes.appendChild(document.createTextNode('Confirmar'));
                         btnYes.id = "yes";
 
-                        var btnNo = document.createElement("button");
-                        btnNo.appendChild(document.createTextNode('Cancelar'));
-                        btnNo.id = "no";
+                        btnYes.addEventListener("click", () => {
+                            enviarConvite(linha.id);
+                        });
 
                         console.log('opa')
                         divArtista = document.createElement('div');
                         divArtista.setAttribute('class', 'caixaArtista');
-
-                        console.log(divArtista.class);
+                        divArtista.id = linha.id;
+                    
 
                         divArtista.appendChild(nome);
                         divArtista.appendChild(generos);
                         divArtista.appendChild(btnYes);
-                        divArtista.appendChild(btnNo);
                         divArtista.style.borderStyle = "solid";
 
                         body.appendChild(divArtista);
                     });
+                }
+            }
+        }
+
+
+        function enviarConvite(idArtista){
+            let idEvento = {{ $evento->id }};
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}`);
+            xhr.send(null);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4){
+                    let div = document.getElementById(idArtista);
+                    div.parentNode.removeChild(div);
                 }
             }
         }

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Genero;
 use App\Artista;
+use App\ArtistasEvento;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +28,20 @@ Route::get('/listarGeneros', function(){
 
 
 Route::get('/pesquisarArtista/{nome}', function($nome){
-    
     $resultado = Artista::where('artistas.nome', urldecode($nome))
     ->join('artistas_generos', 'artistas.id', '=', 'artistas_generos.artista_id')
     ->join('generos', 'generos.id', '=', 'artistas_generos.genero_id')
     ->select('artistas.*', 'generos.nome as genero')
     ->get();
+    dd($resultado);
+    
     return Response::json($resultado);
 })->name('api.pesquisarArtista');
+
+Route::get('/enviarconvite/{idEvento}/{idArtista}', function($idEvento, $idArtista){
+    $artistaevento = new ArtistasEvento();
+    $artistaevento->evento_id = $idEvento;
+    $artistaevento->artista_id = $idArtista;
+    $artistaevento->save();
+    return Response::json('ok');
+})->name('api.enviarconvite');

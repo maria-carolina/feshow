@@ -20,7 +20,7 @@
     <h1>{{ $evento->nome }}</h1>
     <h2>{{ $evento->espaco->nome}}</h2>
 
-    <p>{{ $artistas }}</p>
+    <p>{{ $lineup }}</p>
     <p>{{ $evento->descricao}}</p>
     <ul id="data_horario">
         <li>{{ $evento->data }} </li>
@@ -28,6 +28,7 @@
     </ul>
 
       @endif
+<div>
+
 
 @endsection
-<div>
