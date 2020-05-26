@@ -20,7 +20,7 @@ class ArtistaController extends Controller
 
         $user->name = $request->txtLogin;
         $user->email = $request->txtEmail;
-        $user->password = $request->txtSenha;
+        $user->password = Hash::make($request->txtSenha);
         $user->tipo_usuario = $request->txtTipo;
         if($user->save()){
             $artista->nome = $request->txtNome;
