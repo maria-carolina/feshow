@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Response;
 use App\Evento;
 use App\Artista;
+use App\Espaco;
 use App\ArtistasEvento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventoController extends Controller
 {
@@ -18,7 +20,7 @@ class EventoController extends Controller
         $evento->hora_inicio = $request->txtHorarioInicio;
         $evento->hora_fim = $request->txtHorarioFim;
         $evento->data = $request->txtData;
-        $evento->espaco_id = 1; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO   
+        $evento->espaco_id = Espaco::where('user_id', Auth::user()->id)->first()->id; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO   
 
         $evento->save();
 

@@ -15,7 +15,9 @@
         {{ date('H:i', strtotime($evento->hora_fim)) }}</li>
     </ul>
 
-    <button><a href="convite/{{ $evento->id }}">Convidar Artista</a></button>
+    @if(Auth::user()->id == $evento->espaco->user_id)
+        <button><a href="convite/{{ $evento->id }}">Convidar Artista</a></button>
+    @endif
     @else
     <h1>{{ $evento->nome }}</h1>
     <h2>{{ $evento->espaco->nome}}</h2>

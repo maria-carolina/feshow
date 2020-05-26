@@ -9,6 +9,7 @@ use App\Endereco;
 use App\Genero;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class EspacoController extends Controller
 {
@@ -26,7 +27,7 @@ class EspacoController extends Controller
 
         $user->name = $request->txtLogin;
         $user->email = $request->txtEmail;
-        $user->password = $request->txtSenha;
+        $user->password = Hash::make($request->txtSenha);
         $user->tipo_usuario = $request->txtTipo;
 
         if($user->save()) {
