@@ -16,7 +16,7 @@ class ArtistaController extends Controller
     public function insert(Request $request){
         $artista = new Artista();
         $user = new User();
-        
+
 
         $user->name = $request->txtLogin;
         $user->email = $request->txtEmail;
@@ -54,7 +54,7 @@ class ArtistaController extends Controller
             }
         }
 
-        
+
 
         return view ('welcome');
     }
