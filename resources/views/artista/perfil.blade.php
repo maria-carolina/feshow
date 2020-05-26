@@ -12,7 +12,7 @@
     <a href="{{ $artista->link}}" id="ouvir"> Ouça </a>
     <p>
     É tido como um dos músicos eletrônicos mais importantes e inovadores de sua geração,
-     reverenciado por artistas que vão da música eletrônica ao rock. 
+     reverenciado por artistas que vão da música eletrônica ao rock.
      Foi considerado pelo jornal inglês The Guardian como "a mais influente e criativa figura da música eletrônica contemporânea".
     </p>
     <ul id="outras_infos">
@@ -65,10 +65,10 @@
 
         <p>
         É tido como um dos músicos eletrônicos mais importantes e inovadores de sua geração,
-        reverenciado por artistas que vão da música eletrônica ao rock. 
+        reverenciado por artistas que vão da música eletrônica ao rock.
         Foi considerado pelo jornal inglês The Guardian como "a mais influente e criativa figura da música eletrônica contemporânea".
         </p>
-        
+
         <h2>Histórico de Shows</h2>
         <table class="table table-bordered">
             <tr>
@@ -86,7 +86,7 @@
                 <td> dj maria </td>
                 <td> 10/08/2019 </td>
             </tr>
-            
+
         </table>
 
       @endif

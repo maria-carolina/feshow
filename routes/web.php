@@ -8,6 +8,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'UserController@index')->name('home');
 
 
