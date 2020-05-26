@@ -46,8 +46,10 @@
             <td> 09/07/2019 </td>
         </tr>
     </table>
+    @if(Auth::user()->id == $artista->user_id)
+        <button><a href="{{ route('abrir_edicao', $artista->id)}}">Editar</a></button>
+    @endif
 
-    <button><a href="{{ route('abrir_edicao', $artista->id)}}">Editar</a></button>
     @else
         <ul id="nome_generos">
             <li><h1> {{ $espaco->nome }} </h1></li>
