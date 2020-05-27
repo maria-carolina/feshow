@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArtistaEventosTable extends Migration
+class CreateSolicitacoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateArtistaEventosTable extends Migration
      */
     public function up()
     {
-        Schema::create('artistas_eventos', function (Blueprint $table) {
+        Schema::create('solicitacoes', function (Blueprint $table) {
             $table->integer('artista_id');
-            $table->integer('evento_id');
+            $table->integer('espaco_id');
+            $table->integer('data_id');
             $table->integer('resposta');
             $table->foreign('artista_id')->references('id')->on('artistas');
-            $table->foreign('evento_id')->references('id')->on('eventos');
+            $table->foreign('espaco_id')->references('id')->on('espacos');
+            $table->foreign('data_id')->references('id')->on('datas_disponiveis');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateArtistaEventosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artistas_eventos');
+        Schema::dropIfExists('solicitacoes');
     }
 }
