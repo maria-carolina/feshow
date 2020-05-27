@@ -1,4 +1,9 @@
-{{--Página Inicial--}}
+<?php
+use App\Artista;
+use App\Espaco;
+
+?>
+
 @extends('layouts.base')
 
 @section('links_adicionais')
@@ -57,10 +62,12 @@
                     @if(isset(Auth::user()->id))
                         <li class="nav-item">
                             @if(Auth::user()->tipo_usuario == 1)
-                                <a class="nav-link" href="#" > Área do artista <i class="fa fa-home"></i>
+                                <a class="nav-link" href="{{route('perfil_artista', Artista::where('user_id', Auth::user()->id)->first()->id)}}" >
+                                    Área do artista <i class="fa fa-home"></i>
                                 </a>
                             @else
-                                <a class="nav-link" href="#" > Área do espaço <i class="fa fa-home"></i>
+                                <a class="nav-link" href="{{route('perfil_artista', Espaco::where('user_id', Auth::user()->id)->first()->id)}}" >
+                                    Área do espaço <i class="fa fa-home"></i>
                                 </a>
                             @endif
                         </li>
@@ -81,7 +88,7 @@
         </div>
     @endif
 
-    <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url('./assets/img/bg2.jpg');">
+    <div class="page-header header-filter clear-filter purple-filter" data-parallax="true">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">

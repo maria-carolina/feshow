@@ -11,4 +11,5 @@
         Route::post('alterar/{id}', 'ArtistaController@update')->name('alterar_artista');
 
         Route::get('/perfil/{id}', 'ArtistaController@abrirPerfil')->name('perfil_artista');
+
     });
