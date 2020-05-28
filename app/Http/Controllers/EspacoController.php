@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Artista;
 use App\Espaco;
+use App\Evento;
 use App\EspacosGenero;
 use App\Endereco;
 use App\Genero;
 use App\User;
+use App\ArtistasEvento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -96,5 +98,20 @@ class EspacoController extends Controller
         return view('espaco.perfil', compact('espaco' , 'endereco'));
 
     }
+
+    public function abrirConvites($id){
+        $convites = Evento::where('espaco_id', $id)
+            ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id') 
+              ->where('artistas_eventos.resposta', 0)
+            ->join('artistas', 'artistas_eventos.artista_id', 'artistas.id')
+            ->select('eventos.nome as evento', 'artistas.nome as artista')
+            ->get();
+
+        $espaco_id = $id;
+
+        return view('espaco.convites', compact('convites', 'espaco_id'));
+    }
+
+   
 
 }

@@ -3,11 +3,13 @@
 @section('container')
 
 <h1>{{ $evento->nome }}</h1>
-<form>
-    <input type="text" name="txtArtista" id="">
-    <button type="button" name="txtAddArtista">OK</button>
-    
-</form>
+
+    <form>
+        <input type="text" name="txtArtista" id="">
+        <button type="button" name="txtAddArtista">OK</button>
+        
+    </form>
+
 
 @section('scripts_adicionais')
     <script>
@@ -16,6 +18,7 @@
         var body = document.querySelector('body');
 
         button.onclick = () =>{
+           
 
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/pesquisarArtista/${inputArtista.value}/`);
@@ -38,7 +41,7 @@
                         ids.push(linha.id);
                     });
 
-                    console.log(resultados);
+                    console.log(resposta);
                     
 
                     resultados.forEach(linha => {
@@ -80,7 +83,7 @@
         function enviarConvite(idArtista){
             let idEvento = {{ $evento->id }};
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}`);
+            xhr.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}/1`);
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){

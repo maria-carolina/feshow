@@ -81,6 +81,15 @@ The above copyright notice and this permission notice shall be included in all c
         div.caixaArtista button{
             position: absolute;
             bottom: 5px;
+            
+        }
+
+        div.caixaArtista button#yes{
+            right: 55%;
+        }
+
+        div.caixaArtista button#no{
+            left: 55%;
         }
 
 

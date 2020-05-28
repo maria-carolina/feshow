@@ -18,6 +18,10 @@
     @if(Auth::user()->id == $evento->espaco->user_id)
         <button><a href="convite/{{ $evento->id }}">Convidar Artista</a></button>
     @endif
+
+    @if(Auth::user()->tipo_usuario == 1)
+        <button name="btnSolPart">Solicitar partipação</button>
+    @endif
     @else
     <h1>{{ $evento->nome }}</h1>
     <h2>{{ $evento->espaco->nome}}</h2>
@@ -32,5 +36,29 @@
       @endif
 <div>
 
+@section('scripts_adicionais')
+    <script>
+        var button = document.querySelector('button[name=btnSolPart]');
 
+        button.onclick = () => {
+            let idEvento = {{ $evento->id }};
+            let idUser = {{ Auth::user()->id }}
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://localhost:8000/api/acharIdArtista/${idUser}`);
+            xhr.send(null);
+
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4){
+                    let idArtista = JSON.parse(xhr.responseText).id;
+                    console.log(idArtista);
+                    var xhr2 = new XMLHttpRequest();
+                    xhr2.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}/0`);
+                    xhr2.send(null);
+
+                }
+            }
+        }
+
+    </script>
+@endsection
 @endsection

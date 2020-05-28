@@ -17,6 +17,7 @@ class CreateArtistaEventosTable extends Migration
             $table->integer('artista_id');
             $table->integer('evento_id');
             $table->integer('resposta');
+            $table->primary(['user_id', 'stock_id']);
             $table->foreign('artista_id')->references('id')->on('artistas');
             $table->foreign('evento_id')->references('id')->on('eventos');
         });

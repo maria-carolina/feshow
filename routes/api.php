@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 use App\Genero;
 use App\Artista;
 use App\ArtistasEvento;
@@ -28,20 +29,43 @@ Route::get('/listarGeneros', function(){
 
 
 Route::get('/pesquisarArtista/{nome}', function($nome){
+
     $resultado = Artista::where('artistas.nome', urldecode($nome))
     ->join('artistas_generos', 'artistas.id', '=', 'artistas_generos.artista_id')
     ->join('generos', 'generos.id', '=', 'artistas_generos.genero_id')
     ->select('artistas.*', 'generos.nome as genero')
     ->get();
-    dd($resultado);
+    
     
     return Response::json($resultado);
 })->name('api.pesquisarArtista');
 
-Route::get('/enviarconvite/{idEvento}/{idArtista}', function($idEvento, $idArtista){
+Route::get('/enviarconvite/{idEvento}/{idArtista}/{status}', function($idEvento, $idArtista, $status){
     $artistaevento = new ArtistasEvento();
     $artistaevento->evento_id = $idEvento;
     $artistaevento->artista_id = $idArtista;
+    $artistaevento->resposta = $status; //0-aguardando resposta do espaço, 1-aguardando resposta do artista
     $artistaevento->save();
     return Response::json('ok');
 })->name('api.enviarconvite');
+
+Route::get('/responderConvite/{idEvento}/{idArtista}/{resposta}', function($idEvento, $idArtista, $resposta){
+    //('oi');
+    $artistaevento = ArtistasEvento::where([['evento_id', $idEvento],
+        ['artista_id', $idArtista]])->first();
+    
+    if($resposta == 0){
+        $artistaevento->resposta = 2;
+        $artistaevento->save();
+    }else{
+        $artistaevento->delete();
+    }
+    return Response::json('ok');
+})->name('api.responderConvite');
+
+
+Route::get('/acharIdArtista/{idUser}', function($idUser){
+    $artista = Artista::where('user_id', $idUser)->first();
+    //dd($artista);
+    return Response::json($artista);
+})->name('api.acharIdArtista');

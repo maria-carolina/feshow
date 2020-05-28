@@ -6,6 +6,7 @@ use App\Artista;
 use App\Genero;
 use App\User;
 use App\ArtistasGenero;
+use App\ArtistasEvento;
 
 use Illuminate\Http\Request;
 
@@ -110,5 +111,20 @@ class ArtistaController extends Controller
 
     }
 
+    public function abrirConvites($id){
+        $convites = ArtistasEvento::where('artista_id', $id)
+            ->where('resposta', 1)
+            ->join('eventos', 'artistas_eventos.evento_id', 'eventos.id')
+            ->join('espacos', 'eventos.espaco_id', 'espacos.id')
+            ->select('artistas_eventos.evento_id as evento_id',
+                'eventos.nome as evento', 'espacos.nome as espaco')
+            ->get();
+        $artista_id = $id;
+
+        
+        
+        return view('artista.convites', compact('convites', 'artista_id'));
+
+    }
 
 }
