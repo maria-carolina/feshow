@@ -104,7 +104,8 @@ class EspacoController extends Controller
             ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id') 
               ->where('artistas_eventos.resposta', 0)
             ->join('artistas', 'artistas_eventos.artista_id', 'artistas.id')
-            ->select('eventos.nome as evento', 'artistas.nome as artista')
+            ->select('eventos.nome as evento', 'artistas.nome as artista',
+                'artistas.id as artista_id', 'eventos.id as evento_id')
             ->get();
 
         $espaco_id = $id;
