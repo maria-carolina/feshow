@@ -4,25 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Artista;
 use App\Espaco;
-use App\CasaGenero;
+use App\Evento;
+use App\EspacosGenero;
 use App\Endereco;
 use App\Genero;
 use App\User;
+use App\ArtistasEvento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class EspacoController extends Controller
 {
     //
 
     public function insert(Request $request){
+
+        $this->validate($request, [
+            'txtEmail'=>'required|email'
+        ]);
+
         $endereco = new Endereco();
         $espaco = new Espaco();
-        $espacoGenero = new CasaGenero();
         $user = new User();
 
         $user->name = $request->txtLogin;
         $user->email = $request->txtEmail;
-        $user->password = $request->txtSenha;
+        $user->password = Hash::make($request->txtSenha);
         $user->tipo_usuario = $request->txtTipo;
 
         if($user->save()) {
@@ -34,13 +41,35 @@ class EspacoController extends Controller
                 //$casaGenero->casa_id = $casa->id;
                 //$casaGenero->genero_id = $request->cmbGenero;
                 //$casaGenero->save();
+
+                if($request->cmbGenero_1 > 0){
+                    $espaco_genero = new EspacosGenero();
+                    $espaco_genero->espaco_id = $espaco->id;
+                    $espaco_genero->genero_id = $request->cmbGenero_1;
+                    $espaco_genero->save();
+                }
+
+                if($request->cmbGenero_2 > 0){
+                    $espaco_genero = new EspacosGenero();
+                    $espaco_genero->espaco_id = $espaco->id;
+                    $espaco_genero->genero_id = $request->cmbGenero_2;
+                    $espaco_genero->save();
+                }
+
+                if($request->cmbGenero_3 > 0){
+                    $espaco_genero = new EspacosGenero();
+                    $espaco_genero->espaco_id = $espaco->id;
+                    $espaco_genero->genero_id = $request->cmbGenero_3;
+                    $espaco_genero->save();
+                }
+
                 $endereco->espaco_id = $espaco->id;
                 $endereco->logradouro = $request->txtLogradouro;
                 $endereco->bairro = $request->txtBairro;
                 $endereco->cidade = $request->txtCidade;
                 $endereco->cep = $request->txtCep;
                 $endereco->numero = $request->txtNum;
-                $endereco->uf = $request->cmbUf;
+                $endereco->uf = $request->txtUf;
                 $endereco->save();
             }
         }
@@ -69,5 +98,21 @@ class EspacoController extends Controller
         return view('espaco.perfil', compact('espaco' , 'endereco'));
 
     }
+
+    public function abrirConvites($id){
+        $convites = Evento::where('espaco_id', $id)
+            ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id') 
+              ->where('artistas_eventos.resposta', 0)
+            ->join('artistas', 'artistas_eventos.artista_id', 'artistas.id')
+            ->select('eventos.nome as evento', 'artistas.nome as artista',
+                'artistas.id as artista_id', 'eventos.id as evento_id')
+            ->get();
+
+        $espaco_id = $id;
+
+        return view('espaco.convites', compact('convites', 'espaco_id'));
+    }
+
+   
 
 }

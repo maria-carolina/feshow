@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CasaGenero extends Model
+class EspacosGenero extends Model
 {
     public $timestamps = false;
 
     public $fillable = [
-        'casa_id', 'genero_id'
+        'espaco_id', 'genero_id'
     ];
 
     public function casas(){

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Artista;
 use App\Genero;
 use App\User;
+use App\ArtistasGenero;
+use App\ArtistasEvento;
+
 use Illuminate\Http\Request;
 
 class ArtistaController extends Controller
@@ -15,9 +18,10 @@ class ArtistaController extends Controller
         $artista = new Artista();
         $user = new User();
 
+
         $user->name = $request->txtLogin;
         $user->email = $request->txtEmail;
-        $user->password = $request->txtSenha;
+        $user->password = Hash::make($request->txtSenha);
         $user->tipo_usuario = $request->txtTipo;
         if($user->save()){
             $artista->nome = $request->txtNome;
@@ -26,9 +30,32 @@ class ArtistaController extends Controller
             $artista->cidade = $request->txtCidade;
             $artista->link = $request->txtLink;
             $artista->user_id = $user->id;
+
+            if($artista->save()){
+                if($request->cmbGenero_1 > 0){
+                    $artista_genero = new ArtistasGenero();
+                    $artista_genero->artista_id = $artista->id;
+                    $artista_genero->genero_id = $request->cmbGenero_1;
+                    $artista_genero->save();
+                }
+
+                if($request->cmbGenero_2 > 0){
+                    $artista_genero = new ArtistasGenero();
+                    $artista_genero->artista_id = $artista->id;
+                    $artista_genero->genero_id = $request->cmbGenero_2;
+                    $artista_genero->save();
+                }
+
+                if($request->cmbGenero_3 > 0){
+                    $artista_genero = new ArtistasGenero();
+                    $artista_genero->artista_id = $artista->id;
+                    $artista_genero->genero_id = $request->cmbGenero_3;
+                    $artista_genero->save();
+                }
+            }
         }
 
-        $artista->save();
+
 
         return view ('welcome');
     }
@@ -84,5 +111,20 @@ class ArtistaController extends Controller
 
     }
 
+    public function abrirConvites($id){
+        $convites = ArtistasEvento::where('artista_id', $id)
+            ->where('resposta', 1)
+            ->join('eventos', 'artistas_eventos.evento_id', 'eventos.id')
+            ->join('espacos', 'eventos.espaco_id', 'espacos.id')
+            ->select('artistas_eventos.evento_id as evento_id',
+                'eventos.nome as evento', 'espacos.nome as espaco')
+            ->get();
+        $artista_id = $id;
+
+        
+        
+        return view('artista.convites', compact('convites', 'artista_id'));
+
+    }
 
 }
