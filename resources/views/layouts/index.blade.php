@@ -65,8 +65,10 @@ use App\Espaco;
             @endif
         </div>
     </nav>
+
     <div class="container mt-5">
         <br>
+                @includeIf('layouts.erros')
         @yield('container')
     </div>
 

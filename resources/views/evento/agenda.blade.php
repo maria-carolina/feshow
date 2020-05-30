@@ -34,7 +34,17 @@
                     month: "Mês",
                     week: "Semana",
                     day: "Dia"
-                }
+                },
+
+                select: function(start, end, allDay) //criar evento
+                {
+                    var data = $.fullCalendar.formatDate(start, "DD/MM/Y");
+                    var confirmar = confirm("Deseja criar um evento na data" + data + "?");
+                    if(confirmar)
+                    {
+                        $(location).attr('href', '/evento/cadastrar');
+                    }
+                },
 
             });
         });
