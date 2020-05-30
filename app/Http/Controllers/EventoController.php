@@ -20,7 +20,7 @@ class EventoController extends Controller
         $evento->hora_inicio = $request->txtHorarioInicio;
         $evento->hora_fim = $request->txtHorarioFim;
         $evento->data = $request->txtData;
-        $evento->espaco_id = Espaco::where('user_id', Auth::user()->id)->first()->id; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO   
+        $evento->espaco_id = Espaco::where('user_id', Auth::user()->id)->first()->id; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO
 
         $evento->save();
 
@@ -39,7 +39,7 @@ class EventoController extends Controller
         ->get();
 
         $lineup = "Lineup: ";
-        
+
         foreach( $rs as $linha){
             if($linha === $rs[0]){
                 $lineup = $lineup.' '.$linha->nome;
@@ -54,5 +54,11 @@ class EventoController extends Controller
     public function abrirConvite($id){
         $evento = Evento::findOrFail($id);
         return view('evento.conviteArtista', compact('evento'));
+    }
+
+    public function agenda($id){
+        $espaco = Espaco::where('user_id', 3)->first();
+
+        return view('evento.agenda', compact('espaco'));
     }
 }

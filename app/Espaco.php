@@ -10,6 +10,7 @@ class Espaco extends Model
     public $timestamps = false;
 
     public $fillable = [
+        'id',
         'nome',
         'telefone',
         'user_id'

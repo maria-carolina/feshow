@@ -9,11 +9,18 @@ class Evento extends Model
     public $timestamps = false;
 
     public $fillable = [
-        'id','nome','descricao','hora_inicio',
-        'hora_fim','data','espaco_id'
+        'id',
+        'nome',
+        'descricao',
+        'hora_inicio',
+        'hora_fim',
+        'data_inicio',
+        'data_fim',
+        'espaco_id'
     ];
 
-    public function espaco(){
+    public function espaco()
+    {
         return $this->belongsTo(Espaco::class);
     }
 }
