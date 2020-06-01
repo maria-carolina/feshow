@@ -11,6 +11,7 @@ use App\Genero;
 use App\User;
 use App\ArtistasEvento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class EspacoController extends Controller
@@ -73,6 +74,8 @@ class EspacoController extends Controller
                 $endereco->save();
             }
         }
+
+        Auth::login($user);
 
         return view ('welcome');
 
