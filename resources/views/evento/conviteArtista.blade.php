@@ -19,7 +19,9 @@
 
         button.onclick = () =>{
            
-
+            var divs = document.querySelector('div[class=caixaArtista]');
+            if(divs)
+                divs.parentNode.removeChild(divs);
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/pesquisarArtista/${inputArtista.value}/`);
             xhr.send(null);
