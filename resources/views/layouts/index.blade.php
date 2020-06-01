@@ -1,3 +1,8 @@
+<?php
+use App\Artista;
+use App\Espaco;
+?>
+
 @extends('layouts.base')
 
 @section('body')
@@ -5,28 +10,44 @@
         <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="{{route('inicio')}}">FESHOW</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
             </div>
+
             @if(isset(Auth::user()->id))
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="active nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="material-icons"></i>
-                            Discover
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="material-icons"></i>
-                            Profile
-                        </a>
-                    </li>
+{{--                    <li class="active nav-item">--}}
+{{--                        <a href="#" class="nav-link">--}}
+{{--                            <i class="material-icons"></i>--}}
+{{--                            Discover--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+                    @if(Auth::user()->tipo_usuario == 0)
+                        {{--  ESPAÇO--}}
+                        <li class="nav-item">
+                            <a href="{{route('agenda', Auth::user()->id)}}" class="nav-link">
+                                <i class="material-icons"></i>
+                                Agenda
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('perfil_espaco',
+                                     Espaco::where('user_id', Auth::user()->id)->first()->id)}}" class="nav-link">
+                                <i class="material-icons"></i>
+                                Perfil
+                            </a>
+                        </li>
+                    @else
+                        {{--    ARTISTA    </li>--}}
+                        <li class="nav-item">
+                            <a href="{{route('perfil_artista',
+                                      Artista::where('user_id', Auth::user()->id)->first()->id)}}" class="nav-link">
+                                <i class="material-icons"></i>
+                                Perfil
+                            </a>
+                        </li>
+                    @endif
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -44,8 +65,10 @@
             @endif
         </div>
     </nav>
+
     <div class="container mt-5">
         <br>
+                @includeIf('layouts.erros')
         @yield('container')
     </div>
 

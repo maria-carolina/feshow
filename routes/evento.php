@@ -9,4 +9,6 @@
 
         Route::get('{id}', 'EventoController@abrirPerfil')->name('abrir_perfil');
 
+        Route::get('agenda/{id}', 'EventoController@agenda')->name('agenda');
+
     });

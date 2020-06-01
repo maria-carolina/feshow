@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Genero;
 use App\Artista;
+use App\Evento;
 use App\ArtistasEvento;
 
 /*
@@ -35,8 +36,8 @@ Route::get('/pesquisarArtista/{nome}', function($nome){
     ->join('generos', 'generos.id', '=', 'artistas_generos.genero_id')
     ->select('artistas.*', 'generos.nome as genero')
     ->get();
-    
-    
+
+
     return Response::json($resultado);
 })->name('api.pesquisarArtista');
 
@@ -53,7 +54,7 @@ Route::get('/responderConvite/{idEvento}/{idArtista}/{resposta}', function($idEv
     //('oi');
     $artistaevento = ArtistasEvento::where([['evento_id', $idEvento],
         ['artista_id', $idArtista]])->first();
-    
+
     if($resposta == 0){
         $artistaevento->resposta = 2;
         $artistaevento->save();
@@ -69,3 +70,17 @@ Route::get('/acharIdArtista/{idUser}', function($idUser){
     //dd($artista);
     return Response::json($artista);
 })->name('api.acharIdArtista');
+
+Route::get('/agenda/{idEspaco}', function($idEspaco){
+    $eventos = Evento::where('espaco_id', $idEspaco)->get();
+    foreach($eventos as $evento)
+    {
+        $data[] = array(
+            'id'   => $evento->id,
+            'title'   => $evento->nome,
+            'start'   => $evento->data_inicio,
+            'end'   => $evento->data_fim
+        );
+    }
+    return  Response::json($data);
+})->name('api.agenda');

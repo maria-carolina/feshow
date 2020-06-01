@@ -1,7 +1,6 @@
 <?php
 use App\Artista;
 use App\Espaco;
-
 ?>
 
 @extends('layouts.base')
@@ -66,10 +65,21 @@ use App\Espaco;
                                     Área do artista <i class="fa fa-home"></i>
                                 </a>
                             @else
-                                <a class="nav-link" href="{{route('perfil_artista', Espaco::where('user_id', Auth::user()->id)->first()->id)}}" >
+                                <a class="nav-link" href="{{route('perfil_espaco', Espaco::where('user_id', Auth::user()->id)->first()->id)}}" >
                                     Área do espaço <i class="fa fa-home"></i>
                                 </a>
                             @endif
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Sair') }} <i class="fa fa-sign-out"></i>
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </li>
                     @else
                     <li class="nav-item">

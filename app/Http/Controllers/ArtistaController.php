@@ -7,7 +7,8 @@ use App\Genero;
 use App\User;
 use App\ArtistasGenero;
 use App\ArtistasEvento;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class ArtistaController extends Controller
@@ -54,8 +55,7 @@ class ArtistaController extends Controller
                 }
             }
         }
-
-
+        Auth::login($user);
 
         return view ('welcome');
     }
@@ -121,8 +121,8 @@ class ArtistaController extends Controller
             ->get();
         $artista_id = $id;
 
-        
-        
+
+
         return view('artista.convites', compact('convites', 'artista_id'));
 
     }

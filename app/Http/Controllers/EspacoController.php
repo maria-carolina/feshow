@@ -11,6 +11,7 @@ use App\Genero;
 use App\User;
 use App\ArtistasEvento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class EspacoController extends Controller
@@ -74,6 +75,8 @@ class EspacoController extends Controller
             }
         }
 
+        Auth::login($user);
+
         return view ('welcome');
 
     }
@@ -86,6 +89,7 @@ class EspacoController extends Controller
 
     public function abrirPerfil($id){
         $espaco = Espaco::findOrFail($id);
+
         $endereco = Endereco::where('espaco_id','=', $id)->first();
 
        // $generos_id = EspacoGenero::where('casa_id', $casa->id)->get('genero_id');
@@ -101,7 +105,7 @@ class EspacoController extends Controller
 
     public function abrirConvites($id){
         $convites = Evento::where('espaco_id', $id)
-            ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id') 
+            ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id')
               ->where('artistas_eventos.resposta', 0)
             ->join('artistas', 'artistas_eventos.artista_id', 'artistas.id')
             ->select('eventos.nome as evento', 'artistas.nome as artista',
@@ -113,6 +117,6 @@ class EspacoController extends Controller
         return view('espaco.convites', compact('convites', 'espaco_id'));
     }
 
-   
+
 
 }

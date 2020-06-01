@@ -23,8 +23,8 @@ The above copyright notice and this permission notice shall be included in all c
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 
-{{--  Referencias do template  --}}
-<!--     Fonts and icons     -->
+    {{--  Referencias do template  --}}
+        <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
@@ -33,11 +33,16 @@ The above copyright notice and this permission notice shall be included in all c
     <link rel="stylesheet" href="{{asset('demo/demo.css')}}">
 
 
-{{--  Referencias boostrap  --}}
-<!-- Bootstrap -->
+    {{--  Referencias boostrap  --}}
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/fontawesome.css')}}">
+
+{{--    Referencias para o FullCalendar--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+
     @yield('links_adicionais')
     <style>
         body{
@@ -81,7 +86,7 @@ The above copyright notice and this permission notice shall be included in all c
         div.caixaArtista button{
             position: absolute;
             bottom: 5px;
-            
+
         }
 
         div.caixaArtista button#yes{
@@ -124,6 +129,9 @@ The above copyright notice and this permission notice shall be included in all c
             font-size: 20pt;
         }
 
+        label {
+            color: black;
+        }
     </style>
 </head>
 
@@ -205,6 +213,13 @@ The above copyright notice and this permission notice shall be included in all c
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+{{--    Referencias para o FullCalendar--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
 @yield('scripts_adicionais')
 </body>
 
