@@ -7,7 +7,7 @@
     <h1>{{ $evento->nome }}</h1>
     <h2 id="cinza">{{ $evento->espaco->nome}}</h2>
 
-    <button name="btnSolPar">c</button>
+    
     <p> Line-up:
     @foreach($rs as $linha)
         @if($rs[0]->artista_id != $linha->artista_id )
