@@ -3,7 +3,9 @@
 @section('container')
     @foreach($convites as $convite)
         <div class="caixaArtista">
-            {{ $convite->espaco }} te convidou pra tocar em {{ $convite->evento}}
+            <a href="/espaco/perfil/{{ $convite->espaco_id}}">{{ $convite->espaco }}<a> 
+            &nbsp; te convidou pra tocar em &nbsp;
+            <a href="/evento/{{ $convite->evento_id}}">{{ $convite->evento}}<a>
             <button id="yes" onclick="responder(true, {{ $convite->evento_id }})"> Aceitar </button>
             <button id="no" onclick="responder(false, {{ $convite->evento_id }})"> Rejeitar </button>
         </div>

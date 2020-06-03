@@ -114,6 +114,7 @@ class EspacoController extends Controller
 
         $espaco_id = $id;
 
+        //dd($convites);
         return view('espaco.convites', compact('convites', 'espaco_id'));
     }
 

@@ -116,13 +116,13 @@ class ArtistaController extends Controller
             ->where('resposta', 1)
             ->join('eventos', 'artistas_eventos.evento_id', 'eventos.id')
             ->join('espacos', 'eventos.espaco_id', 'espacos.id')
-            ->select('artistas_eventos.evento_id as evento_id',
+            ->select('artistas_eventos.evento_id as evento_id', 'espacos.id as espaco_id',
                 'eventos.nome as evento', 'espacos.nome as espaco')
             ->get();
         $artista_id = $id;
 
 
-
+       
         return view('artista.convites', compact('convites', 'artista_id'));
 
     }

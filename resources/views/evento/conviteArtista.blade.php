@@ -43,7 +43,7 @@
                         ids.push(linha.id);
                     });
 
-                    console.log(resposta);
+                    
                     
 
                     resultados.forEach(linha => {
@@ -60,6 +60,10 @@
                         btnYes.appendChild(document.createTextNode('Confirmar'));
                         btnYes.id = "yes";
 
+                        var link = document.createElement('a');
+                        link.href = `/artista/perfil/${linha.id}`;
+                        link.appendChild(nome);
+
                         btnYes.addEventListener("click", () => {
                             enviarConvite(linha.id);
                         });
@@ -70,7 +74,7 @@
                         divArtista.id = linha.id;
                     
 
-                        divArtista.appendChild(nome);
+                        divArtista.appendChild(link);
                         divArtista.appendChild(generos);
                         divArtista.appendChild(btnYes);
                         divArtista.style.borderStyle = "solid";

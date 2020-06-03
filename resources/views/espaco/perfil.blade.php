@@ -47,6 +47,7 @@
             <button><a href="{{ route('abrir_edicao', $espaco->id)}}">Editar</a></button>
         @endif
 <div>
+
 @endsection
 
 
