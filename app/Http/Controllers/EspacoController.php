@@ -13,6 +13,8 @@ use App\ArtistasEvento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
+
 
 class EspacoController extends Controller
 {
@@ -117,6 +119,33 @@ class EspacoController extends Controller
         //dd($convites);
         return view('espaco.convites', compact('convites', 'espaco_id'));
     }
+
+
+    public function abrirFeed($id){
+        $endereco = Endereco::where('espaco_id', $id)->first();
+        
+        $artistas = Artista::where('cidade', $endereco->cidade)
+            ->join('artistas_generos', 'artistas_generos.artista_id', 'artistas.id')
+            ->join('generos', 'generos.id', 'artistas_generos.genero_id')
+            ->select('artistas.*', 'generos.nome as genero', 'generos.id as genero_id')
+            ->get();
+
+        $gens = EspacosGenero::where('espaco_id', $id)
+            ->join('generos', 'generos.id', 'espacos_generos.genero_id')
+            ->select('generos.id as genero_id', 'generos.nome as genero')
+            ->get();
+  
+        foreach($artistas as $artista){  
+            foreach($gens as $gen){
+                if($gen->genero_id == $artista->genero_id){
+                    $feed[$artista->id] = $artista;
+                }
+            }
+        }
+       
+        return Response::json($feed);
+    }
+
 
 
 
