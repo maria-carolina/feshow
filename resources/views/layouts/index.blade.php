@@ -72,5 +72,7 @@ use App\Espaco;
         @yield('container')
     </div>
 
+    @yield('modal')
+
 @endsection
 

@@ -17,6 +17,10 @@
             @endif
         </ul>
 
+        @if(Auth::user()->tipo_usuario == 1)
+            <a href="{{route('agenda', $espaco->user_id)}}">Visualizar agenda</a>
+        @endif
+
         <p>
         É tido como um dos músicos eletrônicos mais importantes e inovadores de sua geração,
         reverenciado por artistas que vão da música eletrônica ao rock. 
