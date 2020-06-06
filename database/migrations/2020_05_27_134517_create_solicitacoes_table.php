@@ -16,11 +16,10 @@ class CreateSolicitacoesTable extends Migration
         Schema::create('solicitacoes', function (Blueprint $table) {
             $table->integer('artista_id');
             $table->integer('espaco_id');
-            $table->integer('data_id');
+            $table->date('data');
             $table->integer('resposta');
             $table->foreign('artista_id')->references('id')->on('artistas');
             $table->foreign('espaco_id')->references('id')->on('espacos');
-            $table->foreign('data_id')->references('id')->on('datas_disponiveis');
         });
     }
 

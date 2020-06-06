@@ -26,7 +26,7 @@
     <div class="form-row mt-3">
         <div class="col">
             <label for="data_evento">Data do início:</label> <br>
-            <input type="date" class="form-control" name="txtDataInicio" id="data_inicio" required>
+            <input type="date" class="form-control" name="txtDataInicio" id="data_inicio" value="" required>
         </div>
         <div class="col">
             <label for="data_evento">Data do fim:</label> <br>

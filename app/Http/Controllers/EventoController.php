@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Response;
 use App\Evento;
 use App\Artista;
 use App\Espaco;
+use App\Solicitacao;
 use App\ArtistasEvento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,14 +29,14 @@ class EventoController extends Controller
         $evento->data_fim = $request->txtDataFim;
         $evento->espaco_id = Espaco::where('user_id', Auth::user()->id)->first()->id; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO
         $evento->save();
-        $idUser = Auth::user()->id;
+        $idUser = Auth::user()->id; 
         return redirect()->route('agenda', $idUser);
     }
 
-    public function abrirCadastro($data){
-
+    public function abrirCadastro(Request $request){
         $espaco = Espaco::where('user_id', Auth::user()->id)->first();
-        $data = date('d/m/Y', strtotime($data));
+        $data = $request->data;
+        //date('d/m/Y', strtotime($data));
         return view('evento.cadastroEvento', compact('espaco', 'data'));
     }
 
@@ -67,7 +68,23 @@ class EventoController extends Controller
 
     public function agenda($id){
         $espaco = Espaco::where('user_id', $id)->first();
-
         return view('evento.agenda', compact('espaco'));
+    }
+
+    public function solicitarEvento($idArtista, $idEspaco, Request $request){
+    
+        $data = $request->dataSolicitada;
+        $dt = explode('/', $data);
+        $data = $dt[2].'-'.$dt[1].'-'.$dt[0];
+
+       $solicitacao = new Solicitacao();
+       $solicitacao->artista_id = Artista::where('user_id', $idArtista)->first()->id;
+       $solicitacao->espaco_id =$idEspaco;
+       $solicitacao->data = $data;
+       $solicitacao->resposta = 0; //enviada pelo artista
+       $solicitacao->save();
+    
+       $espaco = Espaco::findOrFail($idEspaco);
+       return view('evento.agenda', compact('espaco'));
     }
 }

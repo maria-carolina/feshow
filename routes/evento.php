@@ -1,7 +1,7 @@
 <?php
 
     Route::group(['prefix' => 'evento/'], function() {
-        Route::get('cadastrar', 'EventoController@abrirCadastro')->name('cadastro_evento');
+        Route::post('cadastrar', 'EventoController@abrirCadastro')->name('cadastro_evento');
 
         Route::post('salvar', 'EventoController@insert')->name('salvar_evento');
 
@@ -11,4 +11,7 @@
 
         Route::get('agenda/{id}', 'EventoController@agenda')->name('agenda');
 
+        Route::post('solicitar/{idArtista}/{idEspaco}', 'EventoController@solicitarEvento')->name('solicitar_evento');
+
     });
+    
