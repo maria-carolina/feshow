@@ -3,7 +3,9 @@
 @section('container')
     @foreach($convites as $convite)
         <div class="caixaArtista">
-            {{ $convite->artista }} quer tocar no {{ $convite->evento}}
+            <a href="/artista/perfil{{ $convite->artista_id }}">{{ $convite->artista }}</a> 
+            &nbsp; quer tocar no &nbsp;
+            <a href="/evento/{{ $convite->evento_id }}"> {{ $convite->evento}}</a>
             <button id='yes' onclick="responder(true)"> Aceitar </button>
             <button id='no' onclick="responder(false)"> Rejeitar </button>
             <input type="hidden" name="art" value="{{ $convite->artista_id}}">

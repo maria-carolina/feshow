@@ -28,7 +28,7 @@ class EventoController extends Controller
         $evento->data_fim = $request->txtDataFim;
         $evento->espaco_id = Espaco::where('user_id', Auth::user()->id)->first()->id; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO
         $evento->save();
-        $idUser =  Auth::user()->id;
+        $idUser = Auth::user()->id;
         return redirect()->route('agenda', $idUser);
     }
 
@@ -41,24 +41,24 @@ class EventoController extends Controller
 
     public function abrirPerfil($id){
         $evento = Evento::findOrFail($id);
-        $rs = Artista::where('eventos.id', $id)
-        ->join('artistas_eventos', 'artistas.id', '=', 'artistas_eventos.artista_id')
-        ->join('eventos', 'eventos.id', '=', 'artistas_eventos.artista_id')
-        ->select('artistas.nome')
+        $rs = Evento::where('eventos.id', $id)
+        ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id')
+        ->join('artistas','artistas_eventos.artista_id', 'artistas.id')
+        ->select('artistas.nome as artista', 'artistas.id as artista_id')
         ->get();
 
         $lineup = "Lineup: ";
-
-        foreach( $rs as $linha){
-            if($linha === $rs[0]){
+       
+        /*foreach($rs as $linha){
+            if($linha->artista_id === $rs[0]->artista_id){
                 $lineup = $lineup.' '.$linha->nome;
             }else{
                 $lineup = $lineup.', '.$linha->nome;
             }
-        }
-        return view('evento.perfil', compact('evento', 'lineup'));
+        }*/
 
-    }
+        return view('evento.perfil', compact('evento', 'rs'));
+    } 
 
     public function abrirConvite($id){
         $evento = Evento::findOrFail($id);

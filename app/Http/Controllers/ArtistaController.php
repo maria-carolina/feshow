@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Artista;
 use App\Genero;
 use App\User;
+use App\Endereco;
 use App\ArtistasGenero;
+use App\EspacosGenero;
 use App\ArtistasEvento;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -116,15 +119,42 @@ class ArtistaController extends Controller
             ->where('resposta', 1)
             ->join('eventos', 'artistas_eventos.evento_id', 'eventos.id')
             ->join('espacos', 'eventos.espaco_id', 'espacos.id')
-            ->select('artistas_eventos.evento_id as evento_id',
+            ->select('artistas_eventos.evento_id as evento_id', 'espacos.id as espaco_id',
                 'eventos.nome as evento', 'espacos.nome as espaco')
             ->get();
         $artista_id = $id;
 
-
-
         return view('artista.convites', compact('convites', 'artista_id'));
+    }
 
+    public function abrirFeed($id){
+        $artista = Artista::findOrFail($id);
+        $rs = Endereco::where('cidade', $artista->cidade)
+            ->join('espacos', 'enderecos.espaco_id', 'espacos.id')
+            ->leftjoin('eventos', 'eventos.espaco_id', 'espacos.id')
+            ->join('espacos_generos', 'espacos_generos.espaco_id', 'espacos.id')
+            ->join('generos', 'espacos_generos.genero_id', 'generos.id')
+            ->select('eventos.nome as evento', 'eventos.id as evento_id',
+                'espacos.nome as espaco', 'espacos.id as espaco_id', 
+                'generos.id as genero_id')
+            ->get();
+        
+
+        $gens = ArtistasGenero::where('artista_id', $artista->id)
+            ->join('generos', 'generos.id', 'artistas_generos.genero_id')
+            ->select('generos.id as genero_id', 'generos.nome as genero')
+            ->get();
+
+      
+        foreach($rs as $linha){
+            foreach($gens as $gen){
+                if($gen->genero_id == $linha->genero_id){
+                    $feed[$linha->espaco_id] = $linha;
+                }
+            }
+        }
+       
+        return Response::json($feed);
     }
 
 }
