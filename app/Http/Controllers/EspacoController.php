@@ -142,8 +142,8 @@ class EspacoController extends Controller
                 }
             }
         }
-       
-        return Response::json($feed);
+        
+        return view('espaco.feed', compact('feed'));
     }
 
 

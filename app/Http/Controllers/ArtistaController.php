@@ -134,7 +134,7 @@ class ArtistaController extends Controller
             ->leftjoin('eventos', 'eventos.espaco_id', 'espacos.id')
             ->join('espacos_generos', 'espacos_generos.espaco_id', 'espacos.id')
             ->join('generos', 'espacos_generos.genero_id', 'generos.id')
-            ->select('eventos.nome as evento', 'eventos.id as evento_id',
+            ->select('eventos.nome as evento', 'eventos.id as evento_id', 'eventos.*',
                 'espacos.nome as espaco', 'espacos.id as espaco_id', 
                 'generos.id as genero_id')
             ->get();
@@ -154,7 +154,7 @@ class ArtistaController extends Controller
             }
         }
        
-        return Response::json($feed);
+        return view('artista.feed', compact('feed'));
     }
 
 }
