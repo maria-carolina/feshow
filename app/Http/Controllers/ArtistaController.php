@@ -129,6 +129,8 @@ class ArtistaController extends Controller
 
     public function abrirFeed($id){
         $artista = Artista::findOrFail($id);
+        $idArtista = $id;
+
         $rs = Endereco::where('cidade', $artista->cidade)
             ->join('espacos', 'enderecos.espaco_id', 'espacos.id')
             ->leftjoin('eventos', 'eventos.espaco_id', 'espacos.id')
@@ -154,7 +156,7 @@ class ArtistaController extends Controller
             }
         }
        
-        return view('artista.feed', compact('feed'));
+        return view('artista.feed', compact('feed', 'idArtista'));
     }
 
 }

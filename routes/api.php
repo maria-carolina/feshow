@@ -71,6 +71,12 @@ Route::get('/acharIdArtista/{idUser}', function($idUser){
     return Response::json($artista);
 })->name('api.acharIdArtista');
 
+
+Route::get('/listareventos/{id}', function($id){
+    $eventos = Evento::where('espaco_id', $id)->get();
+    return Response::json($eventos);
+})->name('api.listareventos');
+
 Route::get('/agenda/{idEspaco}', function($idEspaco){
     $eventos = Evento::where('espaco_id', $idEspaco)->get();
     foreach($eventos as $evento)

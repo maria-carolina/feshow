@@ -123,6 +123,7 @@ class EspacoController extends Controller
 
     public function abrirFeed($id){
         $endereco = Endereco::where('espaco_id', $id)->first();
+        $idEspaco = $id;
         
         $artistas = Artista::where('cidade', $endereco->cidade)
             ->join('artistas_generos', 'artistas_generos.artista_id', 'artistas.id')
@@ -143,7 +144,7 @@ class EspacoController extends Controller
             }
         }
         
-        return view('espaco.feed', compact('feed'));
+        return view('espaco.feed', compact('feed', 'idEspaco'));
     }
 
 

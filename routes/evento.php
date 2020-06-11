@@ -1,7 +1,7 @@
 <?php
 
     Route::group(['prefix' => 'evento/'], function() {
-        Route::post('cadastrar', 'EventoController@abrirCadastro')->name('cadastro_evento');
+        Route::get('cadastrar', 'EventoController@abrirCadastro')->name('cadastro_evento');
 
         Route::post('salvar', 'EventoController@insert')->name('salvar_evento');
 

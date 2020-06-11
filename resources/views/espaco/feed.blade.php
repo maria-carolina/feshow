@@ -12,11 +12,76 @@
                 <p>{{ $artista->nome }} toca {{ $artista->genero }}!</p>
                 <p>{{ $artista->quantidade_membros}} membro(s) </p>
                 <p><a href="{{ $artista->link}}" target="_blank">Ouça</a></p>
-                <button class="btn btn-primary" id="convidar">Convidar</button>
+                <button class="btn btn-primary" id="convidar" onclick="preencherEventos({{ $artista->id }})" data-toggle="modal" data-target="#exampleModal">Convidar</button>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Escolha um evento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <select id="selEventos">
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="convidar()">Enviar Convite</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         @endforeach
     <div>
 @endif
+@section('scripts_adicionais')
+    <script>
+        const sel = document.getElementById('selEventos');
+        var idArtista;
 
+        function preencherEventos(idArt){
+            let id = {{ $idEspaco }};
+            idArtista = idArt;
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://localhost:8000/api/listareventos/${id}`);
+            xhr.send(null);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4){
+                    
+                    while (sel.firstChild){
+                        sel.removeChild(sel.lastChild);
+                    }
+                    let eventos = JSON.parse(xhr.responseText);
+                    eventos.forEach(evento =>{
+                        let opt = document.createElement('option');
+                        opt.text = evento.nome;
+                        opt.value = evento.id;
+                        sel.appendChild(opt);
+                    })
+                }
+            }
+        }
+        function convidar(){
+            let idEvento = sel.options[sel.selectedIndex].value;
+            
+            
+            button = document.getElementById('convidar');
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}/1`);
+            xhr.send(null);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4){
+                    alert('convite enviado')
+                }
+            }
+        }
+        
+    </script>
+@endsection
 @endsection

@@ -13,7 +13,7 @@
                     <h3 class="card-title"><a href="evento/{{ $item->evento_id }}">{{ $item->evento}}</a></h3>
                     <p class="card-text">Onde? <a href="espaco/perfil/{{ $item->espaco_id}}">{{ $item->espaco }}</a></p>
                     <p class="card-text">Quando? {{ $item->data }} das {{ $item->hora_inicio}} às {{ $item->hora_fim }} </p>
-                    <button class="btn btn-primary" id="convidar">Participar!</button>
+                    <button class="btn btn-primary" id="convidar" onclick="convidar({{$item->evento_id}}, {{$idArtista}})">Participar!</button>
                     </div>
                 </div>
                 @else
@@ -28,5 +28,21 @@
         @endforeach
     <div>
 @endif
+
+@section('scripts_adicionais')
+    <script>
+        function convidar(idEvt, idArt){
+            button = document.getElementById('convidar');
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://localhost:8000/api/enviarconvite/${idEvt}/${idArt}/0`);
+            xhr.send(null);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4){
+                    alert('convite enviado')
+                }
+            }
+        }
+    </script>
+@endsection
 
 @endsection
