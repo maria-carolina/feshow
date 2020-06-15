@@ -8,7 +8,7 @@
         @foreach($feed as $artista)
             <div class="card">
                 <div class="card-body">
-                <h3 class="card-title"><a href="artista/perfil/{{ $artista->id }}">{{ $artista->nome}}</a></h3>
+                <h3 class="card-title"><a href="http://localhost:8000/artista/perfil/{{ $artista->id }}">{{ $artista->nome}}</a></h3>
                 <p>{{ $artista->nome }} toca {{ $artista->genero }}!</p>
                 <p>{{ $artista->quantidade_membros}} membro(s) </p>
                 <p><a href="{{ $artista->link}}" target="_blank">Ouça</a></p>
@@ -27,7 +27,7 @@
                         </button>
                         </div>
                         <div class="modal-body">
-                            <select id="selEventos">
+                            <select id="selEventos" class="form-control">
                             </select>
                         </div>
                         <div class="modal-footer">

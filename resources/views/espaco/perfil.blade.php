@@ -5,7 +5,11 @@
 <div id="perfil">
         <ul id="nome_generos">
             <li><h1> {{ $espaco->nome }} </h1></li>
-            <li><h2 id="generos"> idm, glitch, experimental</h2></li>
+            <li><h2 id="cinza"> 
+                @foreach($generos as $genero)
+                    {{ $genero->nome }}
+                @endforeach
+            </h2></li>
         </ul>
 
         <ul id="outras_infos">
@@ -22,28 +26,59 @@
         @endif
 
         <p>
-        É tido como um dos músicos eletrônicos mais importantes e inovadores de sua geração,
-        reverenciado por artistas que vão da música eletrônica ao rock. 
-        Foi considerado pelo jornal inglês The Guardian como "a mais influente e criativa figura da música eletrônica contemporânea".
+            descrição aqui
         </p>
         
         <h2>Histórico de Shows</h2>
         <table class="table table-bordered">
+        
             <tr>
                 <th> Evento </th>
                 <th> Artistas </th>
                 <th> Data </th>
             </tr>
+            @foreach($eventos as $evento)
+                @if($evento->data < date('Y-m-d'))
+                    <tr>
+                        <td> <a href="http://localhost:8000/evento/{{ $evento->id }}">{{ $evento->nome }} </a></td>
+                        <td> 
+                            @foreach($artistas as $artista)
+                                @if($artista->evento_id == $evento->id)
+                                    {{ $artista->nome }}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td> {{  date('d/m/Y', strtotime($evento->data)) }} </td>
+                    </tr>
+                @endif
+            @endforeach
+            
+        </table>
+
+        <h2>Próximos Shows</h2>
+        <table class="table table-bordered">
+        
             <tr>
-                <td> diego freitas no bar do zé </td>
-                <td> diego freitas </td>
-                <td> 21/09/2019 </td>
+                <th> Evento </th>
+                <th> Artistas </th>
+                <th> Data </th>
             </tr>
-            <tr>
-                <td> dj maria no bar do zé </td>
-                <td> dj maria </td>
-                <td> 10/08/2019 </td>
-            </tr>
+            @foreach($eventos as $evento)
+                @if($evento->data > date('Y-m-d'))
+                    <tr>
+                        <td>  <a href="http://localhost:8000/evento/{{ $evento->id }}">{{ $evento->nome }} </a> </td>
+                        <td> 
+                            @foreach($artistas as $artista)
+                                @if($artista->evento_id == $evento->id)
+                                    {{ $artista->nome }}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td> {{  date('d/m/Y', strtotime($evento->data)) }} </td>
+                    </tr>
+                @endif
+            @endforeach
+            
             
         </table>
 

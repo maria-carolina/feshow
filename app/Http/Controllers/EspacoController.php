@@ -91,17 +91,22 @@ class EspacoController extends Controller
 
     public function abrirPerfil($id){
         $espaco = Espaco::findOrFail($id);
-
         $endereco = Endereco::where('espaco_id','=', $id)->first();
+        $eventos = Evento::where('espaco_id', $id)
+        ->get();
+        $artistas = ArtistasEvento::where('eventos.espaco_id', $id)
+        ->where('resposta', 2)
+        ->join('eventos', 'eventos.id', 'artistas_eventos.evento_id')
+        ->join('artistas', 'artistas.id', 'artistas_eventos.artista_id')
+        ->select('artistas.nome as nome', 'eventos.id as evento_id')
+        ->get();
 
-       // $generos_id = EspacoGenero::where('casa_id', $casa->id)->get('genero_id');
-        //$generos = array();
+        $generos = EspacosGenero::where('espaco_id', $id)
+            ->join('generos', 'generos.id', 'espacos_generos.genero_id')
+            ->select('generos.nome as nome')
+            ->get();
 
-        /*foreach ($generos_id as $genero_id){
-            array_push($generos, Genero::findorFail($genero_id));
-        }*/
-
-        return view('espaco.perfil', compact('espaco' , 'endereco'));
+        return view('espaco.perfil', compact('espaco', 'endereco', 'eventos', 'artistas', 'generos'));
 
     }
 

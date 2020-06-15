@@ -100,9 +100,19 @@ class ArtistaController extends Controller
 
     public function abrirPerfil($id){
         $artista = Artista::findOrFail($id);
-        //$genero = Genero::findorFail($artista->genero_id);
+        $eventos = ArtistasEvento::where('artista_id', $id)
+            ->where('resposta', 2)
+            ->join('eventos', 'eventos.id', 'artistas_eventos.evento_id')
+            ->join('espacos', 'espacos.id', 'eventos.espaco_id')
+            ->select('eventos.*', 'espacos.nome as espaco')
+            ->get();
+        //dd($eventos_passados);
+        $generos = ArtistasGenero::where('artista_id', $id)
+            ->join('generos', 'generos.id', 'artistas_generos.genero_id')
+            ->select('generos.nome as nome')
+            ->get();
 
-        return view('artista.perfil', compact('artista'));
+        return view('artista.perfil', compact('artista', 'eventos', 'generos'));
 
     }
 
