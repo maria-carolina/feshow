@@ -20,7 +20,8 @@ class CreateEventosTable extends Migration
             $table->time('hora_inicio');
             $table->time('hora_fim');
             $table->date('data_inicio');
-            $table->date('data_fim');
+            $table->date('data_fim'); 
+            $table->integer('status');
             $table->integer('espaco_id');
             $table->foreign('espaco_id')->references('id')->on('espacos');
         });
