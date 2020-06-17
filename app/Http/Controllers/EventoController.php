@@ -27,6 +27,7 @@ class EventoController extends Controller
         $evento->hora_fim = $request->txtHorarioFim;
         $evento->data_inicio = $request->txtDataInicio;
         $evento->data_fim = $request->txtDataFim;
+        $evento->status = 0;
         $evento->espaco_id = Espaco::where('user_id', Auth::user()->id)->first()->id; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO
         $evento->save();
         $idUser = Auth::user()->id; 

@@ -49,7 +49,7 @@
             let id = {{ $idEspaco }};
             idArtista = idArt;
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', `http://localhost:8000/api/listareventos/${id}`);
+            xhr.open('GET', `http://localhost:8000/api/listareventos/${id}/`);
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
@@ -70,14 +70,16 @@
         function convidar(){
             let idEvento = sel.options[sel.selectedIndex].value;
             
-            
             button = document.getElementById('convidar');
             let xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}/1`);
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    alert('convite enviado')
+                    if(JSON.parse(xhr.responseText) == 1)
+                        alert('convite enviado');
+                    else
+                        alert('esse convite já foi enviado');
                 }
             }
         }

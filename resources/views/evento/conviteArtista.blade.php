@@ -18,12 +18,12 @@
         var body = document.querySelector('body');
 
         button.onclick = () =>{
-           
             var divs = document.querySelector('div[class=caixaArtista]');
+            var idEvento = {{ $evento->id }};
             if(divs)
                 divs.parentNode.removeChild(divs);
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', `http://localhost:8000/api/pesquisarArtista/${inputArtista.value}/`);
+            xhr.open('GET', `http://localhost:8000/api/pesquisarArtista/${inputArtista.value}/${idEvento}`);
             xhr.send(null);
             
             xhr.onreadystatechange = () => {
@@ -50,16 +50,19 @@
 
                         var text = document.createTextNode(linha.nome);
                         var nome = document.createElement('h1');
+                        nome.setAttribute('class', 'card-title');
                         nome.appendChild(text);
 
                         text = document.createTextNode(generosStrings[linha.id - 1]);
                         var generos = document.createElement('p');
+                        generos.setAttribute('class', 'card-text');
                         generos.appendChild(text);
 
                         var btnYes = document.createElement("button");
                         btnYes.appendChild(document.createTextNode('Confirmar'));
                         btnYes.id = "yes";
-
+                        btnYes.setAttribute('class', 'btn btn-primary');
+                        
                         var link = document.createElement('a');
                         link.href = `/artista/perfil/${linha.id}`;
                         link.appendChild(nome);
@@ -70,16 +73,20 @@
 
                         console.log('opa')
                         divArtista = document.createElement('div');
-                        divArtista.setAttribute('class', 'caixaArtista');
+                        divArtista.setAttribute('class', 'card-body');
                         divArtista.id = linha.id;
                     
 
                         divArtista.appendChild(link);
                         divArtista.appendChild(generos);
                         divArtista.appendChild(btnYes);
-                        divArtista.style.borderStyle = "solid";
+                        
+                        
+                        divCard = document.createElement('div');
+                        divCard.setAttribute('class', 'card');
+                        divCard.appendChild(divArtista);
 
-                        body.appendChild(divArtista);
+                        body.appendChild(divCard);
                     });
                 }
             }
@@ -95,6 +102,7 @@
                 if(xhr.readyState === 4){
                     let div = document.getElementById(idArtista);
                     div.parentNode.removeChild(div);
+                    alert('Convite enviado');
                 }
             }
         }

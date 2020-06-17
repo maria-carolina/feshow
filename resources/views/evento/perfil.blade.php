@@ -18,7 +18,7 @@
     </p>
     <p>{{ $evento->descricao}}</p>
     <ul id="data_horario">
-        <li>{{ date('d/m/Y', strtotime($evento->data)) }} </li>
+        <li>{{ date('d/m/Y', strtotime($evento->data_inicio)) }} </li>
         <li>{{ date('H:i', strtotime($evento->hora_inicio)) }} - 
         {{ date('H:i', strtotime($evento->hora_fim)) }}</li>
     </ul>
@@ -37,7 +37,7 @@
     <p>{{ $lineup }}</p>
     <p>{{ $evento->descricao}}</p>
     <ul id="data_horario">
-        <li>{{ $evento->data }} </li>
+        <li>{{ $evento->data_inicio }} </li>
         <li>{{ $evento->horario_inicio }} - {{ $evento->horario_fim }} </li>
     </ul>
 
