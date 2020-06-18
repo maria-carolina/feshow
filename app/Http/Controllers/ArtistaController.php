@@ -100,9 +100,19 @@ class ArtistaController extends Controller
 
     public function abrirPerfil($id){
         $artista = Artista::findOrFail($id);
-        //$genero = Genero::findorFail($artista->genero_id);
+        $eventos = ArtistasEvento::where('artista_id', $id)
+            ->where('resposta', 2)
+            ->join('eventos', 'eventos.id', 'artistas_eventos.evento_id')
+            ->join('espacos', 'espacos.id', 'eventos.espaco_id')
+            ->select('eventos.*', 'espacos.nome as espaco')
+            ->get();
+        //dd($eventos_passados);
+        $generos = ArtistasGenero::where('artista_id', $id)
+            ->join('generos', 'generos.id', 'artistas_generos.genero_id')
+            ->select('generos.nome as nome')
+            ->get();
 
-        return view('artista.perfil', compact('artista'));
+        return view('artista.perfil', compact('artista', 'eventos', 'generos'));
 
     }
 
@@ -129,12 +139,15 @@ class ArtistaController extends Controller
 
     public function abrirFeed($id){
         $artista = Artista::findOrFail($id);
+        $idArtista = $id;
+
         $rs = Endereco::where('cidade', $artista->cidade)
             ->join('espacos', 'enderecos.espaco_id', 'espacos.id')
             ->leftjoin('eventos', 'eventos.espaco_id', 'espacos.id')
+            ->where('eventos.status', 0)
             ->join('espacos_generos', 'espacos_generos.espaco_id', 'espacos.id')
             ->join('generos', 'espacos_generos.genero_id', 'generos.id')
-            ->select('eventos.nome as evento', 'eventos.id as evento_id',
+            ->select('eventos.nome as evento', 'eventos.id as evento_id', 'eventos.*',
                 'espacos.nome as espaco', 'espacos.id as espaco_id', 
                 'generos.id as genero_id')
             ->get();
@@ -154,7 +167,7 @@ class ArtistaController extends Controller
             }
         }
        
-        return Response::json($feed);
+        return view('artista.feed', compact('feed', 'idArtista'));
     }
 
 }

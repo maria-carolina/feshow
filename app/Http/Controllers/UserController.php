@@ -28,12 +28,12 @@ class UserController extends Controller
     public function index()
     {
         if(Auth::user()->tipo_usuario == 1){
-            
-            return redirect()->route('perfil_artista', 
+
+            return redirect()->route('feed_artista',
                 Artista::where('user_id', Auth::user()->id)->first()->id);
         }else{
-            
-            return redirect()->route('perfil_espaco', 
+
+            return redirect()->route('feed_espaco',
                 Espaco::where('user_id', Auth::user()->id)->first()->id);
         }
     }

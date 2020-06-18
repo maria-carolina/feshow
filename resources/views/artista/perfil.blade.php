@@ -6,7 +6,11 @@
 
     <ul id="nome_generos">
     <li><h1> {{ $artista->nome }} </h1></li>
-    <li><h2 id="cinza"> idm, glitch, experimental</h2></li>
+    <li><h2 id="cinza"> 
+        @foreach($generos as $genero)
+            {{ $genero->nome }}
+        @endforeach
+    </h2></li>
     </ul>
 
     <a href="{{ $artista->link}}" id="ouvir"> Ouça </a>
@@ -30,21 +34,35 @@
             <th> Evento </th>
             <th> Data </th>
         </tr>
+        @foreach($eventos as $evento)
+            @if($evento->data_inicio < date('Y-m-d'))
+                <tr>
+                    <td> {{ $evento->espaco }} </td>
+                    <td> <a href="http://localhost:8000/evento/{{ $evento->id }}">{{ $evento->nome}}</a> </td>
+                    <td> {{ date('d/m/Y', strtotime($evento->data_inicio)) }} </td>
+                </tr>
+            @endif
+        @endforeach
+        
+    </table>
+
+    <h2>Próximos Shows</h2>
+    <table class="table table-bordered">
         <tr>
-            <td> Bar do zé </td>
-            <td> diego freitas no bar do zé </td>
-            <td> 21/09/2019 </td>
+            <th> Espaço </th>
+            <th> Evento </th>
+            <th> Data </th>
         </tr>
-        <tr>
-            <td> Sei lá club </td>
-            <td> festival sei lá </td>
-            <td> 10/08/2019 </td>
-        </tr>
-        <tr>
-            <td> Estúdio Tal </td>
-            <td> Tal Gig </td>
-            <td> 09/07/2019 </td>
-        </tr>
+        @foreach($eventos as $evento)
+            @if($evento->data_inicio < date('Y-m-d'))
+                <tr>
+                    <td> {{ $evento->espaco }} </td>
+                    <td><a href="http://localhost:8000/evento/{{ $evento->id }}">{{ $evento->nome}}</a> </td>
+                    <td> {{ date('d/m/Y', strtotime($evento->data_inicio)) }} </td>
+                </tr>
+            @endif
+        @endforeach
+        
     </table>
     @if(Auth::user()->id == $artista->user_id)
         <button><a href="{{ route('abrir_edicao', $artista->id)}}">Editar</a></button>

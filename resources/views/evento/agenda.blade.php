@@ -2,10 +2,17 @@
 
 @section('container')
     <div class="title">
-        <h3>Agenda<br>
+        <h1>
             <small>Espaço: {{$espaco->nome}}</small>
-        </h3>
+        </h1>
+        @if(Auth::user()->tipo_usuario == 0)
+            <a href="{{route('cadastro_evento')}}" class="btn btn-primary">Criar evento</a>
+        @else
+             <button class="btn btn-primary" data-toggle="modal" data-target="#modalSolicitacao">Solicitar evento</button>
+        @endif
     </div>
+
+
 
     <div id="calendar" class="mt-5"></div>
 
@@ -36,10 +43,10 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="Data">Data do evento</label>
-                            <input type="text" class="form-control" name="dataSolicitada" id="dataSolicitada" readonly/>
+                            <input type="date" class="form-control" name="dataSolicitada" id="dataSolicitada"/>
                         </div>
                     </div>
-    
+
                     <div class="row">
                         <div class="col offset-md-4 mb-3">
                            <button type="submit" class="btn btn-primary btn-lg">Solicitar</button>
@@ -85,13 +92,13 @@
 
                     @if(Auth::user()->tipo_usuario == 1)
                         //solicitar evento
-                        var confirmar = confirm("Deseja solicitar um evento na data" + data + "?");
+                        /*var confirmar = confirm("Deseja solicitar um evento na data" + data + "?");
                         if(confirmar)
                         {
                             $('#dataSolicitada').val(data)
                             $("#modalSolicitacao").dialog();
-                        
-                        }
+
+                        }*/
                     @else
                         //criar evento
                         var confirmar = confirm("Deseja criar um evento na data" + data + "?");
@@ -99,10 +106,17 @@
                         {
                             $("#dataF").val(data);
                             jQuery('#form').submit();
-                        
+
                         }
                     @endif
 
+                },
+
+                eventClick:function(event)
+                {
+                    var id = event.id;
+                    var url = '/evento/' + id;
+                    $(location).prop('href', url);
                 },
 
             });

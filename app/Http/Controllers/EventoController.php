@@ -27,10 +27,12 @@ class EventoController extends Controller
         $evento->hora_fim = $request->txtHorarioFim;
         $evento->data_inicio = $request->txtDataInicio;
         $evento->data_fim = $request->txtDataFim;
+        $evento->status = 0;
         $evento->espaco_id = Espaco::where('user_id', Auth::user()->id)->first()->id; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO
         $evento->save();
-        $idUser = Auth::user()->id; 
-        return redirect()->route('agenda', $idUser);
+        $idEvento = $evento->id;
+
+        return redirect()->route('convidar_artista', $idEvento);
     }
 
     public function abrirCadastro(Request $request){
@@ -44,12 +46,13 @@ class EventoController extends Controller
         $evento = Evento::findOrFail($id);
         $rs = Evento::where('eventos.id', $id)
         ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id')
+            ->where('artistas_eventos.resposta', '2')
         ->join('artistas','artistas_eventos.artista_id', 'artistas.id')
         ->select('artistas.nome as artista', 'artistas.id as artista_id')
         ->get();
 
         $lineup = "Lineup: ";
-       
+
         /*foreach($rs as $linha){
             if($linha->artista_id === $rs[0]->artista_id){
                 $lineup = $lineup.' '.$linha->nome;
@@ -59,7 +62,7 @@ class EventoController extends Controller
         }*/
 
         return view('evento.perfil', compact('evento', 'rs'));
-    } 
+    }
 
     public function abrirConvite($id){
         $evento = Evento::findOrFail($id);
@@ -72,18 +75,14 @@ class EventoController extends Controller
     }
 
     public function solicitarEvento($idArtista, $idEspaco, Request $request){
-    
-        $data = $request->dataSolicitada;
-        $dt = explode('/', $data);
-        $data = $dt[2].'-'.$dt[1].'-'.$dt[0];
 
        $solicitacao = new Solicitacao();
        $solicitacao->artista_id = Artista::where('user_id', $idArtista)->first()->id;
        $solicitacao->espaco_id =$idEspaco;
-       $solicitacao->data = $data;
+       $solicitacao->data = $request->dataSolicitada;;
        $solicitacao->resposta = 0; //enviada pelo artista
        $solicitacao->save();
-    
+
        $espaco = Espaco::findOrFail($idEspaco);
        return view('evento.agenda', compact('espaco'));
     }

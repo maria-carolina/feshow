@@ -29,7 +29,7 @@ Route::get('/listarGeneros', function(){
 })->name('api.listarGeneros');
 
 
-Route::get('/pesquisarArtista/{nome}', function($nome){
+Route::get('/pesquisarArtista/{nome}/{idEvento}', function($nome, $idEvento){
 
     $resultado = Artista::where('artistas.nome', urldecode($nome))
     ->join('artistas_generos', 'artistas.id', '=', 'artistas_generos.artista_id')
@@ -37,21 +37,39 @@ Route::get('/pesquisarArtista/{nome}', function($nome){
     ->select('artistas.*', 'generos.nome as genero')
     ->get();
 
+    
+    $cont = 0;
+    foreach($resultado as $linha){
+        $jaExiste = ArtistasEvento::where([['evento_id', $idEvento], 
+            ['artista_id', $linha->id]])->get();
+            
+        if($jaExiste->first()){
+            unset($resultado[$cont]);
+        }
+        $cont++;
+    }
 
     return Response::json($resultado);
 })->name('api.pesquisarArtista');
 
 Route::get('/enviarconvite/{idEvento}/{idArtista}/{status}', function($idEvento, $idArtista, $status){
-    $artistaevento = new ArtistasEvento();
-    $artistaevento->evento_id = $idEvento;
-    $artistaevento->artista_id = $idArtista;
-    $artistaevento->resposta = $status; //0-aguardando resposta do espaço, 1-aguardando resposta do artista
-    $artistaevento->save();
-    return Response::json('ok');
+    $jaExiste = ArtistasEvento::where([['evento_id', $idEvento],
+        ['artista_id', $idArtista]])->get();
+
+    if(!$jaExiste->first()){
+        $artistaevento = new ArtistasEvento();
+        $artistaevento->evento_id = $idEvento;
+        $artistaevento->artista_id = $idArtista;
+        $artistaevento->resposta = $status; //0-aguardando resposta do espaço, 1-aguardando resposta do artista
+        $artistaevento->save();
+        $salvo = 1;
+    }else{
+        $salvo = 0;
+    }
+    return Response::json($salvo);
 })->name('api.enviarconvite');
 
 Route::get('/responderConvite/{idEvento}/{idArtista}/{resposta}', function($idEvento, $idArtista, $resposta){
-    //('oi');
     $artistaevento = ArtistasEvento::where([['evento_id', $idEvento],
         ['artista_id', $idArtista]])->first();
 
@@ -71,6 +89,14 @@ Route::get('/acharIdArtista/{idUser}', function($idUser){
     return Response::json($artista);
 })->name('api.acharIdArtista');
 
+
+Route::get('/listareventos/{id}', function($id){
+    $eventos = Evento::where('espaco_id', $id)
+        ->get();
+
+    return Response::json($eventos);
+})->name('api.listareventos');
+
 Route::get('/agenda/{idEspaco}', function($idEspaco){
     $eventos = Evento::where('espaco_id', $idEspaco)->get();
     foreach($eventos as $evento)
@@ -84,3 +110,35 @@ Route::get('/agenda/{idEspaco}', function($idEspaco){
     }
     return  Response::json($data);
 })->name('api.agenda');
+
+Route::get('/mudarstatusevento/{idEvento}', function($idEvento){
+    $evento = Evento::findOrFail($idEvento);
+    $convites = ArtistasEvento::where('evento_id', $idEvento)->get();
+    $pendentes = false;
+
+    if($evento->status == 1){
+        $evento->status = 0;
+        $evento->save();
+        $resp = "evento foi reaberto";
+    }else{
+        if($convites->first()){
+            foreach($convites as $convite){
+                if($convite->resposta != 2){
+                    $resp = "Calma! Ainda tem convites pendentes.";
+                    $pendentes = true;
+                    break;
+                }
+            }
+        }else{
+            $resp = "Não tem nenhum artista no line-up :(";
+        }
+
+        if(!$pendentes){
+            $evento->status = 1;
+            $evento->save();
+            $resp = "Fechado!";
+        }
+    }
+
+    return Response::json($resp);
+})->name('api.mudarstatusevento');

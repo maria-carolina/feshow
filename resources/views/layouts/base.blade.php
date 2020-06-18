@@ -89,15 +89,6 @@ The above copyright notice and this permission notice shall be included in all c
 
         }
 
-        div.caixaArtista button#yes{
-            right: 55%;
-        }
-
-        div.caixaArtista button#no{
-            left: 55%;
-        }
-
-
         h2#cinza {
             color: #adad85;
             font-size: 16pt;
@@ -125,6 +116,7 @@ The above copyright notice and this permission notice shall be included in all c
             right: 0px;
             top: 0px;
         }
+        
         ul#data_horario li {
             font-size: 20pt;
         }

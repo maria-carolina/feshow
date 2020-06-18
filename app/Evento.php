@@ -16,6 +16,7 @@ class Evento extends Model
         'hora_fim',
         'data_inicio',
         'data_fim',
+        'status',
         'espaco_id'
     ];
 
