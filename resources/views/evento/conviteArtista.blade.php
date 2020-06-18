@@ -7,9 +7,10 @@
     <form>
         <input type="text" name="txtArtista" id="">
         <button type="button" name="txtAddArtista">OK</button>
-        
+
     </form>
 
+@endsection
 
 @section('scripts_adicionais')
     <script>
@@ -25,12 +26,12 @@
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/pesquisarArtista/${inputArtista.value}/${idEvento}`);
             xhr.send(null);
-            
+
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
                     var resposta = JSON.parse(xhr.responseText);
                     var generosStrings = [];
-                    
+
                     let ids = [];
                     let resultados = [];
                     resposta.forEach(linha =>{
@@ -43,8 +44,8 @@
                         ids.push(linha.id);
                     });
 
-                    
-                    
+
+
 
                     resultados.forEach(linha => {
 
@@ -62,7 +63,7 @@
                         btnYes.appendChild(document.createTextNode('Confirmar'));
                         btnYes.id = "yes";
                         btnYes.setAttribute('class', 'btn btn-primary');
-                        
+
                         var link = document.createElement('a');
                         link.href = `/artista/perfil/${linha.id}`;
                         link.appendChild(nome);
@@ -75,13 +76,13 @@
                         divArtista = document.createElement('div');
                         divArtista.setAttribute('class', 'card-body');
                         divArtista.id = linha.id;
-                    
+
 
                         divArtista.appendChild(link);
                         divArtista.appendChild(generos);
                         divArtista.appendChild(btnYes);
-                        
-                        
+
+
                         divCard = document.createElement('div');
                         divCard.setAttribute('class', 'card');
                         divCard.appendChild(divArtista);
@@ -107,9 +108,7 @@
             }
         }
 
-        
+
 
     </script>
-@endsection
-
 @endsection

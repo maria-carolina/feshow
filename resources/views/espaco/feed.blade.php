@@ -53,7 +53,7 @@
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    
+
                     while (sel.firstChild){
                         sel.removeChild(sel.lastChild);
                     }
@@ -69,7 +69,7 @@
         }
         function convidar(){
             let idEvento = sel.options[sel.selectedIndex].value;
-            
+
             button = document.getElementById('convidar');
             let xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}/1`);
@@ -83,7 +83,7 @@
                 }
             }
         }
-        
+
     </script>
 @endsection
 @endsection

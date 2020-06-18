@@ -60,15 +60,9 @@ use App\Espaco;
                     {{--                </li>--}}
                     @if(isset(Auth::user()->id))
                         <li class="nav-item">
-                            @if(Auth::user()->tipo_usuario == 1)
-                                <a class="nav-link" href="{{route('perfil_artista', Artista::where('user_id', Auth::user()->id)->first()->id)}}" >
+                                <a class="nav-link" href="{{route('home')}}" >
                                     Área do artista <i class="fa fa-home"></i>
                                 </a>
-                            @else
-                                <a class="nav-link" href="{{route('perfil_espaco', Espaco::where('user_id', Auth::user()->id)->first()->id)}}" >
-                                    Área do espaço <i class="fa fa-home"></i>
-                                </a>
-                            @endif
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"

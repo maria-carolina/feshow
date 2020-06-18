@@ -14,4 +14,3 @@
         Route::post('solicitar/{idArtista}/{idEspaco}', 'EventoController@solicitarEvento')->name('solicitar_evento');
 
     });
-    

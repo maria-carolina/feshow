@@ -17,4 +17,7 @@ class Solicitacao extends Model
         'resposta'
     ];
 
+    public function artista(){
+        return $this->hasMany(Artista::class);
+    }
 }

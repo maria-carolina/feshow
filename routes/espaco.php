@@ -11,7 +11,10 @@
 
         Route::get('/convites/{id}', 'EspacoController@abrirConvites')->name('abrir_convites');
 
-        Route::get('/feed/{id}', 'EspacoController@abrirFeed')->name('abrir_feed');
+        Route::get('/feed/{id}', 'EspacoController@abrirFeed')->name('feed_espaco');
+
+        Route::get('/solicitacoes/', 'EspacoController@verSolicitacoes')->name('solicitacao_espaco');
+
     });
 
 

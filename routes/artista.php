@@ -14,6 +14,6 @@
 
         Route::get('/convites/{id}', 'ArtistaController@abrirConvites')->name('abrir_convites');
 
-        Route::get('/feed/{id}', 'ArtistaController@abrirFeed')->name('abrir_feed');
+        Route::get('/feed/{id}', 'ArtistaController@abrirFeed')->name('feed_artista');
 
     });

@@ -8,6 +8,7 @@ use App\Evento;
 use App\EspacosGenero;
 use App\Endereco;
 use App\Genero;
+use App\Solicitacao;
 use App\User;
 use App\ArtistasEvento;
 use Illuminate\Http\Request;
@@ -129,7 +130,7 @@ class EspacoController extends Controller
     public function abrirFeed($id){
         $endereco = Endereco::where('espaco_id', $id)->first();
         $idEspaco = $id;
-        
+
         $artistas = Artista::where('cidade', $endereco->cidade)
             ->join('artistas_generos', 'artistas_generos.artista_id', 'artistas.id')
             ->join('generos', 'generos.id', 'artistas_generos.genero_id')
@@ -140,19 +141,29 @@ class EspacoController extends Controller
             ->join('generos', 'generos.id', 'espacos_generos.genero_id')
             ->select('generos.id as genero_id', 'generos.nome as genero')
             ->get();
-  
-        foreach($artistas as $artista){  
+
+        foreach($artistas as $artista){
             foreach($gens as $gen){
                 if($gen->genero_id == $artista->genero_id){
                     $feed[$artista->id] = $artista;
                 }
             }
         }
-        
+
         return view('espaco.feed', compact('feed', 'idEspaco'));
     }
 
-
+   public function verSolicitacoes(){
+        $idEspaco = Espaco::where('user_id', Auth::user()->id)->first()->id;
+        $solicitacoes = Artista::join('solicitacoes', 'solicitacoes.artista_id', 'artistas.id', '')
+            ->where([
+               ['solicitacoes.espaco_id', $idEspaco],
+               ['solicitacoes.resposta', 0]
+           ])
+           ->orderBy('solicitacoes.data', 'asc')
+           ->get();
+        return view('espaco.solicitacoes', compact('solicitacoes'));
+   }
 
 
 }
