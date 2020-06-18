@@ -46,6 +46,7 @@ class EventoController extends Controller
         $evento = Evento::findOrFail($id);
         $rs = Evento::where('eventos.id', $id)
         ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id')
+            ->where('artistas_eventos.resposta', '2')
         ->join('artistas','artistas_eventos.artista_id', 'artistas.id')
         ->select('artistas.nome as artista', 'artistas.id as artista_id')
         ->get();

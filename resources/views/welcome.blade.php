@@ -9,7 +9,7 @@ use App\Espaco;
     <style type="text/css">
         a:link{
             text-decoration:none;
-            color:purple;
+            color:#000000;
         }
 
         a:visited{

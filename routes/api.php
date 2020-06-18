@@ -110,3 +110,35 @@ Route::get('/agenda/{idEspaco}', function($idEspaco){
     }
     return  Response::json($data);
 })->name('api.agenda');
+
+Route::get('/mudarstatusevento/{idEvento}', function($idEvento){
+    $evento = Evento::findOrFail($idEvento);
+    $convites = ArtistasEvento::where('evento_id', $idEvento)->get();
+    $pendentes = false;
+
+    if($evento->status == 1){
+        $evento->status = 0;
+        $evento->save();
+        $resp = "evento foi reaberto";
+    }else{
+        if($convites->first()){
+            foreach($convites as $convite){
+                if($convite->resposta != 2){
+                    $resp = "Calma! Ainda tem convites pendentes.";
+                    $pendentes = true;
+                    break;
+                }
+            }
+        }else{
+            $resp = "Não tem nenhum artista no line-up :(";
+        }
+
+        if(!$pendentes){
+            $evento->status = 1;
+            $evento->save();
+            $resp = "Fechado!";
+        }
+    }
+
+    return Response::json($resp);
+})->name('api.mudarstatusevento');

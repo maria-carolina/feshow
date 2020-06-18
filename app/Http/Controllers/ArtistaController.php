@@ -144,6 +144,7 @@ class ArtistaController extends Controller
         $rs = Endereco::where('cidade', $artista->cidade)
             ->join('espacos', 'enderecos.espaco_id', 'espacos.id')
             ->leftjoin('eventos', 'eventos.espaco_id', 'espacos.id')
+            ->where('eventos.status', 0)
             ->join('espacos_generos', 'espacos_generos.espaco_id', 'espacos.id')
             ->join('generos', 'espacos_generos.genero_id', 'generos.id')
             ->select('eventos.nome as evento', 'eventos.id as evento_id', 'eventos.*',

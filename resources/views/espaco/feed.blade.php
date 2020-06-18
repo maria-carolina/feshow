@@ -57,6 +57,7 @@
                     while (sel.firstChild){
                         sel.removeChild(sel.lastChild);
                     }
+                    
                     let eventos = JSON.parse(xhr.responseText);
                     eventos.forEach(evento =>{
                         let opt = document.createElement('option');
@@ -67,6 +68,7 @@
                 }
             }
         }
+
         function convidar(){
             let idEvento = sel.options[sel.selectedIndex].value;
 
