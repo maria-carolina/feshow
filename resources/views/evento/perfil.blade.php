@@ -9,15 +9,18 @@
     href="/artista/perfil/{{ $evento->espaco->id }}">{{ $evento->espaco->nome}}</a></h2>
 
     
-    <p> Line-up:
-    @foreach($rs as $linha)
-        @if($rs[0]->artista_id != $linha->artista_id )
-            ,
-        @endif
-        <a href="/artista/perfil/{{ $linha->artista_id }}">{{ $linha->artista }}</a>
-    @endforeach
-    </p>
     <p>{{ $evento->descricao}}</p>
+
+    <h3> Line-up: </h3>
+    <ul class="list-group">
+    @foreach($rs as $linha)
+        <li class="list-group-item">
+        <a href="/artista/perfil/{{ $linha->artista_id }}">{{ $linha->artista }}</a>
+        </li>
+    @endforeach
+   </ul>
+
+
     <ul id="data_horario">
         <li>{{ date('d/m/Y', strtotime($evento->data_inicio)) }} </li>
         <li>{{ date('H:i', strtotime($evento->hora_inicio)) }} - 
