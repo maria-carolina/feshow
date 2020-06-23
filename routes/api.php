@@ -83,6 +83,14 @@ Route::get('/responderConvite/{idEvento}/{idArtista}/{resposta}', function($idEv
 })->name('api.responderConvite');
 
 
+Route::get('/deletarConvite/{idEvento}/{idArtista}', function($idEvento, $idArtista){
+    $artistaevento = ArtistasEvento::where([['evento_id', $idEvento],
+        ['artista_id', $idArtista]])->first();
+    $artistaevento->delete();
+    return Response::json('ok');
+})->name('api.deletarConvite');
+
+
 Route::get('/acharIdArtista/{idUser}', function($idUser){
     $artista = Artista::where('user_id', $idUser)->first();
     //dd($artista);

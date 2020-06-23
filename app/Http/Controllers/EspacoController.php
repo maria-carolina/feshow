@@ -114,16 +114,29 @@ class EspacoController extends Controller
     public function abrirConvites($id){
         $convites = Evento::where('espaco_id', $id)
             ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id')
-              ->where('artistas_eventos.resposta', 0)
             ->join('artistas', 'artistas_eventos.artista_id', 'artistas.id')
-            ->select('eventos.nome as evento', 'artistas.nome as artista',
-                'artistas.id as artista_id', 'eventos.id as evento_id')
+            ->select('eventos.nome as evento', 'artistas.nome as artista', 
+                'artistas_eventos.resposta as resp', 'artistas.id as artista_id', 
+                'eventos.id as evento_id')
             ->get();
 
-        $espaco_id = $id;
+        
 
-        //dd($convites);
-        return view('espaco.convites', compact('convites', 'espaco_id'));
+        $convites_recebidos = array();    
+        $convites_enviados = array();
+
+        foreach($convites as $convite){
+            if($convite->resp == 0){
+                array_push($convites_recebidos,  $convite);
+            }else{
+                array_push($convites_enviados, $convite);
+            }
+        }
+
+        $espaco_id = $id;
+        
+        return view('espaco.convites', 
+        compact('convites_recebidos', 'convites_enviados','espaco_id'));
     }
 
 

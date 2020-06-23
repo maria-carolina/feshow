@@ -1,18 +1,44 @@
 @extends('layouts.index')
 
 @section('container')
-    @foreach($convites as $convite)
-        <div class="caixaArtista">
-            <a href="/artista/perfil{{ $convite->artista_id }}">{{ $convite->artista }}</a> 
-            &nbsp; quer tocar no &nbsp;
-            <a href="/evento/{{ $convite->evento_id }}"> {{ $convite->evento}}</a>
-            <button id='yes' onclick="responder(true)"> Aceitar </button>
-            <button id='no' onclick="responder(false)"> Rejeitar </button>
-            <input type="hidden" name="art" value="{{ $convite->artista_id}}">
-            <input type="hidden" name="evt" value="{{ $convite->evento_id }}">
-        </div>
-    @endforeach
-    
+<h2>Convites Recebidos:</h2>
+    @if(isset($convites_recebidos))
+        @foreach($convites_recebidos as $convite)
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="/artista/perfil/{{ $convite->artista_id }}">{{ $convite->artista }}</a> 
+                        &nbsp; quer tocar no &nbsp;
+                        <a href="/evento/{{ $convite->evento_id }}"> {{ $convite->evento}}</a>
+                    </h5>
+                    <button class="btn btn-primary" id='yes' onclick="responder(true)"> Aceitar </button>
+                    <button class="btn btn-secondary" id='no' onclick="responder(false)"> Rejeitar </button>
+                    <input type="hidden" name="art" value="{{ $convite->artista_id}}">
+                    <input type="hidden" name="evt" value="{{ $convite->evento_id }}">
+                </div>
+            </div>
+        @endforeach
+    @endif
+
+    <h2>Convites Enviados:</h2>
+    <table class="table">
+    @if(isset($convites_enviados))
+        @foreach($convites_enviados as $key => $convite)
+            <tr scope="row" id="{{$key}}">
+                <td>
+                    <h5 class='card-title'>
+                    Você convidou <a href="/artista/perfil/{{ $convite->artista_id }}">{{ $convite->artista}}<a> 
+                    para o <a href="/evento/{{ $convite->evento_id}}">{{ $convite->evento}}<a>
+                    </h5>
+                </td>
+                <td>
+                    <button class="btn btn-secondary" 
+                    onclick="cancelar({{ $convite->artista_id}}, {{ $convite->evento_id }}, {{$key}})">Cancelar</button>
+                </td>
+            </tr>
+        @endforeach
+    @endif
+    </table>
 @section('scripts_adicionais')
     <script>
         function responder(resp){
@@ -32,6 +58,20 @@
                     alert('resposta enviada');
                 }
             }
+        }
+
+        function cancelar(artista, evento, idRow){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://localhost:8000/api/deletarConvite/${evento}/${artista}`);
+            xhr.send(null);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4){
+                    alert('Convite cancelado');
+                    var row = document.getElementById(idRow);
+                    row.parentNode.removeChild(row);
+                }
+            }
+
         }
     </script>
 @endsection

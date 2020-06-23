@@ -126,15 +126,28 @@ class ArtistaController extends Controller
 
     public function abrirConvites($id){
         $convites = ArtistasEvento::where('artista_id', $id)
-            ->where('resposta', 1)
+            ->where('artistas_eventos.resposta', '<', 2)
             ->join('eventos', 'artistas_eventos.evento_id', 'eventos.id')
             ->join('espacos', 'eventos.espaco_id', 'espacos.id')
-            ->select('artistas_eventos.evento_id as evento_id', 'espacos.id as espaco_id',
-                'eventos.nome as evento', 'espacos.nome as espaco')
+            ->select('artistas_eventos.evento_id as evento_id', 'artistas_eventos.resposta as resp',
+                'espacos.id as espaco_id','eventos.nome as evento', 'espacos.nome as espaco')
             ->get();
+        
+        $convites_recebidos = array();    
+        $convites_enviados = array();
+
+        foreach($convites as $convite){
+            if($convite->resp == 1){
+                array_push($convites_recebidos,  $convite);
+            }else{
+                array_push($convites_enviados, $convite);
+            }
+        }
+    
         $artista_id = $id;
 
-        return view('artista.convites', compact('convites', 'artista_id'));
+        return view('artista.convites', 
+        compact('convites_recebidos', 'convites_enviados', 'artista_id'));
     }
 
     public function abrirFeed($id){
@@ -158,15 +171,14 @@ class ArtistaController extends Controller
             ->select('generos.id as genero_id', 'generos.nome as genero')
             ->get();
 
-      
-        foreach($rs as $linha){
+        foreach($rs as $key => $linha){
             foreach($gens as $gen){
                 if($gen->genero_id == $linha->genero_id){
-                    $feed[$linha->espaco_id] = $linha;
+                    $feed[$key] = $linha;
                 }
             }
         }
-       
+
         return view('artista.feed', compact('feed', 'idArtista'));
     }
 
