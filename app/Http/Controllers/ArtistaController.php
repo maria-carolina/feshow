@@ -171,15 +171,14 @@ class ArtistaController extends Controller
             ->select('generos.id as genero_id', 'generos.nome as genero')
             ->get();
 
-      
-        foreach($rs as $linha){
+        foreach($rs as $key => $linha){
             foreach($gens as $gen){
                 if($gen->genero_id == $linha->genero_id){
-                    $feed[$linha->espaco_id] = $linha;
+                    $feed[$key] = $linha;
                 }
             }
         }
-       
+
         return view('artista.feed', compact('feed', 'idArtista'));
     }
 

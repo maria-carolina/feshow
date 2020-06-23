@@ -59,7 +59,7 @@
             </div>
 
     @if(Auth::user()->tipo_usuario == 1)
-        <button onclick="enviarConvite()">Solicitar partipação</button>
+        <button class="btn btn-outline-primary" onclick="enviarConvite()">Solicitar partipação</button>
     @endif
     @else
     <h1>{{ $evento->nome }}</h1>
@@ -92,6 +92,11 @@
                     var xhr2 = new XMLHttpRequest();
                     xhr2.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}/0`);
                     xhr2.send(null);
+                    xhr.onreadystatechange = () => {
+                        if(xhr.readyState === 4){
+                            alert('Solicitação enviada!')
+                        }
+                    }
 
                 }
             }
