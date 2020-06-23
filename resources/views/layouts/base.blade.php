@@ -116,7 +116,7 @@ The above copyright notice and this permission notice shall be included in all c
             right: 0px;
             top: 0px;
         }
-        
+
         ul#data_horario li {
             font-size: 20pt;
         }
@@ -211,6 +211,8 @@ The above copyright notice and this permission notice shall be included in all c
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @yield('scripts_adicionais')
 </body>

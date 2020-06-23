@@ -21,6 +21,7 @@ class ComposerStaticInit3da6a396ce72f860a1172c5b5bc5e190
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        'a806c12c6e24e7e4e900847766218dba' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -36,6 +37,10 @@ class ComposerStaticInit3da6a396ce72f860a1172c5b5bc5e190
         array (
             'Whoops\\' => 7,
             'Webmozart\\Assert\\' => 17,
+        ),
+        'U' => 
+        array (
+            'UxWeb\\SweetAlert\\' => 17,
         ),
         'T' => 
         array (
@@ -155,6 +160,10 @@ class ComposerStaticInit3da6a396ce72f860a1172c5b5bc5e190
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'UxWeb\\SweetAlert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert',
         ),
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
@@ -416,6 +425,7 @@ class ComposerStaticInit3da6a396ce72f860a1172c5b5bc5e190
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Solicitacao' => __DIR__ . '/../..' . '/app/Solicitacao.php',
         'App\\TbTeste' => __DIR__ . '/../..' . '/app/TbTeste.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
@@ -3935,6 +3945,12 @@ class ComposerStaticInit3da6a396ce72f860a1172c5b5bc5e190
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'UxWeb\\SweetAlert\\ConvertMessagesIntoSweetAlert' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/ConvertMessagesIntoSweetAlert.php',
+        'UxWeb\\SweetAlert\\LaravelSessionStore' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/LaravelSessionStore.php',
+        'UxWeb\\SweetAlert\\SessionStore' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/SessionStore.php',
+        'UxWeb\\SweetAlert\\SweetAlert' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/SweetAlert.php',
+        'UxWeb\\SweetAlert\\SweetAlertNotifier' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/SweetAlertNotifier.php',
+        'UxWeb\\SweetAlert\\SweetAlertServiceProvider' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/SweetAlertServiceProvider.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',
