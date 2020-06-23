@@ -75,8 +75,7 @@
                         console.log('opa')
                         divArtista = document.createElement('div');
                         divArtista.setAttribute('class', 'card-body');
-                        divArtista.id = linha.id;
-
+                        
 
                         divArtista.appendChild(link);
                         divArtista.appendChild(generos);
@@ -86,6 +85,8 @@
                         divCard = document.createElement('div');
                         divCard.setAttribute('class', 'card');
                         divCard.appendChild(divArtista);
+                        divCard.id = linha.id;
+
 
                         body.appendChild(divCard);
                     });
