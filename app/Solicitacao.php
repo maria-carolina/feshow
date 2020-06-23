@@ -11,6 +11,7 @@ class Solicitacao extends Model
     public $timestamps = false;
 
     public $fillable = [
+        'id',
         'artista_id',
         'espaco_id',
         'data',

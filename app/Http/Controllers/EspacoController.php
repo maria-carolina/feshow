@@ -115,14 +115,14 @@ class EspacoController extends Controller
         $convites = Evento::where('espaco_id', $id)
             ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id')
             ->join('artistas', 'artistas_eventos.artista_id', 'artistas.id')
-            ->select('eventos.nome as evento', 'artistas.nome as artista', 
-                'artistas_eventos.resposta as resp', 'artistas.id as artista_id', 
+            ->select('eventos.nome as evento', 'artistas.nome as artista',
+                'artistas_eventos.resposta as resp', 'artistas.id as artista_id',
                 'eventos.id as evento_id')
             ->get();
 
-        
 
-        $convites_recebidos = array();    
+
+        $convites_recebidos = array();
         $convites_enviados = array();
 
         foreach($convites as $convite){
@@ -134,8 +134,8 @@ class EspacoController extends Controller
         }
 
         $espaco_id = $id;
-        
-        return view('espaco.convites', 
+
+        return view('espaco.convites',
         compact('convites_recebidos', 'convites_enviados','espaco_id'));
     }
 
@@ -169,6 +169,7 @@ class EspacoController extends Controller
    public function verSolicitacoes(){
         $idEspaco = Espaco::where('user_id', Auth::user()->id)->first()->id;
         $solicitacoes = Artista::join('solicitacoes', 'solicitacoes.artista_id', 'artistas.id', '')
+            ->select('artistas.id as artista_id', 'artistas.nome as nome', 'solicitacoes.id as solicitacao_id', 'solicitacoes.data')
             ->where([
                ['solicitacoes.espaco_id', $idEspaco],
                ['solicitacoes.resposta', 0]

@@ -14,6 +14,7 @@ class CreateSolicitacoesTable extends Migration
     public function up()
     {
         Schema::create('solicitacoes', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
             $table->integer('artista_id');
             $table->integer('espaco_id');
             $table->date('data');
