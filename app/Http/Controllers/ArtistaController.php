@@ -152,7 +152,7 @@ class ArtistaController extends Controller
 
     public function abrirFeed($id){
         $artista = Artista::findOrFail($id);
-        $idArtista = $id;
+        $artista_id = $id;
 
         $rs = Endereco::where('cidade', $artista->cidade)
             ->join('espacos', 'enderecos.espaco_id', 'espacos.id')
@@ -174,12 +174,19 @@ class ArtistaController extends Controller
         foreach($rs as $key => $linha){
             foreach($gens as $gen){
                 if($gen->genero_id == $linha->genero_id){
+                   
+                    $convite = ArtistasEvento::where([['artista_id', $artista_id],
+                                ['evento_id', $linha->evento_id]])->first();
+                    
+                    if($convite){
+                        $linha['convite'] = $convite->resposta;
+                    }
                     $feed[$key] = $linha;
                 }
             }
         }
 
-        return view('artista.feed', compact('feed', 'idArtista'));
+        return view('artista.feed', compact('feed', 'artista_id'));
     }
 
 }
