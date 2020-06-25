@@ -51,17 +51,21 @@ class EventoController extends Controller
         ->select('artistas.nome as artista', 'artistas.id as artista_id')
         ->get();
 
-        $lineup = "Lineup: ";
+        $user = Auth::user();
 
-        /*foreach($rs as $linha){
-            if($linha->artista_id === $rs[0]->artista_id){
-                $lineup = $lineup.' '.$linha->nome;
-            }else{
-                $lineup = $lineup.', '.$linha->nome;
+        
+        if($user->tipo_usuario == 1){
+            $logado = Artista::where('user_id', $user->id)->first();
+            $convite = ArtistasEvento::where([['artista_id', $logado->id],
+            ['evento_id', $id]])->first();
+
+            if($convite){
+                $evento['convite'] = $convite->resposta;
             }
-        }*/
+        }
 
-        return view('evento.perfil', compact('evento', 'rs'));
+       
+        return view('evento.perfil', compact('evento', 'rs', 'logado'));
     }
 
     public function abrirConvite($id){

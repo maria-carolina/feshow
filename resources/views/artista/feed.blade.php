@@ -47,7 +47,15 @@
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    alert('convite enviado')
+                    alert('convite enviado');
+                    var btn = document.getElementById('convidar');
+                    var div = btn.parentNode;
+                    div.removeChild(btn);
+                    
+                    var p = document.createElement('p');
+                    p.setAttribute('class', 'card-text');
+                    p.appendChild(document.createTextNode("Espera a resposta."));
+                    div.appendChild(p);
                 }
             }
         }
@@ -76,5 +84,4 @@
         }
     </script>
 @endsection
-
 @endsection
