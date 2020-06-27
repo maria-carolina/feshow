@@ -5,9 +5,20 @@
         <h3>Evento<br>
             <small>Espaço: {{$espaco->nome}}</small>
         </h3>
+        @if(isset($artista))
+            <small> <cite>Solicitação de {{$artista->nome}}</cite> </small>
+        @endif
     </div>
 
-<form  method="post" action="{{ route('salvar_evento') }}">
+<form  method="post"
+       @if(isset($artista))
+            action="{{ route('salvar_evento_solicitacao', $solicitacao->id) }}"
+       @elseif(isset($data))
+            action="{{ route('salvar_evento') }}"
+       @else
+            action="#"
+       @endif
+       >
     {{ csrf_field() }}
     <div class="form-row mt-3">
         <div class="col">

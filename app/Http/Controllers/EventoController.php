@@ -53,7 +53,7 @@ class EventoController extends Controller
 
         $user = Auth::user();
 
-        
+
         if($user->tipo_usuario == 1){
             $logado = Artista::where('user_id', $user->id)->first();
             $convite = ArtistasEvento::where([['artista_id', $logado->id],
@@ -64,7 +64,7 @@ class EventoController extends Controller
             }
         }
 
-       
+
         return view('evento.perfil', compact('evento', 'rs', 'logado'));
     }
 
@@ -84,10 +84,50 @@ class EventoController extends Controller
        $solicitacao->artista_id = Artista::where('user_id', $idArtista)->first()->id;
        $solicitacao->espaco_id =$idEspaco;
        $solicitacao->data = $request->dataSolicitada;;
-       $solicitacao->resposta = 0; //enviada pelo artista
+       $solicitacao->resposta = 1; //enviada pelo artista
        $solicitacao->save();
 
        $espaco = Espaco::findOrFail($idEspaco);
        return view('evento.agenda', compact('espaco'));
     }
+
+    public function abrirCadastroSolicitado($idArtista, $idSolicitacao){
+        $espaco = Espaco::where('user_id', Auth::user()->id)->first();
+        $artista = Artista::findOrFail($idArtista);
+        $solicitacao = Solicitacao::findOrFail($idSolicitacao);
+        return view('evento.cadastroEvento', compact('espaco', 'artista', 'solicitacao'));
+    }
+
+    public function insertEventoSolicitado($idSolicitacao, Request $request){
+//        $this->validate($request, [
+//            // para verificar inicio nao é maior que fim
+//            'txtDataInicio' => 'required|date|after_or_equal:txtDataFim'
+//        ]);
+
+            $evento = new Evento();
+
+            $evento->nome = $request->txtNome;
+            $evento->descricao = $request->txtDescricao;
+            $evento->hora_inicio = $request->txtHorarioInicio;
+            $evento->hora_fim = $request->txtHorarioFim;
+            $evento->data_inicio = $request->txtDataInicio;
+            $evento->data_fim = $request->txtDataFim;
+            $evento->status = 0;
+            $evento->espaco_id = Espaco::where('user_id', Auth::user()->id)->first()->id; ///QND TIVER LOGIN, MUDAR PRO ID DO ESPAÇO LOGADO
+            $evento->save();
+            $idEvento = $evento->id;
+
+
+            $solicitacao = Solicitacao::findOrFail($idSolicitacao);
+            $solicitacao->resposta = 2; //solicitacao aceita
+
+            $artistaevento = new ArtistasEvento();
+            $artistaevento->evento_id = $idEvento;
+            $artistaevento->artista_id = $solicitacao->artista_id;
+            $artistaevento->resposta = 1; //1-aguardando resposta do artista
+            $artistaevento->save();
+
+
+            return redirect()->route('home' return view('artista.feed', compact('feed', 'artista_id')););
+        }
 }

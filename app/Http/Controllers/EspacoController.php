@@ -172,7 +172,7 @@ class EspacoController extends Controller
             ->select('artistas.id as artista_id', 'artistas.nome as nome', 'solicitacoes.id as solicitacao_id', 'solicitacoes.data')
             ->where([
                ['solicitacoes.espaco_id', $idEspaco],
-               ['solicitacoes.resposta', 0]
+               ['solicitacoes.resposta', 1] //1- enviada pelo artista
            ])
            ->orderBy('solicitacoes.data', 'asc')
            ->get();
