@@ -5,8 +5,6 @@
 
         Route::post('salvar', 'EspacoController@insert')->name('salvar_casa');
 
-        Route::get('perfil/{id}', 'EspacoController@abrirPerfil')->name('abrir_perfil');
-
         Route::get('/perfil/{id}', 'EspacoController@abrirPerfil')->name('perfil_espaco');
 
         Route::get('/convites/{id}', 'EspacoController@abrirConvites')->name('abrir_convites');

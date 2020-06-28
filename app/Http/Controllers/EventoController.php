@@ -120,6 +120,8 @@ class EventoController extends Controller
 
             $solicitacao = Solicitacao::findOrFail($idSolicitacao);
             $solicitacao->resposta = 2; //solicitacao aceita
+            $solicitacao->save();
+
 
             $artistaevento = new ArtistasEvento();
             $artistaevento->evento_id = $idEvento;
@@ -128,6 +130,13 @@ class EventoController extends Controller
             $artistaevento->save();
 
 
-            return redirect()->route('home' return view('artista.feed', compact('feed', 'artista_id')););
+            return redirect()->route('abrir_perfil', $idEvento);
         }
+
+    public function deleteEventoSolicitado($idSolicitacao){
+
+        $solicitacao = Solicitacao::findOrFail($idSolicitacao);
+        $solicitacao->delete();
+        return redirect()->route('solicitacao_espaco');
+    }
 }
