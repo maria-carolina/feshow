@@ -82,7 +82,7 @@
         var idEvento = {{ $evento->id }};
 
         function enviarConvite(){
-            let idUser = {{ Auth::user()->id }}
+            let idUser = {{ Auth::user()->id }};
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/acharIdArtista/${idUser}`);
             xhr.send(null);

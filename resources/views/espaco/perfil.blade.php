@@ -16,9 +16,7 @@
             <li> {{ $endereco->logradouro }} , {{ $endereco->numero }}</li>
             <li>{{ $endereco->bairro }} </li>
             <li>{{ $endereco->cidade }}</li>
-            @if(isset($genero))
-            <li>Genero: {{ $genero->nome }}</li>
-            @endif
+            
         </ul>
 
         @if(Auth::user()->tipo_usuario == 1)

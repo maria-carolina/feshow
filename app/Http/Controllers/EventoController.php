@@ -62,6 +62,8 @@ class EventoController extends Controller
             if($convite){
                 $evento['convite'] = $convite->resposta;
             }
+        }else{
+            $logado = Espaco::where('user_id', $user->id)->first();
         }
 
 
