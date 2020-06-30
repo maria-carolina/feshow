@@ -65,16 +65,55 @@ class ArtistaController extends Controller
 
     public function update(Request $request, $id){
         $artista = Artista::findOrFail($id);
-        $artista->nome = $request->txtNome;
-        $artista->email = $request->txtEmail;
-        $artista->quantidade_membros = $request->txtQtd;
-        $artista->telefone = $request->txtTelefone;
-        $artista->cidade = $request->txtCidade;
-        $artista->link = $request->txtLink;
-        $artista->genero_id = $request->cmbGenero;
+        $user = User::findorFail($artista->user_id);
+        $user->email = $request->txtEmail;
+        $user->name = $request->txtLogin;
 
-        $artista->save();
+        if($user->save()){
+            $artista->nome = $request->txtNome;
+            $artista->quantidade_membros = $request->txtQtd;
+            $artista->telefone = $request->txtTelefone;
+            $artista->cidade = $request->txtCidade;
+            $artista->link = $request->txtLink;
+            
+            if($artista->save()){
+                if($request->cmbGenero_1 > 0){
+                    $artista_genero = ArtistasGenero::where([['artista_id', $artista->id],
+                        ['genero_id', $request->cmbGenero_1]])->first();
+                    
+                    if(!$artista_genero){
+                        $artista_genero = new ArtistasGenero();
+                        $artista_genero->artista_id = $artista->id;
+                        $artista_genero->genero_id = $request->cmbGenero_1;
+                        $artista_genero->save();
+                    }
+                }
 
+                if($request->cmbGenero_2 > 0){
+                    $artista_genero = ArtistasGenero::where([['artista_id', $artista->id],
+                        ['genero_id', $request->cmbGenero_2]])->first();
+                    
+                    if(!$artista_genero){
+                        $artista_genero = new ArtistasGenero();
+                        $artista_genero->artista_id = $artista->id;
+                        $artista_genero->genero_id = $request->cmbGenero_2;
+                        $artista_genero->save();
+                    }
+                }
+
+                if($request->cmbGenero_3 > 0){
+                    $artista_genero = ArtistasGenero::where([['artista_id', $artista->id],
+                        ['genero_id', $request->cmbGenero_3]])->first();
+                    
+                    if(!$artista_genero){
+                        $artista_genero = new ArtistasGenero();
+                        $artista_genero->artista_id = $artista->id;
+                        $artista_genero->genero_id = $request->cmbGenero_3;
+                        $artista_genero->save();
+                    }
+                }
+            }
+        }
         return view ('welcome');
 
     }
@@ -93,8 +132,7 @@ class ArtistaController extends Controller
     }
 
     public function abrirCadastro(){
-        $generoController = new GeneroController();
-        $generos = $generoController->buscarTodos();
+        
         return view('artista.cadastroArtista', compact('generos'));
     }
 
@@ -118,9 +156,16 @@ class ArtistaController extends Controller
 
     public function abrirEdicao($id){
         $artista = Artista::findOrFail($id);
-        $generoController = new GeneroController();
-        $generos = $generoController->buscarTodos();
-        return view('artista.cadastroArtista', compact('artista','generos'));
+        $artista['user'] = User::findOrFail($artista->user_id);
+
+        $artista['generos'] = ArtistasGenero::where('artista_id', $id)
+            ->join('generos', 'generos.id', 'artistas_generos.genero_id')
+            ->get();
+
+      
+        $generos = Genero::all();
+
+        return view('artista.cadastroArtista', compact('artista', 'generos'));
 
     }
 
