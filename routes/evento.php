@@ -5,8 +5,12 @@
 
         Route::post('salvar', 'EventoController@insert')->name('salvar_evento');
 
-        Route::get('convite/{id}', 'EventoController@abrirConvite')->name('convidar_artista');
+        Route::post('alterar/{id}', 'EventoController@update')->name('alterar_evento');
 
+        Route::get('editar/{id}', 'EventoController@abrirEdicao')->name('abrir_edicao');
+       
+        Route::get('convite/{id}', 'EventoController@abrirConvite')->name('convidar_artista');
+        
         Route::get('{id}', 'EventoController@abrirPerfil')->name('abrir_perfil');
 
         Route::get('agenda/{id}', 'EventoController@agenda')->name('agenda');

@@ -2,7 +2,8 @@
 
 @section('container')
 
-<form method="post" action="{{ route('salvar_casa') }}">
+<form method="post" action="{{ isset($espaco)?
+            route('alterar_espaco', ['id' =>$espaco->id]) : route('salvar_casa') }}">
     {{ csrf_field() }}
     <div class="mb-3 mt-4">
         <h5>Dados do espaço</h5>
@@ -11,12 +12,14 @@
     <div class="form-row">
         <div class="col">
             <label for="nome">Qual o nome da sua casa?</label>
-            <input type="text" id="nome" name="txtNome" class="form-control" required/>
+            <input type="text" id="nome" name="txtNome" class="form-control" 
+                value="{{isset($espaco) ? $espaco->nome : ""}}" required/>
         </div>
 
         <div class="col">
             <label for="telefone">Telefone:</label>
-            <input type="tel" id="telefone" name="txtTelefone" class="form-control"/>
+            <input type="tel" id="telefone" name="txtTelefone" class="form-control"
+                value="{{isset($espaco) ? $espaco->telefone : ""}}"   />
         </div>
 
     </div>
@@ -26,8 +29,14 @@
             <label for="generos1">Informe o gênero:</label>
             <select id="generos1" name="cmbGenero_1" class="form-control" required
             onchange="validarGenero(1)">
-
-
+            <option>Escolhar uma opção</option>
+                @foreach($generos as $genero)
+                    <option value="{{ $genero->id }}"
+                    @if(isset($espaco->generos[0]) && $espaco->generos[0]->id == $genero->id)
+                        selected
+                    @endif
+                    > {{ $genero->nome}}</option>
+                @endforeach
             </select>
         </div>
 
@@ -35,8 +44,14 @@
             <label for="generos2">Informe o gênero:</label>
             <select id="generos2" name="cmbGenero_2" class="form-control"
             onchange="validarGenero(2)">
-
-
+            <option>Escolhar uma opção</option>
+                    @foreach($generos as $genero)
+                        <option value="{{ $genero->id }}"
+                        @if(isset($espaco->generos[1]) && $espaco->generos[1]->id == $genero->id)
+                            selected
+                        @endif
+                        > {{ $genero->nome}}</option>
+                    @endforeach
             </select>
         </div>
 
@@ -44,6 +59,14 @@
             <label for="generos3">Informe o gênero:</label>
             <select id="generos3" name="cmbGenero_3" class="form-control"
             onchange="validarGenero(3)">
+            <option>Escolhar uma opção</option>
+                    @foreach($generos as $genero)
+                        <option value="{{ $genero->id }}"
+                        @if(isset($espaco->generos[2]) && $espaco->generos[2]->id == $genero->id)
+                            selected
+                        @endif
+                        > {{ $genero->nome}}</option>
+                    @endforeach
 
 
             </select>
@@ -58,7 +81,8 @@
     <div class="row align-items-end">
         <div class="col-6">
             <label for="cep">CEP:</label>
-            <input type="text" class="form-control" onkeypress="mask(this, '#####-###')" maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
+            <input type="text" class="form-control" onkeypress="mask(this, '#####-###')" 
+                maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
         </div>
         <div class="col-3">
             <button class="btn btn-dark">Carregar endereço</button>
@@ -99,11 +123,13 @@
     <div class="form-row mt-3">
         <div class="col">
             <label for="login">Escolha um username para poder logar na plataforma</label>
-            <input type="text" id="login" name="txtLogin" class="form-control" required/>
+            <input type="text" id="login" name="txtLogin" class="form-control" 
+            value="{{isset($espaco) ? $espaco->user->name : ""}}" required/>
         </div>
         <div class="col">
             <label for="email">E-mail:</label>
-            <input type="email" id="email" name="txtEmail" class="form-control" required/>
+            <input type="email" id="email" name="txtEmail" class="form-control" 
+                value="{{isset($espaco) ? $espaco->user->email : ""}}" required/>
         </div>
     </div>
 
@@ -130,16 +156,17 @@
 
 @section('scripts_adicionais')
         <script>
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/api/listarGeneros/');
-            xhr.send(null);
-
-            const body = document.getElementsByTagName('body')[0]
+           
 
 
             const dropdownsGeral = Array.from(document.getElementsByTagName('select'));
             const dropdowns = dropdownsGeral.filter(campo => campo.name.split("_")[0] == "cmbGenero")
 
+            /*var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/api/listarGeneros/');
+            xhr.send(null);
+
+            const body = document.getElementsByTagName('body')[0]
             body.onload = () => {
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4){
@@ -158,7 +185,7 @@
                         });
                     }
                 }
-            }
+            }*/
 
             function validarGenero(index){
                 var campoSelecionado = document.querySelector(`select[name=cmbGenero_${index}`);

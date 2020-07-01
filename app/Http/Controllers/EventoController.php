@@ -35,11 +35,32 @@ class EventoController extends Controller
         return redirect()->route('convidar_artista', $idEvento);
     }
 
+    public function update(Request $request, $id){
+        $evento = Evento::findOrFail($id);
+        $evento->nome = $request->txtNome;
+        $evento->descricao = $request->txtDescricao;
+        $evento->data_inicio = $request->txtDataInicio;
+        $evento->data_fim = $request->txtDataFim;
+        $evento->hora_inicio = $request->txtHorarioInicio;
+        $evento->hora_fim = $request->txtHorarioFim;
+
+        $evento->save();
+        return view('welcome');
+    }
+
     public function abrirCadastro(Request $request){
         $espaco = Espaco::where('user_id', Auth::user()->id)->first();
         $data = $request->data;
         //date('d/m/Y', strtotime($data));
         return view('evento.cadastroEvento', compact('espaco', 'data'));
+    }
+
+    public function abrirEdicao(Request $request, $id){
+        $evento = Evento::findOrFail($id);
+        $espaco = Espaco::findOrFail($evento->espaco_id);
+
+        
+        return view('evento.cadastroEvento', compact('evento', 'espaco'));
     }
 
     public function abrirPerfil($id){

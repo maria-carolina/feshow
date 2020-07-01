@@ -84,6 +84,70 @@ class EspacoController extends Controller
 
     }
 
+    public function update(Request $request, $id){
+        $espaco = Espaco::findOrFail($id);
+        $user = User::findorFail($espaco->user_id);
+        $user->email = $request->txtEmail;
+        $user->name = $request->txtLogin;
+
+        if($user->save()){
+            $espaco->nome = $request->txtNome;
+            $espaco->telefone = $request->txtTelefone;
+            
+            if($espaco->save()){
+                if($request->cmbGenero_1 > 0){
+                    $espaco_genero = EspacosGenero::where([['espaco_id', $espaco->id],
+                        ['genero_id', $request->cmbGenero_1]])->first();
+                    
+                    if(!$espaco_genero){
+                        $espaco_genero = new EspacosGenero();
+                        $espaco_genero->espaco_id = $espaco->id;
+                        $espaco_genero->genero_id = $request->cmbGenero_1;
+                        $espaco_genero->save();
+                    }
+                }
+
+                if($request->cmbGenero_2 > 0){
+                    $espaco_genero = EspacosGenero::where([['espaco_id', $espaco->id],
+                        ['genero_id', $request->cmbGenero_2]])->first();
+                    
+                    if(!$espaco_genero){
+                        $espaco_genero = new EspacosGenero();
+                        $espaco_genero->espaco_id = $espaco->id;
+                        $espaco_genero->genero_id = $request->cmbGenero_2;
+                        $espaco_genero->save();
+                    }
+                }
+
+                if($request->cmbGenero_3 > 0){
+                    $espaco_genero = EspacosGenero::where([['espaco_id', $espaco->id],
+                        ['genero_id', $request->cmbGenero_3]])->first();
+                    
+                    if(!$espaco_genero){
+                        $espaco_genero = new EspacosGenero();
+                        $espaco_genero->espaco_id = $espaco->id;
+                        $espaco_genero->genero_id = $request->cmbGenero_3;
+                        $espaco_genero->save();
+                    }
+                }
+            }
+        }
+
+        return view ('welcome');
+    }
+
+    public function abrirEdicao($id){
+        $espaco = Espaco::findOrFail($id);
+        $espaco['user'] = User::findOrFail($espaco->user_id);
+        $espaco['generos'] = EspacosGenero::where('espaco_id', $id)
+            ->join('generos', 'generos.id', 'espacos_generos.genero_id')
+            ->get();
+
+        $generos = Genero::all();
+        
+        return view ('espaco.cadastroCasa', compact('espaco', 'generos'));
+    }
+
     public function abrirCadastro(){
         $generoController = new GeneroController();
         $generos = $generoController->buscarTodos();
