@@ -20,7 +20,7 @@
             <div class="col">
                 <label for="email">E-mail para contato?</label>
                 <input type="email" id="email" name="txtEmail" class="form-control"
-                       value="{{isset($artista) ? $artista->email : ""}}" required/>
+                       value="{{isset($artista) ? $artista->user->email : ""}}" required/>
             </div>
         </div>
 
@@ -35,18 +35,15 @@
             <div class="col">
                 <label for="telefone">Telefone:</label>
                 <input type="tel" id="telefone" name="txtTelefone" class="form-control"
-                       value="{{isset($artista) ? $artista->telefone : ""}}"/>
+                       value="{{isset($artista) ? $artista->telefone : ""}}" />
 
             </div>
         </div>
 
         <div class="row align-items-end mt-3 mb-3">
-            <div class="col-4">
+            <div class="col-6">
                 <label for="cep">CEP:</label>
-                <input type="text" class="form-control" onkeypress="mask(this, '#####-###')" maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
-            </div>
-            <div class="col-2">
-                <button class="btn btn-dark">Carregar cidade</button>
+                <input type="text" class="form-control"  onkeypress="mask(this, '#####-###')" maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
             </div>
             <div class="col-6">
                 <label for="cidade">Cidade: </label>
@@ -71,6 +68,14 @@
                 <label for="generos1">Informe o gênero:</label>
                 <select id="generos1" name="cmbGenero_1" class="form-control"
                         onchange="validarGenero(1)" required>
+                    <option>Escolhar uma opção</option>
+                    @foreach($generos as $genero)
+                        <option value="{{ $genero->id }}"
+                        @if(isset($artista) && $artista->generos[0]->id == $genero->id)
+                            selected
+                        @endif
+                        > {{ $genero->nome}}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -78,6 +83,14 @@
                 <label for="generos2">Informe o gênero:</label>
                 <select id="generos2" name="cmbGenero_2" class="form-control"
                         onchange="validarGenero(2)">
+                    <option>Escolhar uma opção</option>
+                    @foreach($generos as $genero)
+                        <option value="{{ $genero->id }}"
+                        @if(isset($artista->generos[1]) && $artista->generos[1]->id == $genero->id)
+                            selected
+                        @endif
+                        > {{ $genero->nome}}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -85,6 +98,14 @@
                 <label for="generos3">Informe o gênero:</label>
                 <select id="generos3" name="cmbGenero_3" class="form-control"
                         onchange="validarGenero(3)">
+                    <option>Escolhar uma opção</option>
+                    @foreach($generos as $genero)
+                    <option value="{{ $genero->id }}"
+                        @if(isset($artista->generos[2]) && $artista->generos[2]->id == $genero->id)
+                            selected
+                        @endif
+                        > {{ $genero->nome}}</option>
+                    @endforeach
                 </select>
 
             </div>
@@ -98,7 +119,8 @@
         <div class="form-row mt-3">
             <div class="col-6">
                 <label for="login">Escolha um username para poder logar na plataforma</label>
-                <input type="text" id="login" name="txtLogin" class="form-control" required/>
+                <input type="text" id="login" name="txtLogin" class="form-control"
+                value="{{isset($artista) ? $artista->user->name : ""}}" required/>
             </div>
             <div class="col-3">
                 <label for="senha">Escolhar uma senha:</label>
@@ -111,25 +133,29 @@
             </div>
         </div>
         <input type="hidden" name="txtTipo" value="1">
-        <div class="mx-auto" style="width: 200px;">
-            <button id="cadastrar" type="submit" class="btn btn-outline-dark">Salvar</button>
-        </div>
+        <div class="mx-auto mt-3" style="width: 200px;">
+            <button id="cadastrar" type="submit" class="btn btn-primary btn-lg">Salvar</button>
         </div>
     </form>
 @endsection
 
     @section('scripts_adicionais')
         <script>
-            var xhr = new XMLHttpRequest();
+            const dropdownsGeral = Array.from(document.getElementsByTagName('select'));
+            const dropdowns = dropdownsGeral.filter(campo => campo.name.split("_")[0] == "cmbGenero");
+
+            /*
+             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/listarGeneros/');
-            xhr.send(null);
+
 
             const body = document.getElementsByTagName('body')[0]
 
-            const dropdownsGeral = Array.from(document.getElementsByTagName('select'));
-            const dropdowns = dropdownsGeral.filter(campo => campo.name.split("_")[0] == "cmbGenero")
+
 
             body.onload = () => {
+                console.log('oi');
+                xhr.send(null);
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
                         const lista = JSON.parse(xhr.responseText);
@@ -147,7 +173,7 @@
                         });
                     }
                 }
-            }
+            }*/
 
             function validarGenero(index){
                 var campoSelecionado = document.querySelector(`select[name=cmbGenero_${index}`);
@@ -157,7 +183,7 @@
                     if(campo != campoSelecionado &&
                     campo.selectedIndex == generoSelecionado){
                         campoSelecionado.selectedIndex = 0;
-                        alert("Você já selecionou esse gênero, escolha outro!");
+                        swal("","Você já selecionou esse gênero, escolha outro!" , "info");
                         return;
                     }
                 })

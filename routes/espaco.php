@@ -5,7 +5,9 @@
 
         Route::post('salvar', 'EspacoController@insert')->name('salvar_casa');
 
-        Route::get('perfil/{id}', 'EspacoController@abrirPerfil')->name('abrir_perfil');
+        Route::post('alterar/{id}', 'EspacoController@update')->name('alterar_espaco');
+        
+        Route::get('editar/{id}', 'EspacoController@abrirEdicao')->name('abrir_edicao');
 
         Route::get('/perfil/{id}', 'EspacoController@abrirPerfil')->name('perfil_espaco');
 

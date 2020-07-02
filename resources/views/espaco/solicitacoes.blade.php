@@ -1,31 +1,39 @@
 @extends('layouts.index')
 
 @section('container')
-    @foreach($solicitacoes as $solicitacao)
+    @if($solicitacoes->count() > 0)
+        @foreach($solicitacoes as $solicitacao)
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $solicitacao->nome}}</a> deseja solicitar um evento para o dia {{ date('d/m/Y', strtotime($solicitacao->data)) }}</h5>
+                    <a href="#" class="btn btn-primary" onclick="responder({{$solicitacao->artista_id}}, {{$solicitacao->solicitacao_id}})">Aceitar</a>
+                    <a href="#" class="btn btn-secondary" onclick="responder(null, {{$solicitacao->solicitacao_id}})">Rejeitar</a>
+                </div>
+            </div>
+        @endforeach
+    @else
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">{{ $solicitacao->nome}}</a> deseja solicitar um evento para o dia {{ date('d/m/Y', strtotime($solicitacao->data)) }}</h5>
-                <a href="#" class="btn btn-primary" onclick="responder(true)">Aceitar</a>
-                <a href="#" class="btn btn-secondary" onclick="responder(false)">Rejeitar</a>
+                <h5 class="card-title">Não há solicitações de eventos até o momento</h5>
             </div>
         </div>
-    @endforeach
+    @endif
 @endsection
 
 @section('scripts_adicionais')
     <script>
-        function responder(resposta){
-            if(resposta == true){
+        function responder(idArtista, idSolicitacao){
+            if(idArtista != null){
                 swal({
                     title: "Confirma criação de evento?",
-                    text: "Ao confirmar você poderá criar um evento e o artista sera adicionado ao lineup",
+                    text: "Ao confirmar você poderá criar um evento e este artista será convidado para o mesmo",
                     icon: "info",
                     buttons: true,
                     showConfirmButton: true,
                 })
                     .then((willDelete) => {
                         if (willDelete) {
-                            window.open("{{route('cadastro_evento')}}", "_self");
+                            window.open("/evento/" + idArtista + "/criarSolicitacao/"+ idSolicitacao, "_self");
                         }
                     });
             } else {
@@ -37,11 +45,17 @@
                     dangerMode: true,
                 })
                     .then((willDelete) => {
-                        //quando for apagar
+                        window.open("/evento/deletar/solicitacao/"+ idSolicitacao, "_self");
                     });
             }
 
         }
 
+
+        $(document).ready(function () {
+            $("#close").click(function () {
+                $("#modalEvento").dialog('close');
+            });
+        });
     </script>
 @endsection
