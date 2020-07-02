@@ -48,10 +48,14 @@ class EventoController extends Controller
         return view('welcome');
     }
 
-    public function abrirCadastro(Request $request){
+    public function abrirCadastro(){
         $espaco = Espaco::where('user_id', Auth::user()->id)->first();
-        $data = $request->data;
-        //date('d/m/Y', strtotime($data));
+        return view('evento.cadastroEvento', compact('espaco'));
+    }
+
+    public function abrirCadastroData(Request $request){
+        $espaco = Espaco::where('user_id', Auth::user()->id)->first();
+        $data = date('Y-m-d', strtotime($request->data));
         return view('evento.cadastroEvento', compact('espaco', 'data'));
     }
 
@@ -59,7 +63,7 @@ class EventoController extends Controller
         $evento = Evento::findOrFail($id);
         $espaco = Espaco::findOrFail($evento->espaco_id);
 
-        
+
         return view('evento.cadastroEvento', compact('evento', 'espaco'));
     }
 

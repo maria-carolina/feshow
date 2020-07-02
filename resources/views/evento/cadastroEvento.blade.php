@@ -13,12 +13,10 @@
 <form method="post"
        @if(isset($artista))
             action="{{ route('salvar_evento_solicitacao', $solicitacao->id) }}"
-       @elseif(isset($data))
-            action="{{ route('salvar_evento') }}"
         @elseif(isset($evento))
             action="{{ route('alterar_evento', ['id' => $evento->id]) }}"
        @else
-            action="#"
+            action="{{ route('salvar_evento') }}"
        @endif
        >
     {{ csrf_field() }}
@@ -32,20 +30,28 @@
     <div class="form-row mt-3">
         <div class="col">
             <label for="descricao">Escreva uma descrição pro evento:</label>
-            <textarea name="txtDescricao" class="form-control" id="descricao" cols="30" rows="3" 
+            <textarea name="txtDescricao" class="form-control" id="descricao" cols="30" rows="3"
                required>{{ isset($evento) ? $evento->descricao : old('txtDescricao') }}</textarea>
         </div>
     </div>
 
     <div class="form-row mt-3">
-        <div class="col">
-            <label for="data_evento">Data do início:</label> <br>
-            <input type="date" class="form-control" name="txtDataInicio" id="data_inicio" 
-            value="{{ isset($evento) ? $evento->data_inicio : old('txtDataInicio') }}" required>
-        </div>
+        @if(isset($data)) <!--para datas vindas da agenda -->
+            <div class="col">
+                <label for="data_evento">Data do início:</label> <br>
+                <input type="date" class="form-control" name="txtDataInicio" id="data_inicio"
+                       value="{{$data}}" required>
+            </div>
+        @else
+            <div class="col">
+                <label for="data_evento">Data do início:</label> <br>
+                <input type="date" class="form-control" name="txtDataInicio" id="data_inicio"
+                       value="{{ isset($evento) ? $evento->data_inicio : old('txtDataInicio') }}" required>
+            </div>
+        @endif
         <div class="col">
             <label for="data_evento">Data do fim:</label> <br>
-            <input type="date"  class="form-control" name="txtDataFim" id="data_fim" 
+            <input type="date"  class="form-control" name="txtDataFim" id="data_fim"
             value="{{ isset($evento) ? $evento->data_fim : old('txtDataFim') }}" required>
         </div>
     </div>
@@ -53,7 +59,7 @@
     <div class="form-row mt-3">
         <div class="col">
             <label for="horario_inicio">Horário de início</label>
-            <input type="time" class="form-control" name="txtHorarioInicio" id="horario_inicio" 
+            <input type="time" class="form-control" name="txtHorarioInicio" id="horario_inicio"
             value="{{ isset($evento) ? $evento->hora_inicio : old('txtHorarioInicio') }}" required>
         </div>
         <div class="col">
