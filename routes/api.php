@@ -75,6 +75,7 @@ Route::get('/responderConvite/{idEvento}/{idArtista}/{resposta}', function($idEv
 
     if($resposta == 0){
         $artistaevento->resposta = 2;
+        
         $artistaevento->save();
     }else{
         $artistaevento->delete();
@@ -150,3 +151,10 @@ Route::get('/mudarstatusevento/{idEvento}', function($idEvento){
 
     return Response::json($resp);
 })->name('api.mudarstatusevento');
+
+Route::get('/deixarevento/{idEvento}/{idArtistas}', function($idEvento, $idArtista){
+    $artistas_eventos = ArtistasEvento::where([['artista_id', $idArtista],['evento_id', $idEvento]])->first();
+    $resp = $artistas_eventos->delete();
+    return Response::json($resp);
+})->name('api.deixarevento');
+

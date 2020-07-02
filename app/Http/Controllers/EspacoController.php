@@ -183,8 +183,6 @@ class EspacoController extends Controller
                 'eventos.id as evento_id')
             ->get();
 
-
-
         $convites_recebidos = array();
         $convites_enviados = array();
 
@@ -197,6 +195,8 @@ class EspacoController extends Controller
         }
 
         $espaco_id = $id;
+
+        dd($convites_recebidos);
 
         return view('espaco.convites',
         compact('convites_recebidos', 'convites_enviados','espaco_id'));
@@ -240,6 +240,12 @@ class EspacoController extends Controller
            ->orderBy('solicitacoes.data', 'asc')
            ->get();
         return view('espaco.solicitacoes', compact('solicitacoes'));
+   }
+
+   public function abrirEventos($id){
+        $eventos = Evento::where([['espaco_id', $id],['status', 0]])->get();
+        $espaco = Espaco::findOrFail($id);
+        return view('espaco.eventos', compact('eventos', 'espaco'));
    }
 
 

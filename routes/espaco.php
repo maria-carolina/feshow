@@ -17,6 +17,8 @@
 
         Route::get('/solicitacoes/', 'EspacoController@verSolicitacoes')->name('solicitacao_espaco');
 
+        Route::get('/eventos/{id}', 'EspacoController@abrirEventos')->name('abrir_eventos');
+
     });
 
 

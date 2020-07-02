@@ -4,6 +4,8 @@
 
 @if(isset($feed))
     <div id="feed" class="mt-5">
+    
+    
         <h2>Sugestões</h2>
         @foreach($feed as $item)
 

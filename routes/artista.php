@@ -16,4 +16,6 @@
 
         Route::get('/feed/{id}', 'ArtistaController@abrirFeed')->name('feed_artista');
 
+        Route::get('eventos/{id}', 'ArtistaController@abrirEventos')->name('eventos_artista');
+
     });
