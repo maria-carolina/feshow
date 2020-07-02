@@ -3,7 +3,7 @@
 @section('container')
 
 @if(isset($feed))
-    <div id="feed">
+    <div id="feed" class="mt-5">
         <h2>Sugestões</h2>
         @foreach($feed as $artista)
             <div class="card">
@@ -57,7 +57,7 @@
                     while (sel.firstChild){
                         sel.removeChild(sel.lastChild);
                     }
-                    
+
                     let eventos = JSON.parse(xhr.responseText);
                     eventos.forEach(evento =>{
                         let opt = document.createElement('option');

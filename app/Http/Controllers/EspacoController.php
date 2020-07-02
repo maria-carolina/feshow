@@ -80,8 +80,7 @@ class EspacoController extends Controller
 
         Auth::login($user);
 
-        return view ('welcome');
-
+        return redirect()->route('home');
     }
 
     public function update(Request $request, $id){
@@ -93,12 +92,12 @@ class EspacoController extends Controller
         if($user->save()){
             $espaco->nome = $request->txtNome;
             $espaco->telefone = $request->txtTelefone;
-            
+
             if($espaco->save()){
                 if($request->cmbGenero_1 > 0){
                     $espaco_genero = EspacosGenero::where([['espaco_id', $espaco->id],
                         ['genero_id', $request->cmbGenero_1]])->first();
-                    
+
                     if(!$espaco_genero){
                         $espaco_genero = new EspacosGenero();
                         $espaco_genero->espaco_id = $espaco->id;
@@ -110,7 +109,7 @@ class EspacoController extends Controller
                 if($request->cmbGenero_2 > 0){
                     $espaco_genero = EspacosGenero::where([['espaco_id', $espaco->id],
                         ['genero_id', $request->cmbGenero_2]])->first();
-                    
+
                     if(!$espaco_genero){
                         $espaco_genero = new EspacosGenero();
                         $espaco_genero->espaco_id = $espaco->id;
@@ -122,7 +121,7 @@ class EspacoController extends Controller
                 if($request->cmbGenero_3 > 0){
                     $espaco_genero = EspacosGenero::where([['espaco_id', $espaco->id],
                         ['genero_id', $request->cmbGenero_3]])->first();
-                    
+
                     if(!$espaco_genero){
                         $espaco_genero = new EspacosGenero();
                         $espaco_genero->espaco_id = $espaco->id;
@@ -144,7 +143,7 @@ class EspacoController extends Controller
             ->get();
 
         $generos = Genero::all();
-        
+
         return view ('espaco.cadastroCasa', compact('espaco', 'generos'));
     }
 

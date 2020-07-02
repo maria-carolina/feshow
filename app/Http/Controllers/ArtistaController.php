@@ -60,7 +60,7 @@ class ArtistaController extends Controller
         }
         Auth::login($user);
 
-        return view ('welcome');
+        return redirect()->route('home');
     }
 
     public function update(Request $request, $id){
@@ -75,12 +75,12 @@ class ArtistaController extends Controller
             $artista->telefone = $request->txtTelefone;
             $artista->cidade = $request->txtCidade;
             $artista->link = $request->txtLink;
-            
+
             if($artista->save()){
                 if($request->cmbGenero_1 > 0){
                     $artista_genero = ArtistasGenero::where([['artista_id', $artista->id],
                         ['genero_id', $request->cmbGenero_1]])->first();
-                    
+
                     if(!$artista_genero){
                         $artista_genero = new ArtistasGenero();
                         $artista_genero->artista_id = $artista->id;
@@ -92,7 +92,7 @@ class ArtistaController extends Controller
                 if($request->cmbGenero_2 > 0){
                     $artista_genero = ArtistasGenero::where([['artista_id', $artista->id],
                         ['genero_id', $request->cmbGenero_2]])->first();
-                    
+
                     if(!$artista_genero){
                         $artista_genero = new ArtistasGenero();
                         $artista_genero->artista_id = $artista->id;
@@ -104,7 +104,7 @@ class ArtistaController extends Controller
                 if($request->cmbGenero_3 > 0){
                     $artista_genero = ArtistasGenero::where([['artista_id', $artista->id],
                         ['genero_id', $request->cmbGenero_3]])->first();
-                    
+
                     if(!$artista_genero){
                         $artista_genero = new ArtistasGenero();
                         $artista_genero->artista_id = $artista->id;
@@ -132,7 +132,7 @@ class ArtistaController extends Controller
     }
 
     public function abrirCadastro(){
-        
+        $generos = Genero::all();
         return view('artista.cadastroArtista', compact('generos'));
     }
 
@@ -162,7 +162,7 @@ class ArtistaController extends Controller
             ->join('generos', 'generos.id', 'artistas_generos.genero_id')
             ->get();
 
-      
+
         $generos = Genero::all();
 
         return view('artista.cadastroArtista', compact('artista', 'generos'));
@@ -177,8 +177,8 @@ class ArtistaController extends Controller
             ->select('artistas_eventos.evento_id as evento_id', 'artistas_eventos.resposta as resp',
                 'espacos.id as espaco_id','eventos.nome as evento', 'espacos.nome as espaco')
             ->get();
-        
-        $convites_recebidos = array();    
+
+        $convites_recebidos = array();
         $convites_enviados = array();
 
         foreach($convites as $convite){
@@ -188,10 +188,10 @@ class ArtistaController extends Controller
                 array_push($convites_enviados, $convite);
             }
         }
-    
+
         $artista_id = $id;
 
-        return view('artista.convites', 
+        return view('artista.convites',
         compact('convites_recebidos', 'convites_enviados', 'artista_id'));
     }
 
@@ -206,10 +206,10 @@ class ArtistaController extends Controller
             ->join('espacos_generos', 'espacos_generos.espaco_id', 'espacos.id')
             ->join('generos', 'espacos_generos.genero_id', 'generos.id')
             ->select('eventos.nome as evento', 'eventos.id as evento_id', 'eventos.*',
-                'espacos.nome as espaco', 'espacos.id as espaco_id', 
+                'espacos.nome as espaco', 'espacos.id as espaco_id',
                 'generos.id as genero_id')
             ->get();
-        
+
 
         $gens = ArtistasGenero::where('artista_id', $artista->id)
             ->join('generos', 'generos.id', 'artistas_generos.genero_id')
@@ -219,10 +219,10 @@ class ArtistaController extends Controller
         foreach($rs as $key => $linha){
             foreach($gens as $gen){
                 if($gen->genero_id == $linha->genero_id){
-                   
+
                     $convite = ArtistasEvento::where([['artista_id', $artista_id],
                                 ['evento_id', $linha->evento_id]])->first();
-                    
+
                     if($convite){
                         $linha['convite'] = $convite->resposta;
                     }

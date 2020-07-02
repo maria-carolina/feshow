@@ -9,7 +9,7 @@ use App\Espaco;
     <nav class="navbar navbar-expand-lg bg-dark fixed-top">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="{{route('home')}}">FESHOW</a>
+                <a id="feshow" class="navbar-brand" href="{{route('home')}}">FESHOW</a>
             </div>
 
             @if(isset(Auth::user()->id))
@@ -20,26 +20,26 @@ use App\Espaco;
                         {{--  ESPAÇO--}}
 
                         <li class="nav-item mr-2">
-                            <a href="#" class="btn btn-rose btn-raised btn-fab btn-round">
+                            <a href="#" class="btn btn-primary btn-fab btn-round">
                                 <i class="fa fa-bell-o" title="Notificações"></i>
                             </a>
                         </li>
 
                         <li class="nav-item mr-2">
-                            <a href="{{route('solicitacao_espaco')}}" class="nav-link">
+                            <a href="{{route('solicitacao_espaco')}}" class="btn btn-primary btn-fab btn-round">
                                 <i class="fa fa-envelope" title="Solicitações"></i>
                             </a>
                         </li>
 
                         <li class="nav-item mr-2">
-                            <a href="{{route('agenda', Auth::user()->id)}}" class="nav-link">
+                            <a href="{{route('agenda', Auth::user()->id)}}" class="btn btn-primary btn-fab btn-round">
                                 <i class="fa fa-calendar" title="Agenda"></i>
                             </a>
                         </li>
 
                         <li class="nav-item mr-2">
                             <a href="{{route('perfil_espaco',
-                                     Espaco::where('user_id', Auth::user()->id)->first()->id)}}" class="nav-link">
+                                     Espaco::where('user_id', Auth::user()->id)->first()->id)}}" class="btn btn-primary btn-fab btn-round">
                                 <i class="fa fa-user-circle" title="Perfil"></i>
                             </a>
                         </li>

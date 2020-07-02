@@ -12,7 +12,7 @@
     <div class="form-row">
         <div class="col">
             <label for="nome">Qual o nome da sua casa?</label>
-            <input type="text" id="nome" name="txtNome" class="form-control" 
+            <input type="text" id="nome" name="txtNome" class="form-control"
                 value="{{isset($espaco) ? $espaco->nome : ""}}" required/>
         </div>
 
@@ -78,23 +78,18 @@
         <h5>Endereço</h5>
         <hr>
     </div>
-    <div class="row align-items-end">
-        <div class="col-6">
-            <label for="cep">CEP:</label>
-            <input type="text" class="form-control" onkeypress="mask(this, '#####-###')" 
-                maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
-        </div>
-        <div class="col-3">
-            <button class="btn btn-dark">Carregar endereço</button>
-        </div>
-    </div>
 
     <div class="form-row mt-3">
+        <div class="col-4">
+            <label for="cep">CEP:</label>
+            <input type="text" class="form-control" onkeypress="mask(this, '#####-###')"
+                   maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
+        </div>
         <div class="col-6">
             <label for="rua">Rua:</label>
             <input type="text" class="form-control" name="txtLogradouro" id="rua" required readonly>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <label for="numero">Número:</label>
             <input type="number" class="form-control" name="txtNum"  id="numero" value="" required>
         </div>
@@ -123,12 +118,12 @@
     <div class="form-row mt-3">
         <div class="col">
             <label for="login">Escolha um username para poder logar na plataforma</label>
-            <input type="text" id="login" name="txtLogin" class="form-control" 
+            <input type="text" id="login" name="txtLogin" class="form-control"
             value="{{isset($espaco) ? $espaco->user->name : ""}}" required/>
         </div>
         <div class="col">
             <label for="email">E-mail:</label>
-            <input type="email" id="email" name="txtEmail" class="form-control" 
+            <input type="email" id="email" name="txtEmail" class="form-control"
                 value="{{isset($espaco) ? $espaco->user->email : ""}}" required/>
         </div>
     </div>
@@ -146,8 +141,8 @@
     </div>
 
     <input type="hidden" name="txtTipo" value="0">
-    <div class="mx-auto" style="width: 200px;">
-        <button id="cadastrar" type="submit" class="btn btn-outline-dark">Salvar</button>
+    <div class="mx-auto mt-3" style="width: 200px;">
+        <button id="cadastrar" type="submit" class="btn btn-primary btn-lg">Salvar</button>
     </div>
 
     </div>
@@ -156,7 +151,7 @@
 
 @section('scripts_adicionais')
         <script>
-           
+
 
 
             const dropdownsGeral = Array.from(document.getElementsByTagName('select'));
@@ -195,7 +190,7 @@
                     if(campo != campoSelecionado &&
                     campo.selectedIndex == generoSelecionado){
                         campoSelecionado.selectedIndex = 0;
-                        alert("Você já selecionou esse gênero, escolha outro!");
+                        swal("","Você já selecionou esse gênero, escolha outro!" , "info");
                         return;
                     }
                 })

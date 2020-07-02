@@ -35,18 +35,15 @@
             <div class="col">
                 <label for="telefone">Telefone:</label>
                 <input type="tel" id="telefone" name="txtTelefone" class="form-control"
-                       value="{{isset($artista) ? $artista->telefone : ""}}"/>
+                       value="{{isset($artista) ? $artista->telefone : ""}}" />
 
             </div>
         </div>
 
         <div class="row align-items-end mt-3 mb-3">
-            <div class="col-4">
+            <div class="col-6">
                 <label for="cep">CEP:</label>
                 <input type="text" class="form-control"  onkeypress="mask(this, '#####-###')" maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
-            </div>
-            <div class="col-2">
-                <button class="btn btn-dark">Carregar cidade</button>
             </div>
             <div class="col-6">
                 <label for="cidade">Cidade: </label>
@@ -122,7 +119,7 @@
         <div class="form-row mt-3">
             <div class="col-6">
                 <label for="login">Escolha um username para poder logar na plataforma</label>
-                <input type="text" id="login" name="txtLogin" class="form-control" 
+                <input type="text" id="login" name="txtLogin" class="form-control"
                 value="{{isset($artista) ? $artista->user->name : ""}}" required/>
             </div>
             <div class="col-3">
@@ -136,9 +133,8 @@
             </div>
         </div>
         <input type="hidden" name="txtTipo" value="1">
-        <div class="mx-auto" style="width: 200px;">
-            <button id="cadastrar" type="submit" class="btn btn-outline-dark">Salvar</button>
-        </div>
+        <div class="mx-auto mt-3" style="width: 200px;">
+            <button id="cadastrar" type="submit" class="btn btn-primary btn-lg">Salvar</button>
         </div>
     </form>
 @endsection
@@ -151,12 +147,12 @@
             /*
              var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/listarGeneros/');
-            
+
 
             const body = document.getElementsByTagName('body')[0]
 
-            
-            
+
+
             body.onload = () => {
                 console.log('oi');
                 xhr.send(null);
@@ -187,7 +183,7 @@
                     if(campo != campoSelecionado &&
                     campo.selectedIndex == generoSelecionado){
                         campoSelecionado.selectedIndex = 0;
-                        alert("Você já selecionou esse gênero, escolha outro!");
+                        swal("","Você já selecionou esse gênero, escolha outro!" , "info");
                         return;
                     }
                 })

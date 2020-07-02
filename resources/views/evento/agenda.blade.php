@@ -2,9 +2,9 @@
 
 @section('container')
     <div class="title">
-        <h1>
+        <h2>
             <small>Espaço: {{$espaco->nome}}</small>
-        </h1>
+        </h2>
         @if(Auth::user()->tipo_usuario == 0)
             <a href="{{route('cadastro_evento')}}" class="btn btn-primary">Criar evento</a>
         @else
@@ -101,13 +101,29 @@
                         }*/
                     @else
                         //criar evento
-                        var confirmar = confirm("Deseja criar um evento na data" + data + "?");
-                        if(confirmar)
-                        {
-                            $("#dataF").val(data);
-                            jQuery('#form').submit();
+                        // var confirmar = confirm("Deseja criar um evento na data" + data + "?");
+                        // if(confirmar)
+                        // {
+                        //
+                        //
+                        // }
+                    swal("Deseja criar um evento na data " + data + "?", {
+                        buttons: {
+                            cancel: "Cancelar",
+                            catch: {
+                                text: "Criar Evento",
+                                value: "catch",
+                            }
+                        },
+                    })
+                        .then((value) => {
+                            switch (value) {
+                                case "catch":
+                                    $("#dataF").val(data);
+                                    jQuery('#form').submit();
 
-                        }
+                            }
+                        });
                     @endif
 
                 },
