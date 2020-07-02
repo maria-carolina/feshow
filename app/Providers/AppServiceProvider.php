@@ -23,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('layouts.index', function($view) {
+
+            $estados = ['SP' => 'São Paulo', 'PN'=> 'Paraná', 'AM' => 'Amazonas', 'GO' => 'Goiás', 'CE' => 'Ceará' ];
+
+            $view->with('estados', $estados);
+
+        });
     }
 }
