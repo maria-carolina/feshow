@@ -3,7 +3,7 @@
 @section('container')
 
 @if(isset($feed))
-    <div id="feed">
+    <div id="feed" class="mt-5">
         <h2>Sugestões</h2>
         @foreach($feed as $item)
 
@@ -38,6 +38,8 @@
     <div>
 @endif
 
+@endsection
+
 @section('scripts_adicionais')
     <script>
         function convidar(idEvt, idArt){
@@ -51,7 +53,7 @@
                     var btn = document.getElementById('convidar');
                     var div = btn.parentNode;
                     div.removeChild(btn);
-                    
+
                     var p = document.createElement('p');
                     p.setAttribute('class', 'card-text');
                     p.appendChild(document.createTextNode("Espera a resposta."));
@@ -64,9 +66,9 @@
             var xhr = new XMLHttpRequest();
             var idEvento = evento;
             var idArtista = {{ $artista_id }};
-            
+
             xhr.open('GET', `http://localhost:8000/api/responderConvite/${idEvento}/${idArtista}/0`);
-            
+
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
@@ -74,7 +76,7 @@
                     var btn = document.getElementById('aceitar');
                     var div = btn.parentNode;
                     div.removeChild(btn);
-                    
+
                     var p = document.createElement('p');
                     p.setAttribute('class', 'card-text');
                     p.appendChild(document.createTextNode("Você já está nesse evento."));
@@ -84,4 +86,4 @@
         }
     </script>
 @endsection
-@endsection
+
