@@ -71,6 +71,25 @@ class ArtistaController extends Controller
         $user->email = $request->txtEmail;
         $user->name = $request->txtLogin;
 
+        //imagem
+
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()){
+            if ($user->imagem){
+                $nomeImagem = $user->imagem;
+            }else{
+                $nomeImagem = $user->id.kebab_case($user->nome);
+            }
+            $extensao = $request->imagem->extension();
+            $imagem = "{$nomeImagem}.{$extensao}";
+
+            $upload = $request->imagem->storeAs('users', $imagem);
+
+            if (!$upload)
+                return redirect()->back()->with('error', 'Falha ao fazer upload da imagem');
+            else
+                $user->imagem = $imagem;
+        }
+
         if($user->save()){
             $artista->nome = $request->txtNome;
             $artista->quantidade_membros = $request->txtQtd;
@@ -117,7 +136,7 @@ class ArtistaController extends Controller
                 }
             }
         }
-        return view ('welcome');
+        return redirect()->route('home');
 
     }
 
@@ -154,7 +173,9 @@ class ArtistaController extends Controller
             ->select('generos.nome as nome')
             ->get();
 
-        return view('artista.perfil', compact('artista', 'eventos', 'generos'));
+        $user = User::findOrFail($artista->user_id);
+
+        return view('artista.perfil', compact('artista', 'eventos', 'generos', 'user'));
 
     }
 

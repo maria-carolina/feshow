@@ -3,7 +3,7 @@
 @section('container')
 
     <form method="post" action="{{ isset($artista)?
-            route('alterar_artista', ['id' =>$artista->id]) : route('salvar_artista') }}">
+            route('alterar_artista', ['id' =>$artista->id]) : route('salvar_artista') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="mb-3 mt-4">
@@ -117,6 +117,13 @@
             <h5>Dados do usuário</h5>
             <hr>
         </div>
+{{--        teste imagem--}}
+        <div class="form-row mt-3">
+            <div class="col-6">
+                <label for="login">Imagem</label>
+                <input type="file" id="imagem" name="imagem" class="form-control"
+                       value="" />
+            </div>
 
         <div class="form-row mt-3">
             <div class="col-6">

@@ -5,6 +5,9 @@
 <div id="perfil">
 
     <ul id="nome_generos">
+        @if($user->imagem != null)
+            <img src="{{ url('storage/users/'.$user->imagem)}}" alt="">
+        @endif
     <li><h1> {{ $artista->nome }} </h1></li>
     <li><h2 id="cinza">
         @foreach($generos as $genero)
