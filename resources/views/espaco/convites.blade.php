@@ -3,16 +3,16 @@
 @section('container')
 <h2>Convites Recebidos:</h2>
     @if(isset($convites_recebidos))
-        @foreach($convites_recebidos as $convite)
-            <div class="card">
+        @foreach($convites_recebidos as $key => $convite)
+            <div class="card" id="{{$key}}" >
                 <div class="card-body">
                     <h5 class="card-title">
                         <a href="/artista/perfil/{{ $convite->artista_id }}">{{ $convite->artista }}</a> 
                         &nbsp; quer tocar no &nbsp;
                         <a href="/evento/{{ $convite->evento_id }}"> {{ $convite->evento}}</a>
                     </h5>
-                    <button class="btn btn-primary" id='yes' onclick="responder(true)"> Aceitar </button>
-                    <button class="btn btn-secondary" id='no' onclick="responder(false)"> Rejeitar </button>
+                    <button class="btn btn-primary" id='yes' onclick="responder(true, {{$key}})"> Aceitar </button>
+                    <button class="btn btn-secondary" id='no' onclick="responder(false, {{$key}})"> Rejeitar </button>
                     <input type="hidden" name="art" value="{{ $convite->artista_id}}">
                     <input type="hidden" name="evt" value="{{ $convite->evento_id }}">
                 </div>
@@ -41,7 +41,7 @@
     </table>
 @section('scripts_adicionais')
     <script>
-        function responder(resp){
+        function responder(resp, idCard){
             
             var xhr = new XMLHttpRequest();
             var idEvento = document.querySelector('input[name=evt]').value;
@@ -56,6 +56,8 @@
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
                     alert('resposta enviada');
+                    var card = document.getElementById(idCard);
+                    card.parentNode.removeChild(card);
                 }
             }
         }

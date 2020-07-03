@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">
-                    <a href="/espaco/perfil/{{ $convite->espaco_id}}">{{ $convite->espaco }}<a> 
+                    <a href="/espaco/perfil/{{ $convite->espaco_id}}">{{ $convite->espaco }}<a>
                     &nbsp;te convidou pra tocar em&nbsp;
                     <a href="/evento/{{ $convite->evento_id}}">{{ $convite->evento}}<a>
                     </h5>
@@ -17,7 +17,7 @@
             </div>
         @endforeach
     @endif
-    
+
     <h2>Convites Enviados:</h2>
     <table class="table">
     @if(isset($convites_enviados))
@@ -40,7 +40,7 @@
 @section('scripts_adicionais')
     <script>
         function responder(resp, evento){
-            
+
             var xhr = new XMLHttpRequest();
             var idEvento = evento;
             var idArtista = {{ $artista_id }};
@@ -53,7 +53,21 @@
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    alert('resposta enviada');
+                    swal({
+                        title: 'Resposta enviada!',
+                        timer: 2000,
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+
+                            }
+                        }
+                    )
                 }
             }
         }
@@ -75,5 +89,4 @@
 
         }
     </script>
-@endsection
 @endsection

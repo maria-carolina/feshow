@@ -18,6 +18,7 @@ class CreateArtistasTable extends Migration
             $table->string('nome',30);
             $table->integer('quantidade_membros');
             $table->string('telefone',14);
+            $table->string('cep',9);
             $table->string('cidade',40);
             $table->string('link',40);
             $table->integer('user_id');

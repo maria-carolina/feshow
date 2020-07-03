@@ -40,7 +40,9 @@
         @endforeach
     <div>
 @endif
-@section('scripts_adicionais')
+        @endsection
+
+    @section('scripts_adicionais')
     <script>
         const sel = document.getElementById('selEventos');
         var idArtista;
@@ -78,14 +80,43 @@
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    if(JSON.parse(xhr.responseText) == 1)
-                        alert('convite enviado');
-                    else
-                        alert('esse convite já foi enviado');
+                    if(JSON.parse(xhr.responseText) == 1){
+                        swal({
+                            title: 'Convite enviado!',
+                            timer: 2000,
+                            icon: "success",
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        }).then(
+                            function () {},
+                            // handling the promise rejection
+                            function (dismiss) {
+                                if (dismiss === 'timer') {
+
+                                }
+                            }
+                        )
+                    }
+                    else{
+                        swal({
+                            title: 'Esse convite já foi enviado',
+                            timer: 2000,
+                            icon: "info",
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        }).then(
+                            function () {},
+                            // handling the promise rejection
+                            function (dismiss) {
+                                if (dismiss === 'timer') {
+
+                                }
+                            }
+                        )
+                    }
                 }
             }
         }
 
     </script>
-@endsection
 @endsection

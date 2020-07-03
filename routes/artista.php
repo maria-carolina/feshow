@@ -6,7 +6,7 @@
 
         Route::post('salvar', 'ArtistaController@insert')->name('salvar_artista');
 
-        Route::get('/editar/{id}', 'ArtistaController@abrirEdicao')->name('abrir_edicao');
+        Route::get('/editar/{id}', 'ArtistaController@abrirEdicao')->name('abrir_edicao_artista');
 
         Route::post('alterar/{id}', 'ArtistaController@update')->name('alterar_artista');
 
@@ -15,5 +15,7 @@
         Route::get('/convites/{id}', 'ArtistaController@abrirConvites')->name('abrir_convites');
 
         Route::get('/feed/{id}', 'ArtistaController@abrirFeed')->name('feed_artista');
+
+        Route::get('eventos/{id}', 'ArtistaController@abrirEventos')->name('eventos_artista');
 
     });

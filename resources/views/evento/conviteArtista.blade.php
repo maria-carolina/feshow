@@ -2,13 +2,43 @@
 
 @section('container')
 
-<h1>{{ $evento->nome }}</h1>
+    <div class="title">
+        <h2>
+            <small>Convidar artista para: {{$evento->nome}}</small>
+        </h2>
+    </div>
 
+    <h5><small>Pesquisar artistas</small></h5>
     <form>
-        <input type="text" name="txtArtista" id="">
-        <button type="button" name="txtAddArtista">OK</button>
-
+        <div class="row align-items-end">
+            <div class="col-5">
+                <input type="text" class="form-control" name="txtArtista" id="">
+            </div>
+            <div class="col-5">
+                <button type="button" class="btn btn-primary" name="txtAddArtista">OK</button>
+            </div>
+        </div>
     </form>
+
+    <div id="buscaArtista">
+
+    </div>
+
+    <div id="sugestoes">
+        <h2>
+            <small>Sugestões de artistas</small>
+        </h2>
+        @foreach($feed as $artista)
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"><a href="/artista/perfil/{{ $artista->id }}">{{ $artista->nome}}</a></h3>
+                    <p>{{ $artista->nome }} toca {{ $artista->genero }}!</p>
+                    <p>{{ $artista->quantidade_membros}} membro(s) </p>
+                    <button class="btn btn-primary" id="convidar" onclick="enviarConvite({{$artista->id}})">Convidar</button>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
 @endsection
 
@@ -16,7 +46,7 @@
     <script>
         var button = document.querySelector('button[name=txtAddArtista]');
         var inputArtista = document.querySelector('input[name=txtArtista]');
-        var body = document.querySelector('body');
+        var body = document.querySelector('#buscaArtista');
 
         button.onclick = () =>{
             var divs = document.querySelector('div[class=caixaArtista]');
@@ -75,7 +105,7 @@
                         console.log('opa')
                         divArtista = document.createElement('div');
                         divArtista.setAttribute('class', 'card-body');
-                        
+
 
                         divArtista.appendChild(link);
                         divArtista.appendChild(generos);
@@ -104,12 +134,24 @@
                 if(xhr.readyState === 4){
                     let div = document.getElementById(idArtista);
                     div.parentNode.removeChild(div);
-                    alert('Convite enviado');
+                    swal({
+                        title: 'Convite enviado!',
+                        timer: 2000,
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+
+                            }
+                        }
+                    )
                 }
             }
         }
-
-
 
     </script>
 @endsection

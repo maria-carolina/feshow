@@ -96,16 +96,31 @@ use App\Espaco;
 
     <div class="container mt-5">
         <br>
-        <div class="col-5 offset-md-7" id="notificacao" style="display:none">
 
+        <div class="col-5 offset-md-7" id="notificacao" style="display:none">
             <div class="alert alert-primary" role="alert" >
                 <button type="button" class="close" onclick="exibirNotificacao('notificacao')">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="alert-heading">Notificações</h4>
-                <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-                <hr>
-                <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+                <h5 class="alert-heading">Notificações</h5>
+                @isset($notificacoes)
+                    @if($notificacoes->count() > 0)
+                        @foreach($notificacoes as $notificacao)
+                            <hr>
+                            @if(Auth::user()->tipo_usuario == 0)
+                                <a href="{{route('abrir_perfil', $notificacao->evento_id)}}">
+                                    <p>{{$notificacao->artista}} foi inserido no lineup do Evento "{{$notificacao->evento}}"</p>
+                                </a>
+                            @else
+                                <a href="{{route('abrir_perfil', $notificacao->evento_id)}}">
+                                    <p>Você foi inserido no lineup do Evento "{{$notificacao->evento}} no {{$notificacao->espaco}}"</p>
+                                </a>
+                            @endif
+                        @endforeach
+                    @else
+                        <p>Não há notificações no momento</p>
+                    @endif
+                @endisset
             </div>
         </div>
 

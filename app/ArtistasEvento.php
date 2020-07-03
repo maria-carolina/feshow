@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ArtistasEvento extends Model
 {
-    public $timestamps = false;
     protected $primaryKey = ['artista_id', 'evento_id'];
     public $incrementing = false;
 

@@ -18,6 +18,7 @@ class ArtistaController extends Controller
 {
     //
 
+
     public function insert(Request $request){
         $artista = new Artista();
         $user = new User();
@@ -31,6 +32,7 @@ class ArtistaController extends Controller
             $artista->nome = $request->txtNome;
             $artista->quantidade_membros = $request->txtQtd;
             $artista->telefone = $request->txtTelefone;
+            $artista->cep = $request->txtCep;
             $artista->cidade = $request->txtCidade;
             $artista->link = $request->txtLink;
             $artista->user_id = $user->id;
@@ -73,6 +75,7 @@ class ArtistaController extends Controller
             $artista->nome = $request->txtNome;
             $artista->quantidade_membros = $request->txtQtd;
             $artista->telefone = $request->txtTelefone;
+            $artista->cep = $request->txtCep;
             $artista->cidade = $request->txtCidade;
             $artista->link = $request->txtLink;
 
@@ -142,6 +145,7 @@ class ArtistaController extends Controller
             ->where('resposta', 2)
             ->join('eventos', 'eventos.id', 'artistas_eventos.evento_id')
             ->join('espacos', 'espacos.id', 'eventos.espaco_id')
+            ->where('eventos.status', 1)
             ->select('eventos.*', 'espacos.nome as espaco')
             ->get();
         //dd($eventos_passados);
@@ -195,6 +199,8 @@ class ArtistaController extends Controller
         compact('convites_recebidos', 'convites_enviados', 'artista_id'));
     }
 
+
+
     public function abrirFeed($id){
         $artista = Artista::findOrFail($id);
         $artista_id = $id;
@@ -203,12 +209,10 @@ class ArtistaController extends Controller
             ->join('espacos', 'enderecos.espaco_id', 'espacos.id')
             ->leftjoin('eventos', 'eventos.espaco_id', 'espacos.id')
             ->where('eventos.status', 0)
-            ->join('espacos_generos', 'espacos_generos.espaco_id', 'espacos.id')
-            ->join('generos', 'espacos_generos.genero_id', 'generos.id')
             ->select('eventos.nome as evento', 'eventos.id as evento_id', 'eventos.*',
-                'espacos.nome as espaco', 'espacos.id as espaco_id',
-                'generos.id as genero_id')
+                'espacos.nome as espaco', 'espacos.id as espaco_id')
             ->get();
+
 
 
         $gens = ArtistasGenero::where('artista_id', $artista->id)
@@ -216,22 +220,45 @@ class ArtistaController extends Controller
             ->select('generos.id as genero_id', 'generos.nome as genero')
             ->get();
 
-        foreach($rs as $key => $linha){
-            foreach($gens as $gen){
-                if($gen->genero_id == $linha->genero_id){
 
-                    $convite = ArtistasEvento::where([['artista_id', $artista_id],
-                                ['evento_id', $linha->evento_id]])->first();
 
-                    if($convite){
-                        $linha['convite'] = $convite->resposta;
+        foreach($rs as $key => $evento){
+            $espaco_generos = EspacosGenero::where('espaco_id', $evento->espaco_id)->get();
+            //dd($espaco_generos);
+            foreach($espaco_generos as $linha){
+                foreach($gens as $gen){
+                    if($gen->genero_id == $linha->genero_id){
+
+                        $convite = ArtistasEvento::where([['artista_id', $artista_id],
+                                ['evento_id', $evento->evento_id]])->first();
+                        if($convite){
+                            $evento['convite'] = $convite->resposta;
+                        }
+                        $feed[$key] = $evento;
                     }
-                    $feed[$key] = $linha;
+
                 }
             }
         }
+        if (!isset($feed)){
+            return view('artista.feed', compact( 'artista_id'));
+        }
+        else{
+            return view('artista.feed', compact('feed', 'artista_id'));
+        }
+    }
 
-        return view('artista.feed', compact('feed', 'artista_id'));
+    public function abrirEventos($id){
+        $artista_id = $id;
+        $eventos = ArtistasEvento::where([['artista_id', $id], ['resposta', 2]])
+            ->join('eventos', 'eventos.id', 'artistas_eventos.evento_id')
+            ->where('eventos.status', 0)
+            ->join('espacos', 'espacos.id', 'eventos.espaco_id')
+            ->select('eventos.*', 'espacos.id as espaco_id', 'espacos.nome as espaco')
+            ->get();
+
+        return view('artista.eventos', compact('eventos', 'artista_id'));
+
     }
 
 }

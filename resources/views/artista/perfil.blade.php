@@ -6,7 +6,7 @@
 
     <ul id="nome_generos">
     <li><h1> {{ $artista->nome }} </h1></li>
-    <li><h2 id="cinza"> 
+    <li><h2 id="cinza">
         @foreach($generos as $genero)
             {{ $genero->nome }}
         @endforeach
@@ -43,7 +43,7 @@
                 </tr>
             @endif
         @endforeach
-        
+
     </table>
 
     <h2>Próximos Shows</h2>
@@ -62,13 +62,13 @@
                 </tr>
             @endif
         @endforeach
-        
+
     </table>
     @if(Auth::user()->id == $artista->user_id)
-        <button><a href="{{ route('abrir_edicao', $artista->id)}}">Editar</a></button>
+        <button><a href="{{ route('abrir_edicao_artista', $artista->id)}}">Editar</a></button>
     @endif
 
-   
+
 <div>
 @endsection
 
