@@ -198,8 +198,17 @@ class EspacoController extends Controller
 
         $espaco_id = $id;
 
+        $solicitacoes = Artista::join('solicitacoes', 'solicitacoes.artista_id', 'artistas.id', '')
+            ->select('artistas.id as artista_id', 'artistas.nome as nome', 'solicitacoes.id as solicitacao_id', 'solicitacoes.data')
+            ->where([
+                ['solicitacoes.espaco_id', $espaco_id],
+                ['solicitacoes.resposta', 1] //1- enviada pelo artista
+            ])
+            ->orderBy('solicitacoes.data', 'asc')
+            ->get();
+
         return view('espaco.convites',
-        compact('convites_recebidos', 'convites_enviados','espaco_id'));
+        compact('convites_recebidos', 'convites_enviados','espaco_id', 'solicitacoes'));
     }
 
 
@@ -233,19 +242,6 @@ class EspacoController extends Controller
         }
 
     }
-
-   public function verSolicitacoes(){
-        $idEspaco = Espaco::where('user_id', Auth::user()->id)->first()->id;
-        $solicitacoes = Artista::join('solicitacoes', 'solicitacoes.artista_id', 'artistas.id', '')
-            ->select('artistas.id as artista_id', 'artistas.nome as nome', 'solicitacoes.id as solicitacao_id', 'solicitacoes.data')
-            ->where([
-               ['solicitacoes.espaco_id', $idEspaco],
-               ['solicitacoes.resposta', 1] //1- enviada pelo artista
-           ])
-           ->orderBy('solicitacoes.data', 'asc')
-           ->get();
-        return view('espaco.solicitacoes', compact('solicitacoes'));
-   }
 
    public function abrirEventos($id){
         $eventos = Evento::where([['espaco_id', $id],['status', 0]])->get();

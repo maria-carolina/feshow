@@ -36,8 +36,16 @@ use App\Espaco;
                             </li>
 
                             <li class="nav-item mr-2">
-                                <a href="{{route('solicitacao_espaco')}}" class="btn btn-primary btn-fab btn-round">
+                                <a href="{{route('solicitacao_espaco',
+                                     Espaco::where('user_id', Auth::user()->id)->first()->id)}}" class="btn btn-primary btn-fab btn-round">
                                     <i class="fa fa-envelope" title="Solicitações"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item mr-2">
+                                <a href="{{route('abrir_eventos',
+                                     Espaco::where('user_id', Auth::user()->id)->first()->id)}}" class="btn btn-primary btn-fab btn-round">
+                                    <i class="fa fa-list-ul" title="Eventos"></i>
                                 </a>
                             </li>
 
@@ -65,6 +73,13 @@ use App\Espaco;
                             <li class="nav-item mr-2">
                                 <a href="{{route('abrir_convites', Artista::where('user_id', Auth::user()->id)->first()->id)}}" class="btn btn-primary btn-fab btn-round">
                                     <i class="fa fa-envelope" title="Solicitações"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item mr-2">
+                                <a href="{{route('eventos_artista',
+                                     Artista::where('user_id', Auth::user()->id)->first()->id)}}" class="btn btn-primary btn-fab btn-round">
+                                    <i class="fa fa-list-ul" title="Eventos"></i>
                                 </a>
                             </li>
 
