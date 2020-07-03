@@ -125,10 +125,11 @@ Route::get('/mudarstatusevento/{idEvento}', function($idEvento){
     $convites = ArtistasEvento::where('evento_id', $idEvento)->get();
     $pendentes = false;
 
+
     if($evento->status == 1){
         $evento->status = 0;
         $evento->save();
-        $resp = "evento foi reaberto";
+        $resp = "Reaberto!";
     }else{
         if($convites->first()){
             foreach($convites as $convite){
@@ -138,15 +139,18 @@ Route::get('/mudarstatusevento/{idEvento}', function($idEvento){
                     break;
                 }
             }
+
+            if(!$pendentes){
+                $evento->status = 1;
+                $evento->save();
+                $resp = "FESHOW!";
+            }
+
         }else{
             $resp = "Não tem nenhum artista no line-up :(";
         }
 
-        if(!$pendentes){
-            $evento->status = 1;
-            $evento->save();
-            $resp = "FESHOW!";
-        }
+        
     }
 
     return Response::json($resp);

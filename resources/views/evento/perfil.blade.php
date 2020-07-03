@@ -28,7 +28,9 @@
     </ul>
 
     @if(Auth::user()->id == $evento->espaco->user_id)
-        <button class="btn btn-outline-primary"><a style="color: #000000; text-decoration: none;" href="convite/{{ $evento->id }}">Convidar Artista</a></button>
+        
+        <button  id="convidar" class="btn btn-outline-primary"><a style="color: #000000; text-decoration: none;" href="convite/{{ $evento->id }}">Convidar Artista</a></button>
+      
 
         <button id="status" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >
         @if($evento->status == 0)
@@ -126,6 +128,7 @@
         }
 
         function mudarStatus(){
+            
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/mudarstatusevento/${idEvento}`);
             xhr.send(null);
@@ -148,13 +151,17 @@
                             }
                         }
                     )
+                    
                     var btn = document.getElementById('status');
-                    if(msg === "FESHOW!"){
-                        if(btn.innerHTML == "Reabrir")
+                    if(msg === "FESHOW!" || msg === "Reaberto!"){
+                        if(btn.innerHTML == "Reabrir"){
                             btn.innerHTML = "Fechar";
-                        else
+                            document.getElementById("convidar").style = "display: block;";
+                        }else{
                             btn.innerHTML = "Reabrir";
+                            document.getElementById("convidar").style = "display: none;";
                         }
+                    }
                 }
             }
         }

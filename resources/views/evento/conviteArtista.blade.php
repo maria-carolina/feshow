@@ -14,8 +14,13 @@
             <div class="col-5">
                 <input type="text" class="form-control" name="txtArtista" id="">
             </div>
-            <div class="col-5">
+            <div class="col-3">
                 <button type="button" class="btn btn-primary" name="txtAddArtista">OK</button>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-outline-primary">
+                <a href="/evento/{{$evento->id}}">Ir para página do evento</a>
+                </button>
             </div>
         </div>
     </form>
