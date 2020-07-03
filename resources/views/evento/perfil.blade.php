@@ -32,7 +32,7 @@
 
         <button id="status" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >
         @if($evento->status == 0)
-            FESHOW!
+            Fechar
         @else
             Reabrir
         @endif
@@ -133,11 +133,25 @@
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
                     var msg = JSON.parse(xhr.responseText);
-                    alert(msg);
+                    swal({
+                        title: msg,
+                        timer: 3000,
+                        icon: "info",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+
+                            }
+                        }
+                    )
                     var btn = document.getElementById('status');
-                    if(msg === "Fechado!"){
+                    if(msg === "FESHOW!"){
                         if(btn.innerHTML == "Reabrir")
-                            btn.innerHTML = "FESHOW!";
+                            btn.innerHTML = "Fechar";
                         else
                             btn.innerHTML = "Reabrir";
                         }

@@ -117,7 +117,7 @@ class ArtistaController extends Controller
                 }
             }
         }
-        return view ('welcome');
+        return redirect()->route('home');
 
     }
 

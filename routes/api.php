@@ -37,12 +37,12 @@ Route::get('/pesquisarArtista/{nome}/{idEvento}', function($nome, $idEvento){
     ->select('artistas.*', 'generos.nome as genero')
     ->get();
 
-    
+
     $cont = 0;
     foreach($resultado as $linha){
-        $jaExiste = ArtistasEvento::where([['evento_id', $idEvento], 
+        $jaExiste = ArtistasEvento::where([['evento_id', $idEvento],
             ['artista_id', $linha->id]])->get();
-            
+
         if($jaExiste->first()){
             unset($resultado[$cont]);
         }
@@ -75,7 +75,7 @@ Route::get('/responderConvite/{idEvento}/{idArtista}/{resposta}', function($idEv
 
     if($resposta == 0){
         $artistaevento->resposta = 2;
-        
+
         $artistaevento->save();
     }else{
         $artistaevento->delete();
@@ -145,7 +145,7 @@ Route::get('/mudarstatusevento/{idEvento}', function($idEvento){
         if(!$pendentes){
             $evento->status = 1;
             $evento->save();
-            $resp = "Fechado!";
+            $resp = "FESHOW!";
         }
     }
 

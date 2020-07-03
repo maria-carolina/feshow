@@ -81,7 +81,21 @@
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    alert('convite cancelado');
+                    swal({
+                        title: 'Convite cancelado!',
+                        timer: 2000,
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+
+                            }
+                        }
+                    )
                     var row = document.getElementById(evento)
                     row.parentNode.removeChild(row);
                 }

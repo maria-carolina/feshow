@@ -132,7 +132,7 @@ class EspacoController extends Controller
             }
         }
 
-        return view ('welcome');
+        return redirect()->route('home');
     }
 
     public function abrirEdicao($id){
@@ -198,8 +198,6 @@ class EspacoController extends Controller
 
         $espaco_id = $id;
 
-        dd($convites_recebidos);
-
         return view('espaco.convites',
         compact('convites_recebidos', 'convites_enviados','espaco_id'));
     }
@@ -227,8 +225,13 @@ class EspacoController extends Controller
                 }
             }
         }
+        if (!isset($feed)){
+            return view('espaco.feed', compact( 'idEspaco'));
+        }
+        else{
+            return view('espaco.feed', compact('feed', 'idEspaco'));
+        }
 
-        return view('espaco.feed', compact('feed', 'idEspaco'));
     }
 
    public function verSolicitacoes(){

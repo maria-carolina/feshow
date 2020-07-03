@@ -53,6 +53,7 @@
                         xhr.onreadystatechange = () => {
                             if(xhr.readyState === 4){
                                 alert('convite enviado');
+
                                 var btn = document.getElementById('convidar');
                                 var div = btn.parentNode;
                                 div.removeChild(btn);

@@ -24,21 +24,6 @@
 
     </div>
 
-    <div id="sugestoes">
-        <h2>
-            <small>Sugestões de artistas</small>
-        </h2>
-        @foreach($feed as $artista)
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title"><a href="/artista/perfil/{{ $artista->id }}">{{ $artista->nome}}</a></h3>
-                    <p>{{ $artista->nome }} toca {{ $artista->genero }}!</p>
-                    <p>{{ $artista->quantidade_membros}} membro(s) </p>
-                    <button class="btn btn-primary" id="convidar" onclick="enviarConvite({{$artista->id}})">Convidar</button>
-                </div>
-            </div>
-        @endforeach
-    </div>
 
 @endsection
 
