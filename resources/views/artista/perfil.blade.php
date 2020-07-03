@@ -38,7 +38,7 @@
             @if($evento->data_inicio < date('Y-m-d'))
                 <tr>
                     <td> {{ $evento->espaco }} </td>
-                    <td> <a href="http://localhost:8000/evento/{{ $evento->id }}">{{ $evento->nome}}</a> </td>
+                    <td> <a href="http://localhost:8000/evento/"{{ $evento->id }}>{{ $evento->nome}}</a> </td>
                     <td> {{ date('d/m/Y', strtotime($evento->data_inicio)) }} </td>
                 </tr>
             @endif
@@ -54,10 +54,10 @@
             <th> Data </th>
         </tr>
         @foreach($eventos as $evento)
-            @if($evento->data_inicio < date('Y-m-d'))
+            @if($evento->data_inicio >= date('Y-m-d'))
                 <tr>
                     <td> {{ $evento->espaco }} </td>
-                    <td><a href="http://localhost:8000/evento/{{ $evento->id }}">{{ $evento->nome}}</a> </td>
+                    <td><a href="http://localhost:8000/evento/"{{ $evento->id }}>{{ $evento->nome}}</a> </td>
                     <td> {{ date('d/m/Y', strtotime($evento->data_inicio)) }} </td>
                 </tr>
             @endif

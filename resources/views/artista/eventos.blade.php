@@ -7,11 +7,11 @@
             <div class="card" id="{{$key}}" >
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="/evento/{{ $evento->id }}">{{ $evento->nome }}</a> 
+                        <a href="/evento/{{ $evento->id }}">{{ $evento->nome }}</a>
                         &nbsp; @ &nbsp;
                         <a href="/espaco/perfil/{{ $evento->espaco_id }}"> {{ $evento->espaco}}</a>
                     </h5>
-                    <p> {{$evento->data_inicio}} 
+                    <p> {{$evento->data_inicio}}
                     @if($evento->data_inicio != $evento->data_fim)
                         - {{ $evento->data_fim }}
                     @endif </p>
@@ -41,16 +41,15 @@
             </div>
         @endforeach
     @endif
+@endsection
 
-   
 
 @section('scripts_adicionais')
-    
+
     <script>
         function sair(idCard){
             var evento = document.querySelector('input[name=evt]').value;
             var artista = {{ $artista_id }};
-            alert(idCard);
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/deixarevento/${evento}/${artista}/`);
 
@@ -58,13 +57,26 @@
 
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    alert('Você foi removido do evento');
+                    swal({
+                        title: 'Você foi removido do evento!',
+                        timer: 2000,
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+
+                            }
+                        }
+                    );
                     var card = document.getElementById(idCard);
                     card.parentNode.removeChild(card);
                 }
             }
         }
     </script>
-   
-@endsection
+
 @endsection

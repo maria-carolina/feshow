@@ -148,7 +148,7 @@ class ArtistaController extends Controller
             ->where('eventos.status', 1)
             ->select('eventos.*', 'espacos.nome as espaco')
             ->get();
-        //dd($eventos_passados);
+
         $generos = ArtistasGenero::where('artista_id', $id)
             ->join('generos', 'generos.id', 'artistas_generos.genero_id')
             ->select('generos.nome as nome')

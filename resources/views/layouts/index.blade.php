@@ -63,7 +63,7 @@ use App\Espaco;
                             </li>
 
                             <li class="nav-item mr-2">
-                                <a href="#" class="btn btn-primary btn-fab btn-round">
+                                <a href="{{route('abrir_convites', Artista::where('user_id', Auth::user()->id)->first()->id)}}" class="btn btn-primary btn-fab btn-round">
                                     <i class="fa fa-envelope" title="Solicitações"></i>
                                 </a>
                             </li>

@@ -7,7 +7,7 @@
             <div class="card" id="{{$key}}" >
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="/artista/perfil/{{ $convite->artista_id }}">{{ $convite->artista }}</a> 
+                        <a href="/artista/perfil/{{ $convite->artista_id }}">{{ $convite->artista }}</a>
                         &nbsp; quer tocar no &nbsp;
                         <a href="/evento/{{ $convite->evento_id }}"> {{ $convite->evento}}</a>
                     </h5>
@@ -24,25 +24,26 @@
     <table class="table">
     @if(isset($convites_enviados))
         @foreach($convites_enviados as $key => $convite)
-            <tr scope="row" id="{{$key}}">
+            <tr scope="row" id="row{{$key}}">
                 <td>
                     <h5 class='card-title'>
-                    Você convidou <a href="/artista/perfil/{{ $convite->artista_id }}">{{ $convite->artista}}<a> 
-                    para o <a href="/evento/{{ $convite->evento_id}}">{{ $convite->evento}}<a>
+                    Você convidou <a href="/artista/perfil/{{ $convite->artista_id }}">{{ $convite->artista}}</a>
+                    para o <a href="/evento/{{ $convite->evento_id}}">{{ $convite->evento}}</a>
                     </h5>
                 </td>
                 <td>
-                    <button class="btn btn-secondary" 
+                    <button class="btn btn-secondary"
                     onclick="cancelar({{ $convite->artista_id}}, {{ $convite->evento_id }}, {{$key}})">Cancelar</button>
                 </td>
             </tr>
         @endforeach
     @endif
     </table>
+@endsection
 @section('scripts_adicionais')
     <script>
         function responder(resp, idCard){
-            
+
             var xhr = new XMLHttpRequest();
             var idEvento = document.querySelector('input[name=evt]').value;
             var idArtista = document.querySelector('input[name=art]').value;
@@ -55,7 +56,21 @@
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    alert('resposta enviada');
+                    swal({
+                        title: 'Resposta enviada!',
+                        timer: 2000,
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+
+                            }
+                        }
+                    );
                     var card = document.getElementById(idCard);
                     card.parentNode.removeChild(card);
                 }
@@ -68,8 +83,22 @@
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    alert('Convite cancelado');
-                    var row = document.getElementById(idRow);
+                    swal({
+                        title: 'Convite cancelado!',
+                        timer: 2000,
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+
+                            }
+                        }
+                    );
+                    var row = document.getElementById("row"+idRow);
                     row.parentNode.removeChild(row);
                 }
             }
@@ -77,4 +106,4 @@
         }
     </script>
 @endsection
-@endsection
+

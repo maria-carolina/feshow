@@ -38,7 +38,7 @@
             @foreach($eventos as $evento)
                 @if($evento->data_inicio < date('Y-m-d'))
                     <tr>
-                        <td> <a href="http://localhost:8000/evento/{{ $evento->id }}">{{ $evento->nome }} </a></td>
+                        <td> <a href="http://localhost:8000/evento/"{{ $evento->id }}>{{ $evento->nome }} </a></td>
                         <td>
                             @foreach($artistas as $artista)
                                 @if($artista->evento_id == $evento->id)
@@ -62,9 +62,9 @@
                 <th> Data </th>
             </tr>
             @foreach($eventos as $evento)
-                @if($evento->data_inicio > date('Y-m-d'))
+                @if($evento->data_inicio >= date('Y-m-d'))
                     <tr>
-                        <td>  <a href="http://localhost:8000/evento/{{ $evento->id }}">{{ $evento->nome }} </a> </td>
+                        <td>  <a href="http://localhost:8000/evento/"{{ $evento->id }}>{{ $evento->nome }} </a> </td>
                         <td>
                             @foreach($artistas as $artista)
                                 @if($artista->evento_id == $evento->id)

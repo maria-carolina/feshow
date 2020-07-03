@@ -150,7 +150,7 @@ Route::get('/mudarstatusevento/{idEvento}', function($idEvento){
             $resp = "Não tem nenhum artista no line-up :(";
         }
 
-        
+
     }
 
     return Response::json($resp);
