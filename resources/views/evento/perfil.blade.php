@@ -8,7 +8,7 @@
     <h2 id="cinza"> <a style="color: #ABA29F; text-decoration: none;"
     href="/artista/perfil/{{ $evento->espaco->id }}">{{ $evento->espaco->nome}}</a></h2>
 
-    
+
     <p>{{ $evento->descricao}}</p>
 
     <h3> Line-up: </h3>
@@ -23,21 +23,21 @@
 
     <ul id="data_horario">
         <li>{{ date('d/m/Y', strtotime($evento->data_inicio)) }} </li>
-        <li>{{ date('H:i', strtotime($evento->hora_inicio)) }} - 
+        <li>{{ date('H:i', strtotime($evento->hora_inicio)) }} -
         {{ date('H:i', strtotime($evento->hora_fim)) }}</li>
     </ul>
 
     @if(Auth::user()->id == $evento->espaco->user_id)
         <button class="btn btn-outline-primary"><a style="color: #000000; text-decoration: none;" href="convite/{{ $evento->id }}">Convidar Artista</a></button>
-       
-        <button id="status" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" > 
+
+        <button id="status" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >
         @if($evento->status == 0)
             FESHOW!
         @else
             Reabrir
         @endif
         </button>
-        
+
     @endif
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -68,10 +68,10 @@
         @elseif($evento->convite == '2')
             <p class="card-text">Você já está nesse evento.</p>
         @endif
-        
-    
+
+
     @endif
-   
+
 
 </div>
 @endif
@@ -95,11 +95,25 @@
                     xhr2.send(null);
                     xhr2.onreadystatechange = () => {
                         if(xhr2.readyState === 4){
-                            alert('Solicitação enviada!')
+                            swal({
+                                title: 'Solicitação enviada!',
+                                timer: 2000,
+                                icon: "success",
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            }).then(
+                                function () {},
+                                // handling the promise rejection
+                                function (dismiss) {
+                                    if (dismiss === 'timer') {
+
+                                    }
+                                }
+                            )
                             var btn = document.getElementById('convidar');
                             var div = btn.parentNode;
                             div.removeChild(btn);
-                            
+
                             var p = document.createElement('p');
                             p.setAttribute('class', 'card-text');
                             p.appendChild(document.createTextNode("Espera a resposta."));
@@ -135,17 +149,31 @@
             var xhr = new XMLHttpRequest();
             var idEvento = evento;
             var idArtista = {{ $logado->id }};
-            
+
             xhr.open('GET', `http://localhost:8000/api/responderConvite/${idEvento}/${idArtista}/0`);
-            
+
             xhr.send(null);
             xhr.onreadystatechange = () => {
                 if(xhr.readyState === 4){
-                    alert('resposta enviada');
+                    swal({
+                        title: 'Resposta enviada!',
+                        timer: 2000,
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+
+                            }
+                        }
+                    )
                     var btn = document.getElementById('aceitar');
                     var div = btn.parentNode;
                     div.removeChild(btn);
-                    
+
                     var p = document.createElement('p');
                     p.setAttribute('class', 'card-text');
                     p.appendChild(document.createTextNode("Você já está nesse evento."));
@@ -157,18 +185,18 @@
 
                     var link = document.createElement('a');
                     var nome = document.createTextNode('{{$logado->nome}}');
-                    
+
                     link.setAttribute('href', '/artista/perfil/{{ $logado->id }}');
-                    
+
                     link.appendChild(nome);
-                    
+
                     item.appendChild(link);
                     lista.appendChild(item);
                 }
             }
         }
 
-       
+
     </script>
 @endsection
 

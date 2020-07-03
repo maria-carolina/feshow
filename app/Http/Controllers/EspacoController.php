@@ -144,7 +144,9 @@ class EspacoController extends Controller
 
         $generos = Genero::all();
 
-        return view ('espaco.cadastroCasa', compact('espaco', 'generos'));
+        $endereco = Endereco::where('espaco_id', $id)->first();
+
+        return view ('espaco.cadastroCasa', compact('espaco','generos', 'endereco'));
     }
 
     public function abrirCadastro(){

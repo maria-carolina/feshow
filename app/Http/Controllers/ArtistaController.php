@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class ArtistaController extends Controller
 {
     //
-   
+
 
     public function insert(Request $request){
         $artista = new Artista();
@@ -32,6 +32,7 @@ class ArtistaController extends Controller
             $artista->nome = $request->txtNome;
             $artista->quantidade_membros = $request->txtQtd;
             $artista->telefone = $request->txtTelefone;
+            $artista->cep = $request->txtCep;
             $artista->cidade = $request->txtCidade;
             $artista->link = $request->txtLink;
             $artista->user_id = $user->id;
@@ -74,6 +75,7 @@ class ArtistaController extends Controller
             $artista->nome = $request->txtNome;
             $artista->quantidade_membros = $request->txtQtd;
             $artista->telefone = $request->txtTelefone;
+            $artista->cep = $request->txtCep;
             $artista->cidade = $request->txtCidade;
             $artista->link = $request->txtLink;
 
@@ -211,7 +213,7 @@ class ArtistaController extends Controller
                 'espacos.nome as espaco', 'espacos.id as espaco_id')
             ->get();
 
-        
+
 
         $gens = ArtistasGenero::where('artista_id', $artista->id)
             ->join('generos', 'generos.id', 'artistas_generos.genero_id')
@@ -219,28 +221,31 @@ class ArtistaController extends Controller
             ->get();
 
 
-      
+
         foreach($rs as $key => $evento){
             $espaco_generos = EspacosGenero::where('espaco_id', $evento->espaco_id)->get();
             //dd($espaco_generos);
             foreach($espaco_generos as $linha){
                 foreach($gens as $gen){
                     if($gen->genero_id == $linha->genero_id){
-                       
+
                         $convite = ArtistasEvento::where([['artista_id', $artista_id],
                                 ['evento_id', $evento->evento_id]])->first();
                         if($convite){
                             $evento['convite'] = $convite->resposta;
                         }
-                        $feed[$key] = $evento;   
+                        $feed[$key] = $evento;
                     }
-                    
+
                 }
             }
         }
-
-        
-        return view('artista.feed', compact('feed', 'artista_id'));
+        if (!isset($feed)){
+            return view('artista.feed', compact( 'artista_id'));
+        }
+        else{
+            return view('artista.feed', compact('feed', 'artista_id'));
+        }
     }
 
     public function abrirEventos($id){
@@ -251,7 +256,7 @@ class ArtistaController extends Controller
             ->join('espacos', 'espacos.id', 'eventos.espaco_id')
             ->select('eventos.*', 'espacos.id as espaco_id', 'espacos.nome as espaco')
             ->get();
-        
+
         return view('artista.eventos', compact('eventos', 'artista_id'));
 
     }

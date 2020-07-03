@@ -83,30 +83,36 @@
         <div class="col-4">
             <label for="cep">CEP:</label>
             <input type="text" class="form-control" onkeypress="mask(this, '#####-###')"
-                   maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
+                   maxlength="9" id="cep" name="txtCep"
+                   value="{{isset($endereco) ? $endereco->cep : ""}}" placeholder="Digite o CEP (ex: 00000-000)" required>
         </div>
         <div class="col-6">
             <label for="rua">Rua:</label>
-            <input type="text" class="form-control" name="txtLogradouro" id="rua" required readonly>
+            <input type="text" class="form-control" name="txtLogradouro" id="rua"
+                   value="{{isset($endereco) ? $endereco->logradouro : ""}}" required readonly>
         </div>
         <div class="col-2">
             <label for="numero">Número:</label>
-            <input type="number" class="form-control" name="txtNum"  id="numero" value="" required>
+            <input type="number" class="form-control" name="txtNum"  id="numero"
+                   value="{{isset($endereco) ? $endereco->numero : ""}}"  required>
         </div>
     </div>
 
     <div class="form-row mt-3">
         <div class="col-4">
             <label for="cidade">Cidade:</label>
-            <input type="text" class="form-control" name="txtCidade" id="cidade" required readonly>
+            <input type="text" class="form-control" name="txtCidade" id="cidade"
+                   value="{{isset($endereco) ? $endereco->cidade : ""}}" required readonly>
         </div>
         <div class="col-4">
             <label for="Bairro">Bairro:</label>
-            <input type="text" class="form-control" name="txtBairro" id="bairro" required readonly>
+            <input type="text" class="form-control" name="txtBairro" id="bairro"
+                   value="{{isset($endereco) ? $endereco->bairro : ""}}" required readonly>
         </div>
         <div class="col-4">
             <label for="Uf">Estado:</label>
-            <input type="text" class="form-control" name="txtUf" id="uf" maxlength="2" required readonly>
+            <input type="text" class="form-control" name="txtUf" id="uf" maxlength="2"
+                   value="{{isset($endereco) ? $endereco->uf : ""}}" required readonly>
         </div>
     </div>
 

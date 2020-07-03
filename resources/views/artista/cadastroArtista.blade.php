@@ -43,7 +43,9 @@
         <div class="row align-items-end mt-3 mb-3">
             <div class="col-6">
                 <label for="cep">CEP:</label>
-                <input type="text" class="form-control"  onkeypress="mask(this, '#####-###')" maxlength="9" id="cep" name="txtCep" placeholder="Digite o CEP (ex: 00000-000)" required>
+                <input type="text" class="form-control"  onkeypress="mask(this, '#####-###')"
+                       maxlength="9" id="cep" name="txtCep"
+                       value="{{isset($artista) ? $artista->cep : ""}}" placeholder="Digite o CEP (ex: 00000-000)" required>
             </div>
             <div class="col-6">
                 <label for="cidade">Cidade: </label>

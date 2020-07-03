@@ -103,18 +103,24 @@ use App\Espaco;
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h5 class="alert-heading">Notificações</h5>
-                @foreach($notificacoes as $notificacao)
-                    <hr>
-                    @if(Auth::user()->tipo_usuario == 0)
-                        <a href="{{route('abrir_perfil', $notificacao->evento_id)}}">
-                            <p>{{$notificacao->artista}} foi inserido no lineup do Evento "{{$notificacao->evento}}"</p>
-                        </a>
+                @isset($notificacoes)
+                    @if($notificacoes->count() > 0)
+                        @foreach($notificacoes as $notificacao)
+                            <hr>
+                            @if(Auth::user()->tipo_usuario == 0)
+                                <a href="{{route('abrir_perfil', $notificacao->evento_id)}}">
+                                    <p>{{$notificacao->artista}} foi inserido no lineup do Evento "{{$notificacao->evento}}"</p>
+                                </a>
+                            @else
+                                <a href="{{route('abrir_perfil', $notificacao->evento_id)}}">
+                                    <p>Você foi inserido no lineup do Evento "{{$notificacao->evento}} no {{$notificacao->espaco}}"</p>
+                                </a>
+                            @endif
+                        @endforeach
                     @else
-                        <a href="{{route('abrir_perfil', $notificacao->evento_id)}}">
-                            <p>Você foi inserido no lineup do Evento "{{$notificacao->evento}} no {{$notificacao->espaco}}"</p>
-                        </a>
+                        <p>Não há notificações no momento</p>
                     @endif
-                @endforeach
+                @endisset
             </div>
         </div>
 

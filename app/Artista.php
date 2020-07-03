@@ -10,7 +10,7 @@ class Artista extends Model
     public $timestamps = false;
 
     public $fillable = [
-        'id','nome', 'email', 'quantidade_membros', 'telefone',
+        'id','nome', 'email', 'quantidade_membros', 'telefone', 'cep',
         'cidade', 'link', 'genero_id', 'user_id'
     ];
 

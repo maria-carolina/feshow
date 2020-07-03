@@ -9,7 +9,7 @@
 
         Route::post('alterar/{id}', 'EventoController@update')->name('alterar_evento');
 
-        Route::get('editar/{id}', 'EventoController@abrirEdicao')->name('abrir_edicao');
+        Route::get('editar/{id}', 'EventoController@abrirEdicao')->name('abrir_edicao_evento');
 
         Route::get('convite/{id}', 'EventoController@abrirConvite')->name('convidar_artista');
 
