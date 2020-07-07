@@ -29,16 +29,17 @@
 
     @if(Auth::user()->id == $evento->espaco->user_id)
         
-        <button  id="convidar" class="btn btn-outline-primary"><a style="color: #000000; text-decoration: none;" href="convite/{{ $evento->id }}">Convidar Artista</a></button>
-      
-
-        <button id="status" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >
         @if($evento->status == 0)
+        <button  id="convidar" class="btn btn-outline-primary"><a style="color: #000000; text-decoration: none;" href="convite/{{ $evento->id }}">Convidar Artista</a></button>
+        <button id="status" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >
             Fechar
-        @else
-            Reabrir
-        @endif
         </button>
+        @else
+        <button id="status" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" >
+            Reabrir
+        </button>
+        @endif
+        
 
     @endif
 
@@ -154,7 +155,9 @@
                     
                     var btn = document.getElementById('status');
                     if(msg === "FESHOW!" || msg === "Reaberto!"){
+                    
                         if(btn.innerHTML == "Reabrir"){
+                            
                             btn.innerHTML = "Fechar";
                             document.getElementById("convidar").style = "display: block;";
                         }else{

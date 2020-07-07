@@ -177,7 +177,7 @@ class EspacoController extends Controller
     }
 
     public function abrirConvites($id){
-        $convites = Evento::where('espaco_id', $id)
+        $convites = Evento::where([['espaco_id', $id],['resposta','<','2']])
             ->join('artistas_eventos', 'artistas_eventos.evento_id', 'eventos.id')
             ->join('artistas', 'artistas_eventos.artista_id', 'artistas.id')
             ->select('eventos.nome as evento', 'artistas.nome as artista',
