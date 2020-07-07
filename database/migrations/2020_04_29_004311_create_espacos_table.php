@@ -17,6 +17,7 @@ class CreateEspacosTable extends Migration
             $table->integer('id')->autoIncrement();
             $table->string('nome', 40);
             $table->string('telefone',14)->nullable();
+            $table->string('descricao');
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
         });

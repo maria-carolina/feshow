@@ -40,6 +40,7 @@ class EspacoController extends Controller
             $espaco->user_id = $user->id;
             $espaco->nome = $request->txtNome;
             $espaco->telefone = $request->txtTelefone;
+            $espaco->descricao = $request->txtDescricao;
 
             if ($espaco->save()) {
                 //$casaGenero->casa_id = $casa->id;
@@ -92,6 +93,7 @@ class EspacoController extends Controller
         if($user->save()){
             $espaco->nome = $request->txtNome;
             $espaco->telefone = $request->txtTelefone;
+            $espaco->descricao = $request->txtDescricao;
 
             if($espaco->save()){
                 if($request->cmbGenero_1 > 0){

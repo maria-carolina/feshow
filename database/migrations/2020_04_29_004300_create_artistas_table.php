@@ -20,6 +20,7 @@ class CreateArtistasTable extends Migration
             $table->string('telefone',14);
             $table->string('cep',9);
             $table->string('cidade',40);
+            $table->string('descricao');
             $table->string('link',40);
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');

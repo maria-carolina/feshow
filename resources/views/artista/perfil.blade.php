@@ -15,9 +15,7 @@
 
     <a href="{{ $artista->link}}" id="ouvir"> Ouça </a>
     <p>
-    É tido como um dos músicos eletrônicos mais importantes e inovadores de sua geração,
-     reverenciado por artistas que vão da música eletrônica ao rock.
-     Foi considerado pelo jornal inglês The Guardian como "a mais influente e criativa figura da música eletrônica contemporânea".
+        {{ $artista->descricao }}
     </p>
     <ul id="outras_infos">
         <li>{{ $artista->quantidade_membros }} membro(s)</li>

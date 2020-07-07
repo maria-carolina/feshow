@@ -13,6 +13,7 @@ class Espaco extends Model
         'id',
         'nome',
         'telefone',
+        'descricao',
         'user_id'
     ];
 

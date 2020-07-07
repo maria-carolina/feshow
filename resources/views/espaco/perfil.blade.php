@@ -24,7 +24,7 @@
         @endif
 
         <p>
-            descrição aqui
+            {{$espaco->descricao}}
         </p>
 
         <h2>Histórico de Shows</h2>

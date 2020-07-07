@@ -73,6 +73,14 @@
 
         </div>
     </div>
+    <div class="form-row mt-3">
+        <div class="col">
+            <label for="link">Conta um pouco sobre você</label>
+            <input type="text" id="descricao" name="txtDescricao" class="form-control"
+                   value="{{isset($espaco) ? $espaco->descricao : ""}}" required/>
+
+        </div>
+    </div>
 
     <div class="mb-3 mt-5">
         <h5>Endereço</h5>
