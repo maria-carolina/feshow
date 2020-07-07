@@ -77,8 +77,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ $solicitacao->nome}}</a> deseja solicitar um evento para o dia {{ date('d/m/Y', strtotime($solicitacao->data)) }}</h5>
-                        <a href="#" class="btn btn-primary" onclick="responder({{$solicitacao->artista_id}}, {{$solicitacao->solicitacao_id}})">Aceitar</a>
-                        <a href="#" class="btn btn-secondary" onclick="responder(null, {{$solicitacao->solicitacao_id}})">Rejeitar</a>
+                        <a href="#" class="btn btn-primary" onclick="responderSolicitacao({{$solicitacao->artista_id}}, {{$solicitacao->solicitacao_id}})">Aceitar</a>
+                        <a href="#" class="btn btn-secondary" onclick="responderSolicitacao(null, {{$solicitacao->solicitacao_id}})">Rejeitar</a>
                     </div>
                 </div>
             @endforeach
@@ -196,7 +196,7 @@
         }
 
 
-        function responder(idArtista, idSolicitacao){
+        function responderSolicitacao(idArtista, idSolicitacao){
             if(idArtista != null){
                 swal({
                     title: "Confirma criação de evento?",

@@ -11,7 +11,7 @@ class Artista extends Model
 
     public $fillable = [
         'id','nome', 'email', 'quantidade_membros', 'telefone', 'cep',
-        'cidade', 'link', 'genero_id', 'user_id'
+        'cidade', 'descricao', 'link', 'genero_id', 'user_id'
     ];
 
     public function user(){

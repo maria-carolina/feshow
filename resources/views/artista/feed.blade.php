@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <h3 class="card-title"><a href="/evento/{{ $item->evento_id }}">{{ $item->evento}}</a></h3>
                             <p class="card-text">Onde? <a href="/espaco/perfil/{{ $item->espaco_id}}">{{ $item->espaco }}</a></p>
-                            <p class="card-text">Quando? {{ $item->data_inicio }} das {{ $item->hora_inicio}} às {{ $item->hora_fim }} </p>
+                            <p class="card-text">Quando? {{ date('d/m/Y', strtotime($item->data_inicio))}} das {{ date('H:i', strtotime($item->hora_inicio))}} às {{  date('H:i', strtotime($item->hora_fim)) }} </p>
                             @if(!isset($item->convite))
                                 <button class="btn btn-primary" id="convidar" onclick="convidar({{$item->evento_id}}, {{$artista_id}})">Participar!</button>
                             @elseif($item->convite == '0')
@@ -52,7 +52,21 @@
                         xhr.send(null);
                         xhr.onreadystatechange = () => {
                             if(xhr.readyState === 4){
-                                alert('convite enviado');
+                                swal({
+                                    title: 'Convite enviado!',
+                                    timer: 2000,
+                                    icon: "success",
+                                    showCancelButton: false,
+                                    showConfirmButton: false
+                                }).then(
+                                    function () {},
+                                    // handling the promise rejection
+                                    function (dismiss) {
+                                        if (dismiss === 'timer') {
+
+                                        }
+                                    }
+                                )
 
                                 var btn = document.getElementById('convidar');
                                 var div = btn.parentNode;

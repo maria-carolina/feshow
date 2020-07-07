@@ -73,9 +73,8 @@
 
         function convidar(){
             let idEvento = sel.options[sel.selectedIndex].value;
-        
+
             button = document.getElementById('convidar');
-            alert(idArtista);
             let xhr = new XMLHttpRequest();
             xhr.open('GET', `http://localhost:8000/api/enviarconvite/${idEvento}/${idArtista}/1`);
             xhr.send(null);

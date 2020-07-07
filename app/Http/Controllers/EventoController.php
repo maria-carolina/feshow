@@ -100,30 +100,7 @@ class EventoController extends Controller
     public function abrirConvite($id){
         $evento = Evento::findOrFail($id);
 
-        //mesmo codigo para abrir feed
-        $idEspaco = Espaco::where('user_id', Auth::user()->id)->first()->id;
-        $endereco = Endereco::where('espaco_id', $idEspaco)->first();
-
-        $artistas = Artista::where('cidade', $endereco->cidade)
-            ->join('artistas_generos', 'artistas_generos.artista_id', 'artistas.id')
-            ->join('generos', 'generos.id', 'artistas_generos.genero_id')
-            ->select('artistas.*', 'generos.nome as genero', 'generos.id as genero_id')
-            ->get();
-
-        $gens = EspacosGenero::where('espaco_id', $idEspaco)
-            ->join('generos', 'generos.id', 'espacos_generos.genero_id')
-            ->select('generos.id as genero_id', 'generos.nome as genero')
-            ->get();
-
-        foreach($artistas as $artista){
-            foreach($gens as $gen){
-                if($gen->genero_id == $artista->genero_id){
-                    $feed[$artista->id] = $artista;
-                }
-            }
-        }
-
-        return view('evento.conviteArtista', compact('evento','feed'));
+        return view('evento.conviteArtista', compact('evento'));
     }
 
     public function agenda($id){

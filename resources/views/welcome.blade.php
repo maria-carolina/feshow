@@ -105,15 +105,6 @@ use App\Espaco;
         </div>
     </div>
 
-    <div class="main main-raised">
-        <div class="section section-basic">
-            <div class="container">
-                Espaço pra visualização do visitante
-            </div>
-        </div>
-    </div>
-
-
 {{--    INICIO MODAL LOGIN--}}
     <div class="modal" id="modalLogin" tabindex="-1" role="dialog" data-backdrop="static">
         <div class="modal-dialog" role="document">

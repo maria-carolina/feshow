@@ -57,6 +57,15 @@
 
         <div class="form-row mt-3">
             <div class="col">
+                <label for="link">Conta um pouco sobre você</label>
+                <input type="text" id="descricao" name="txtDescricao" class="form-control"
+                       value="{{isset($artista) ? $artista->descricao : ""}}" required/>
+
+            </div>
+        </div>
+
+        <div class="form-row mt-3">
+            <div class="col">
                 <label for="link">As casas querem te ouvir!
                     Deixa aí algum link (spotify, soundcloud, youtube)</label>
                 <input type="text" id="link" name="txtLink" class="form-control"

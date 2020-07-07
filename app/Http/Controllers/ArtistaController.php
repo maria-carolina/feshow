@@ -34,6 +34,7 @@ class ArtistaController extends Controller
             $artista->telefone = $request->txtTelefone;
             $artista->cep = $request->txtCep;
             $artista->cidade = $request->txtCidade;
+            $artista->descricao = $request->txtDescricao;
             $artista->link = $request->txtLink;
             $artista->user_id = $user->id;
 
@@ -77,6 +78,7 @@ class ArtistaController extends Controller
             $artista->telefone = $request->txtTelefone;
             $artista->cep = $request->txtCep;
             $artista->cidade = $request->txtCidade;
+            $artista->descricao = $request->txtDescricao;
             $artista->link = $request->txtLink;
 
             if($artista->save()){
