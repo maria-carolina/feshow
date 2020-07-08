@@ -50,7 +50,7 @@
     </div>
 
     <div id="Recebidos" class="tabcontent" style="display:block">
-        <h3>Convites Recebidos:</h3>
+        <h4>Convites Recebidos:</h4>
         @if(isset($convites_recebidos))
             @foreach($convites_recebidos as $key => $convite)
                 <div class="card" id="{{$key}}" >
@@ -71,7 +71,7 @@
     </div>
 
     <div id="Solicitacoes" class="tabcontent">
-        <h3>Solicitações de evento</h3>
+        <h4>Solicitações de evento</h4>
         @if($solicitacoes->count() > 0)
             @foreach($solicitacoes as $solicitacao)
                 <div class="card">
@@ -92,7 +92,7 @@
     </div>
 
     <div id="Enviados" class="tabcontent">
-        <h3>Convites Enviados:</h3>
+        <h4>Convites Enviados:</h4>
         <table class="table">
             @if(isset($convites_enviados))
                 @foreach($convites_enviados as $key => $convite)

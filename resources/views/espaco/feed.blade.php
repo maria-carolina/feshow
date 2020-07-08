@@ -12,7 +12,7 @@
                 <h3 class="card-title"><a href="http://localhost:8000/artista/perfil/{{ $artista->id }}">{{ $artista->nome}}</a></h3>
                 <p style="color:purple">{{ $artista->nome }} toca {{ $artista->genero }}!</p>
                 <p>{{ $artista->quantidade_membros}} membro(s) </p>
-                <p><a href="{{ $artista->link}}" target="_blank">Ouça</a></p>
+                <p><a href="\{{ $artista->link}}" target="_blank">Ouça</a></p>
                 <button class="btn btn-primary" id="convidar" onclick="preencherEventos({{ $artista->id }})" data-toggle="modal" data-target="#exampleModal">Convidar</button>
                 </div>
             </div>

@@ -147,7 +147,6 @@ class ArtistaController extends Controller
             ->where('resposta', 2)
             ->join('eventos', 'eventos.id', 'artistas_eventos.evento_id')
             ->join('espacos', 'espacos.id', 'eventos.espaco_id')
-            ->where('eventos.status', 1)
             ->select('eventos.*', 'espacos.nome as espaco')
             ->get();
 
